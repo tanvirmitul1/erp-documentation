@@ -14,7 +14,7 @@ const Module = ({ module }) => {
       <HStack>
         <SiElementor
           size={25}
-          color={colorMode === "light" ? "#2b6cb0" : "#FE428E"}
+          color={colorMode === "light" ? "#2b6cb0" : "#0cf0e4"}
         />
         <Text
           cursor="pointer"

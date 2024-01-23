@@ -8,9 +8,9 @@ const Element = ({ element }) => {
 
   const { colorMode } = useColorMode();
   // Define border color based on colorMode
-  const borderColor = colorMode === "light" ? "#2b6cb0" : "#FE428E";
+  const borderColor = colorMode === "light" ? "#2b6cb0" : "#0cf0e4";
   return (
-    <Stack marginLeft={10} padding={2} borderLeft={`3px dotted ${borderColor}`}>
+    <Stack marginLeft={10} padding={2} borderLeft={`2px solid ${borderColor}`}>
       <Text cursor="pointer" onClick={() => setIsOpen(!isOpen)}>
         {element.name}
       </Text>
@@ -21,7 +21,7 @@ const Element = ({ element }) => {
             key={fn.id}
             marginLeft={10}
             padding={2}
-            borderLeft={`3px dotted ${borderColor}`}
+            borderLeft={`2px solid ${borderColor}`}
           >
             {fn.name}
           </Text>

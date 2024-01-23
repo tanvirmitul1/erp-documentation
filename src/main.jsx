@@ -12,9 +12,11 @@ import { makeServer } from "./server.js";
 if (process.env.NODE_ENV === "development") {
   makeServer({ environment: "development" });
 }
+
+// theme={theme}
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Provider store={store}>
         <App />
