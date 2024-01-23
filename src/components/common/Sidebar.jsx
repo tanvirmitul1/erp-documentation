@@ -1,27 +1,41 @@
+/* eslint-disable react/jsx-key */
 // src/components/navigation/Sidebar.js
-
-import { Link } from "react-router-dom";
+import { Stack } from "@chakra-ui/react";
+import SearchBar from "../reusable/SearchBar";
+import React from "react";
+import CustomButton from "../reusable/CustomButton";
+import { useGetModuleQuery } from "../../redux/api/docApiSlice";
+import Module from "../sidebar/Module";
 
 function Sidebar() {
+  const [moduleName, setModuleName] = React.useState("");
+  const { data: modules, error, isLoading } = useGetModuleQuery();
+
+  if (error) return <div>Error: {error.message}</div>;
+
+  const handleChange = (e) => {
+    setModuleName(e.target.value);
+  };
+  const handleButtonClick = () => {
+    console.log("button clicked");
+  };
+
   return (
-    <nav>
-      <h1>side bar content</h1>
-      <ul>
-        <li>
-          <Link to="/modules/1">Module 1</Link>
-        </li>
-        <li>
-          <Link to="/components/1">Component 1</Link>
-        </li>
-        <li>
-          <Link to="/elements/1">Element 1</Link>
-        </li>
-        <li>
-          <Link to="/functions/1">Function 1</Link>
-        </li>
-        {/* ... other links */}
-      </ul>
-    </nav>
+    <Stack h="100vh" maxHeight="100vh" overflowWrap="scroll">
+      <SearchBar
+        value={moduleName}
+        onChange={handleChange}
+        placeholder="Search Module"
+        iconSize={24}
+      />
+      <CustomButton text="Add New Module" onClick={handleButtonClick} />
+
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        modules.map((module) => <Module key={module.id} module={module}  />)
+      )}
+    </Stack>
   );
 }
 

@@ -7,10 +7,11 @@ import { apiSlice } from "./apiSlice";
 
 const docApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getTodo: build.query({
-      query: () => `/todos`,
-      providesTags: ["GET_TODO"],
+    getModule: build.query({
+      query: () => `api/modules`,
+      providesTags: ["GET_MODULE"],
     }),
+
     // getProjectStatus: build.query({
     //   query: (query) => `/account/get-project-status-date?${query}`,
     //   providesTags: ["GET_PROJECT_STATUS"],
@@ -45,7 +46,7 @@ const docApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetTodoQuery,
+  useGetModuleQuery,
   useGetProjectStatusQuery,
 
   useCreateResolveSuggestionCommentMutation,

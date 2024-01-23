@@ -5,12 +5,17 @@ import MainComponent from "../components/mainContent/MainComponent";
 function Home() {
   return (
     <Box>
-      <Grid templateAreas={`"left main main main main"`}>
-        <GridItem area="left" border="1px solid red">
+      <Grid
+        templateAreas={`"left main"
+      `}
+        gridTemplateColumns={"1fr 7fr"}
+        paddingX={12}
+      >
+        <GridItem area="left">
           <Sidebar />
         </GridItem>
 
-        <GridItem area="main" border="1px solid red">
+        <GridItem area="main">
           <MainComponent />
         </GridItem>
       </Grid>
