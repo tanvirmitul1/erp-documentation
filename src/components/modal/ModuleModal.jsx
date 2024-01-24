@@ -26,15 +26,14 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
       style={{
         overlay: {
           backgroundColor: "rgba(0, 0, 0, 0.6)",
+          margin: "auto auto",
         },
         content: {
           borderRadius: "20px",
           backgroundColor: bg,
           maxWidth: "800px",
           height: "900px",
-          position: "absolute",
-          left: "35%",
-          top: "10%",
+          margin: "auto auto",
           border: "none",
         },
       }}
@@ -87,7 +86,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
             backgroundColor={inputBg}
           />
         </FormControl>
-        <Flex justifyContent="left" marginTop={16} gap={10}>
+        <Flex justifyContent="center" marginTop={16} gap={10}>
           <CancelButton
             onClick={onRequestClose}
             textColor={cancelButtonTextColor}
