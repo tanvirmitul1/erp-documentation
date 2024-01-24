@@ -46,6 +46,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
             Module Name
           </FormLabel>
           <Input
+            fontSize="20px"
             padding={8}
             rounded={50}
             backgroundColor={inputBg}
@@ -62,6 +63,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
             Module Directory path
           </FormLabel>
           <Input
+            fontSize="20px"
             padding={8}
             rounded={50}
             backgroundColor={inputBg}
@@ -78,6 +80,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
             Description
           </FormLabel>
           <Textarea
+            fontSize="20px"
             overflowX="hidden"
             overflowY="auto"
             height="300px"
