@@ -6,9 +6,10 @@ import SearchBar from "../reusable/SearchBar";
 import React from "react";
 import CustomButton from "../reusable/CustomButton";
 import { useGetModuleQuery } from "../../redux/api/docApiSlice";
-import ModuleModal from "../modal/NewModuleModal";
+import ModuleModal from "../modal/ModuleModal";
 
 import Module from "../sidebar/Module";
+import SideSkeleton from "../reusable/SideSkeleton";
 function Sidebar() {
   const [moduleName, setModuleName] = React.useState("");
   const { data: modules, error, isLoading } = useGetModuleQuery();
@@ -43,7 +44,7 @@ function Sidebar() {
       />
 
       {isLoading ? (
-        <div>Loading...</div>
+        <SideSkeleton />
       ) : (
         modules.map((module) => <Module key={module.id} module={module} />)
       )}
