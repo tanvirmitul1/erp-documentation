@@ -17,7 +17,7 @@ import Login from "./pages/Login";
 function App() {
   return (
     <Router>
-      <Box>
+      <Box height="100vh" overflow="hidden">
         <Grid
           templateAreas={`"nav"
                            "home"`}
