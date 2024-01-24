@@ -23,7 +23,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        fontSize: "8px",
+        fontSize: "16px",
       },
     },
   },
