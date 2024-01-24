@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 // src/components/navigation/Sidebar.js
-import { Stack, useColorMode } from "@chakra-ui/react";
+import { Stack, useColorMode, Box } from "@chakra-ui/react";
 
 import SearchBar from "../reusable/SearchBar";
 import React from "react";
@@ -30,18 +30,24 @@ function Sidebar() {
   };
 
   return (
-    <Stack h="100vh" maxHeight="100vh" overflowWrap="scroll">
-      <SearchBar
-        value={moduleName}
-        onChange={handleChange}
-        placeholder="Search Module"
-        iconSize={24}
-      />
-      <CustomButton
-        text="Add New Module"
-        onClick={handleButtonClick}
-        textColor={textColor}
-      />
+    <Stack marginTop="80px">
+      <Box marginTop="10px">
+        <Box position="absolute" top="50px">
+          <SearchBar
+            value={moduleName}
+            onChange={handleChange}
+            placeholder="Search Module"
+          />
+        </Box>
+
+        <Box position="absolute" top="100px">
+          <CustomButton
+            text="Add New Module"
+            onClick={handleButtonClick}
+            textColor={textColor}
+          />
+        </Box>
+      </Box>
 
       {isLoading ? (
         <SideSkeleton />

@@ -31,8 +31,8 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
         content: {
           borderRadius: "20px",
           backgroundColor: bg,
-          maxWidth: "800px",
-          height: "900px",
+          maxWidth: "550px",
+          height: "600px",
           margin: "auto auto",
           border: "none",
         },
@@ -42,54 +42,53 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     >
       <Flex flexDirection="column">
         <FormControl isRequired>
-          <FormLabel fontSize={20} color={textColor} marginY={6}>
+          <FormLabel fontSize="16px" color={textColor} marginY={4}>
             Module Name
           </FormLabel>
           <Input
-            fontSize="20px"
-            padding={8}
+            paddingX={6}
             rounded={50}
             backgroundColor={inputBg}
             placeholder="Select Module"
             _placeholder={{
               opacity: 1,
               color: `${placeholderColor}`,
-              fontSize: "18px",
+              fontSize: "16px",
             }}
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel fontSize={20} color={textColor} marginY={6}>
+          <FormLabel fontSize="16px" color={textColor} marginY={4}>
             Module Directory path
           </FormLabel>
           <Input
-            fontSize="20px"
-            padding={8}
+            fontSize="16px"
+            paddingX={6}
             rounded={50}
             backgroundColor={inputBg}
             placeholder="localhost/phpadmin/index.php"
             _placeholder={{
               opacity: 1,
               color: `${placeholderColor}`,
-              fontSize: "18px",
+              fontSize: "16px",
             }}
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel fontSize={20} color={textColor} marginY={6}>
+          <FormLabel fontSize="16px" color={textColor} marginY={4}>
             Description
           </FormLabel>
           <Textarea
-            fontSize="20px"
+            fontSize="16px"
             overflowX="hidden"
             overflowY="auto"
-            height="300px"
-            padding={8}
+            height="200px"
+            padding={4}
             rounded={30}
             backgroundColor={inputBg}
           />
         </FormControl>
-        <Flex justifyContent="center" marginTop={16} gap={10}>
+        <Flex justifyContent="center" marginTop={10} gap={10}>
           <CancelButton
             onClick={onRequestClose}
             textColor={cancelButtonTextColor}

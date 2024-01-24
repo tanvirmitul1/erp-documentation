@@ -20,9 +20,9 @@ const SubmitButton = ({
   return (
     <Button
       border="none"
-      width={300}
-      height="70px"
-      fontSize={22}
+      width={150}
+      height="40px"
+      fontSize="14px"
       backgroundColor={colorMode === "light" ? "#2b6cb0" : "#0cf0e4"}
       borderRadius={30}
       size={buttonSize ? buttonSize : "lg"}

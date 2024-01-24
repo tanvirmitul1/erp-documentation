@@ -11,10 +11,12 @@ function Home() {
       <Grid
         templateAreas={`"left main"
       `}
-        gridTemplateColumns={"1fr 7fr"}
+        gridTemplateColumns={"250px 1fr"}
         paddingX={12}
       >
         <GridItem
+          h="100vh"
+          overflow="scroll"
           area="left"
           boxShadow={`5px 0 5px -5px ${boxShadowColor}, -5px 0 5px -5px ${boxShadowColor}`}
           p="6"

@@ -13,8 +13,8 @@ const Component = ({ component }) => {
   const borderColor = colorMode === "light" ? "#2b6cb0" : "#0cf0e4";
 
   return (
-    <Stack marginLeft={10} padding={2} borderLeft={`2px solid ${borderColor}`}>
-      <Text cursor="pointer" onClick={() => setIsOpen(!isOpen)}>
+    <Stack marginLeft={4} paddingX={2} borderLeft={`2px solid ${borderColor}`}>
+      <Text fontSize={12} cursor="pointer" onClick={() => setIsOpen(!isOpen)}>
         {component.name}
       </Text>
       {isOpen &&

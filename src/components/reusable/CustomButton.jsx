@@ -11,7 +11,7 @@ const CustomButton = ({
   onClick,
   iconSize,
   buttonSize,
-
+  width,
   textColor,
 }) => {
   const { colorMode } = useColorMode();
@@ -20,15 +20,15 @@ const CustomButton = ({
 
   return (
     <Button
-      border="none"
+      width={width ? width : "200px"}
+      height={10}
       backgroundColor={colorMode === "light" ? "#2b6cb0" : "#0cf0e4"}
       borderRadius={30}
-      size={buttonSize ? buttonSize : "lg"}
-      variant="solid"
+      size={buttonSize ? buttonSize : "sm"}
       onClick={onClick}
       _hover={{ backgroundColor: buttonHoverColor }}
     >
-      <CiCirclePlus size={iconSize ? iconSize : 28} color={textColor} />
+      <CiCirclePlus size={iconSize ? iconSize : 20} color={textColor} />
       <Text paddingTop={3} marginLeft={2} color={textColor}>
         {text ? text : "Add"}
       </Text>

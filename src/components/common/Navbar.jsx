@@ -25,20 +25,20 @@ const NavBar = () => {
     <Box
       w="100vw"
       paddingX={12}
-      paddingY={2}
+      paddingY={1}
       boxShadow={`0 2px 4px ${boxShadowColor} `}
     >
       <HStack justifyContent="space-between">
         <Link to="/">
           {colorMode === "light" ? (
-            <Image src={Logo} width={28} />
+            <Image src={Logo} width={16} />
           ) : (
-            <Image src={LogoWhite} width={28} />
+            <Image src={LogoWhite} width={16} />
           )}
         </Link>
-        <HStack gap={20}>
+        <HStack gap={10}>
           <ColorMOdeSwitch />
-          <Image src={Avatar} width={10} />
+          <Image src={Avatar} width={6} />
         </HStack>
       </HStack>
     </Box>

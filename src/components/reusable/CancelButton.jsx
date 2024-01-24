@@ -15,15 +15,15 @@ const CancelButton = ({
 }) => {
   const { colorMode } = useColorMode();
 
-  const buttonHoverColor = colorMode === "light" ? "#fafafa" : "#141414";
+  const buttonHoverColor = colorMode === "light" ? "#ddecf0" : "#251f1f";
   const borderColor = colorMode === "light" ? "#199FD6" : "#0dd4ca";
 
   return (
     <Button
-      border={`3px solid ${borderColor}`}
-      width={300}
-      height="70px"
-      fontSize={22}
+      border={`2px solid ${borderColor}`}
+      width={150}
+      height="40px"
+      fontSize="14px"
       backgroundColor={colorMode === "light" ? "#ffffff" : "#0b0c0c"}
       borderRadius={30}
       size={buttonSize ? buttonSize : "lg"}

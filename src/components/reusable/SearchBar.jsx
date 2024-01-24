@@ -17,19 +17,19 @@ const Searchbar = ({
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <InputGroup>
-      <InputLeftElement pointerEvents="none" paddingTop={3} paddingLeft={4}>
-        <FiSearch size={iconSize ? iconSize : 22} />
+      <InputLeftElement pointerEvents="none" paddingLeft={4}>
+        <FiSearch size={iconSize ? iconSize : 16} />
       </InputLeftElement>
       <Input
-        padding={4}
+        padding={2}
         paddingLeft={12}
         borderRadius={24}
-        size={inputSize ? inputSize : "lg"}
-        width={width ? width : "250px"}
+        size={inputSize ? inputSize : "md"}
+        width={width ? width : "200px"}
         backgroundColor={colorMode === "light" ? "#DDF1F9" : "#2f2f30"}
         type="text"
         placeholder={placeholder ? placeholder : "search"}
-        _placeholder={{ opacity: 1, color: "gray.600" }}
+        _placeholder={{ opacity: 1, color: "gray.400" }}
         value={value}
         onChange={onChange}
       />

@@ -6,9 +6,9 @@ const ColorMOdeSwitch = () => {
   return (
     <Box cursor="pointer" onClick={toggleColorMode}>
       {colorMode === "light" ? (
-        <Image width={16} src={DarkTheme} />
+        <Image width={10} src={DarkTheme} />
       ) : (
-        <Image width={16} src={LightTheme} />
+        <Image width={10} src={LightTheme} />
       )}
     </Box>
   );
