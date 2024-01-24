@@ -6,25 +6,35 @@ import {
   Input,
   FormLabel,
   Textarea,
-  Button,
 } from "@chakra-ui/react";
 import ReactModal from "react-modal";
+
+import SubmitButton from "../reusable/SubmitButton";
+import CancelButton from "../reusable/CancelButton";
 
 const ModuleModal = ({ isOpen, onRequestClose }) => {
   const { colorMode } = useColorMode();
   const bg = colorMode === "dark" ? "#212a41" : "white";
+  const inputBg = colorMode === "light" ? "#DDF1F9" : "#212a41";
+  const textColor = colorMode === "light" ? "#199FD6" : "white";
+  const buttonTextColor = colorMode === "light" ? "white" : "black";
+  const cancelButtonTextColor = colorMode === "light" ? "#199FD6" : "white";
+  const placeholderColor = colorMode === "light" ? "#73caf0" : "gray.600";
+
   return (
     <ReactModal
       style={{
         overlay: {
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
         },
         content: {
           borderRadius: "20px",
           backgroundColor: bg,
-          maxWidth: "600px",
+          maxWidth: "800px",
+          height: "900px",
           position: "absolute",
           left: "35%",
+          top: "10%",
           border: "none",
         },
       }}
@@ -33,18 +43,58 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     >
       <Flex flexDirection="column">
         <FormControl isRequired>
-          <FormLabel>Module Name</FormLabel>
-          <Input placeholder="First name" />
+          <FormLabel fontSize={20} color={textColor} marginY={6}>
+            Module Name
+          </FormLabel>
+          <Input
+            padding={8}
+            rounded={50}
+            backgroundColor={inputBg}
+            placeholder="Select Module"
+            _placeholder={{
+              opacity: 1,
+              color: `${placeholderColor}`,
+              fontSize: "18px",
+            }}
+          />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel>Module Directory path</FormLabel>
-          <Input placeholder="First name" />
+          <FormLabel fontSize={20} color={textColor} marginY={6}>
+            Module Directory path
+          </FormLabel>
+          <Input
+            padding={8}
+            rounded={50}
+            backgroundColor={inputBg}
+            placeholder="localhost/phpadmin/index.php"
+            _placeholder={{
+              opacity: 1,
+              color: `${placeholderColor}`,
+              fontSize: "18px",
+            }}
+          />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel>Description</FormLabel>
-          <Textarea placeholder="First name" />
+          <FormLabel fontSize={20} color={textColor} marginY={6}>
+            Description
+          </FormLabel>
+          <Textarea
+            overflowX="hidden"
+            overflowY="auto"
+            height="300px"
+            padding={8}
+            rounded={30}
+            backgroundColor={inputBg}
+          />
         </FormControl>
-        <Button colorScheme="blue">Button</Button>
+        <Flex justifyContent="left" marginTop={16} gap={10}>
+          <CancelButton
+            onClick={onRequestClose}
+            textColor={cancelButtonTextColor}
+            text="Cancel"
+          />
+          <SubmitButton textColor={buttonTextColor} text="Submit" />
+        </Flex>
       </Flex>
     </ReactModal>
   );
