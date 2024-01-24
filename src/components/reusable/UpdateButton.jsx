@@ -4,9 +4,9 @@
 import { useColorMode } from "@chakra-ui/react";
 import React from "react";
 import { Button, Text } from "@chakra-ui/react";
-import { CiCirclePlus } from "react-icons/ci";
+import { GrUpdate } from "react-icons/gr";
 
-const CustomButton = ({
+const UpdateButton = ({
   text,
   onClick,
   iconSize,
@@ -28,7 +28,7 @@ const CustomButton = ({
       onClick={onClick}
       _hover={{ backgroundColor: buttonHoverColor }}
     >
-      <CiCirclePlus size={iconSize ? iconSize : 20} color={textColor} />
+      <GrUpdate size={iconSize ? iconSize : 20} color={textColor} />
       <Text paddingTop={4} marginLeft={2} color={textColor}>
         {text ? text : "Add"}
       </Text>
@@ -36,4 +36,4 @@ const CustomButton = ({
   );
 };
 
-export default CustomButton;
+export default UpdateButton;

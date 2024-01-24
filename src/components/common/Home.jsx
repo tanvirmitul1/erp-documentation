@@ -1,6 +1,6 @@
 import { Grid, GridItem, Box } from "@chakra-ui/react";
-import Sidebar from "../components/common/Sidebar";
-import MainComponent from "../components/mainContent/MainComponent";
+import Sidebar from "./Sidebar";
+import MainComponent from "../mainContent/MainComponent";
 import { useColorMode } from "@chakra-ui/react";
 function Home() {
   const { colorMode } = useColorMode();
@@ -12,7 +12,7 @@ function Home() {
         templateAreas={`"left main"
       `}
         gridTemplateColumns={"250px 1fr"}
-        paddingX={12}
+        paddingX={6}
       >
         <GridItem
           h="100vh"
@@ -24,7 +24,7 @@ function Home() {
           <Sidebar />
         </GridItem>
 
-        <GridItem area="main" p="6" rounded="md">
+        <GridItem area="main" p="2" rounded="md">
           <MainComponent />
         </GridItem>
       </Grid>

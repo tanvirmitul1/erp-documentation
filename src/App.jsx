@@ -10,7 +10,7 @@ import {
 import { Grid, GridItem, Box } from "@chakra-ui/react";
 import NavBar from "./components/common/Navbar";
 
-import Home from "./pages/Home";
+import Home from "./components/common/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
