@@ -31,7 +31,7 @@ const CancelButton = ({
       onClick={onClick}
       _hover={{ backgroundColor: buttonHoverColor }}
     >
-      <Text paddingTop={3} marginLeft={2} color={textColor}>
+      <Text paddingTop={4} color={textColor}>
         {text ? text : "Add"}
       </Text>
     </Button>
