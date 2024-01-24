@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "development") {
 // theme={theme}
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Provider store={store}>
         <App />

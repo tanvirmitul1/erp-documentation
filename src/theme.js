@@ -20,6 +20,13 @@ const theme = extendTheme({
       900: "#111",
     },
   },
+  styles: {
+    global: {
+      body: {
+        fontSize: "12px",
+      },
+    },
+  },
 });
 
 export default theme;
