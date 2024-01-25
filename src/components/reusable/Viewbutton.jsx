@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // CustomButton.js
-
+import { FaEye } from "react-icons/fa";
 import React from "react";
 import { Button, Text } from "@chakra-ui/react";
-import { GrUpdate } from "react-icons/gr";
+
 import useColorModeColors from "../../hooks/useColorModeColors";
 
-const UpdateButton = ({
+const ViewButton = ({
   text,
   onClick,
   iconSize,
@@ -27,12 +27,12 @@ const UpdateButton = ({
       onClick={onClick}
       _hover={{ backgroundColor: `${addButtonHoverColor}` }}
     >
-      <GrUpdate size={iconSize ? iconSize : 20} color={textColor} />
+      <FaEye size={iconSize ? iconSize : 20} color={textColor} />
       <Text paddingTop={4} marginLeft={2} color={textColor}>
-        {text ? text : "Add"}
+        {text ? text : "view"}
       </Text>
     </Button>
   );
 };
 
-export default UpdateButton;
+export default ViewButton;

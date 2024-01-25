@@ -12,6 +12,7 @@ const SubmitButton = ({
   buttonSize,
 
   textColor,
+  width,
 }) => {
   const { colorMode } = useColorMode();
 
@@ -20,7 +21,7 @@ const SubmitButton = ({
   return (
     <Button
       border="none"
-      width={150}
+      width={width ? width : "auto"}
       height="40px"
       fontSize="14px"
       backgroundColor={colorMode === "light" ? "#2b6cb0" : "#0cf0e4"}

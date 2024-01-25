@@ -13,7 +13,7 @@ const AddButton = ({ text, onClick, iconSize, buttonSize, width }) => {
 
   return (
     <Button
-      width={width ? width : "200px"}
+      width={width ? width : "auto"}
       height={10}
       backgroundColor={addButtonBgColor}
       borderRadius={30}

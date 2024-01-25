@@ -4,13 +4,13 @@ import MainComponent from "../mainContent/MainComponent";
 import useColorModeColors from "../../hooks/useColorModeColors";
 
 function Home() {
-  const {boxShadowColor}=useColorModeColors()
+  const { boxShadowColor } = useColorModeColors();
   return (
     <Box>
       <Grid
         templateAreas={`"left main"
       `}
-        gridTemplateColumns={"50px 7fr"}
+        gridTemplateColumns={"250px 7fr"}
         paddingX={6}
       >
         <GridItem

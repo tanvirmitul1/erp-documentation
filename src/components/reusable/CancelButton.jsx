@@ -12,6 +12,7 @@ const CancelButton = ({
   buttonSize,
 
   textColor,
+  width,
 }) => {
   const {
     cancelButtonBgColor,
@@ -22,7 +23,7 @@ const CancelButton = ({
   return (
     <Button
       border={`2px solid ${cancelButtonBorderColor}`}
-      width={150}
+      width={width ? width : "auto"}
       height="40px"
       fontSize="14px"
       backgroundColor={cancelButtonBgColor}

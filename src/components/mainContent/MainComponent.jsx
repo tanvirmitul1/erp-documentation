@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 // src/components/mainContent/MainComponent.js
 
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import ModuleDetails from "./module/moduleDetails";
-ModuleDetails;
+
 const MainComponent = () => {
   return (
-    <Box maxHeight="92vh" overflowX="auto">
+    <Box maxHeight="92vh" overflowX="auto" paddingRight="10px">
       <ModuleDetails />
-      
     </Box>
   );
 };
