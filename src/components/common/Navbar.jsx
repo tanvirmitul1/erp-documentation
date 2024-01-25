@@ -31,14 +31,14 @@ const NavBar = () => {
       <HStack justifyContent="space-between">
         <Link to="/">
           {colorMode === "light" ? (
-            <Image src={Logo} width={16} />
+            <Image src={Logo} width={20} />
           ) : (
-            <Image src={LogoWhite} width={16} />
+            <Image src={LogoWhite} width={20} />
           )}
         </Link>
         <HStack gap={10}>
           <ColorMOdeSwitch />
-          <Image src={Avatar} width={6} />
+          <Image src={Avatar} width={8} />
         </HStack>
       </HStack>
     </Box>

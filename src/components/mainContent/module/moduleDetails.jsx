@@ -1,10 +1,12 @@
+import AllComponents from "./AllComponents";
 import Header from "./Header";
-
+import { Box } from "@chakra-ui/react";
 const ModuleDetails = () => {
   return (
-    <div>
+    <Box >
       <Header />
-    </div>
+      <AllComponents />
+    </Box>
   );
 };
 

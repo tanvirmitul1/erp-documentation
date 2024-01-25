@@ -5,6 +5,7 @@ import { useColorMode } from "@chakra-ui/react";
 
 import { InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
+import useColorModeColors from "../../hooks/useColorModeColors";
 
 const Searchbar = ({
   value,
@@ -14,7 +15,7 @@ const Searchbar = ({
   inputSize,
   width,
 }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { searchBgColor } = useColorModeColors();
   return (
     <InputGroup>
       <InputLeftElement pointerEvents="none" paddingLeft={4}>
@@ -26,7 +27,7 @@ const Searchbar = ({
         borderRadius={24}
         size={inputSize ? inputSize : "md"}
         width={width ? width : "200px"}
-        backgroundColor={colorMode === "light" ? "#DDF1F9" : "#2f2f30"}
+        backgroundColor={searchBgColor}
         type="text"
         placeholder={placeholder ? placeholder : "search"}
         _placeholder={{ opacity: 1, color: "gray.400" }}

@@ -24,6 +24,8 @@ const theme = extendTheme({
     global: {
       body: {
         fontSize: "12px",
+        margin: 0,
+        padding: 0,
       },
     },
   },

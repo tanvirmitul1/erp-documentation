@@ -1,17 +1,22 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
+useColorModeColors;
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { Text, Stack, useColorMode, Flex, Box } from "@chakra-ui/react";
+import { Text, Stack,  Flex, Box } from "@chakra-ui/react";
+import useColorModeColors from "../../hooks/useColorModeColors";
 const Element = ({ element }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { colorMode } = useColorMode();
-  // Define border color based on colorMode
-  const borderColor = colorMode === "light" ? "#2b6cb0" : "#0cf0e4";
+  const { elementBorderColor ,functionBorderColor} = useColorModeColors();
+
   return (
-    <Stack marginLeft={4} paddingX={2} borderLeft={`2px solid ${borderColor}`}>
+    <Stack
+      marginLeft={4}
+      paddingX={2}
+      borderLeft={`2px solid ${elementBorderColor}`}
+    >
       <Flex
         onClick={() => setIsOpen(!isOpen)}
         justifyContent="left"
@@ -33,7 +38,7 @@ const Element = ({ element }) => {
             key={fn.id}
             marginLeft={4}
             paddingX={2}
-            borderLeft={`2px solid ${borderColor}`}
+            borderLeft={`2px solid ${functionBorderColor}`}
           >
             {fn.name}
           </Text>

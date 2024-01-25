@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import {
-  useColorMode,
   Flex,
   FormControl,
   Input,
@@ -11,15 +10,17 @@ import ReactModal from "react-modal";
 
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
+import useColorModeColors from "../../hooks/useColorModeColors";
 
 const ModuleModal = ({ isOpen, onRequestClose }) => {
-  const { colorMode } = useColorMode();
-  const bg = colorMode === "dark" ? "#212a41" : "white";
-  const inputBg = colorMode === "light" ? "#DDF1F9" : "#212a41";
-  const textColor = colorMode === "light" ? "#199FD6" : "white";
-  const buttonTextColor = colorMode === "light" ? "white" : "black";
-  const cancelButtonTextColor = colorMode === "light" ? "#199FD6" : "white";
-  const placeholderColor = colorMode === "light" ? "#73caf0" : "gray.600";
+  const {
+    modalBgColor,
+    modalInputBgColor,
+    modalTextColor,
+    modalSubmitButtonTextColor,
+    modalCancelButtonTextColor,
+    modalPlaceholderColor,
+  } = useColorModeColors();
 
   return (
     <ReactModal
@@ -30,7 +31,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
         },
         content: {
           borderRadius: "20px",
-          backgroundColor: bg,
+          backgroundColor: modalBgColor,
           maxWidth: "550px",
           height: "600px",
           margin: "auto auto",
@@ -42,40 +43,40 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     >
       <Flex flexDirection="column">
         <FormControl isRequired>
-          <FormLabel fontSize="16px" color={textColor} marginY={4}>
+          <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
             Module Name
           </FormLabel>
           <Input
             paddingX={6}
             rounded={50}
-            backgroundColor={inputBg}
+            backgroundColor={modalInputBgColor}
             placeholder="Select Module"
             _placeholder={{
               opacity: 1,
-              color: `${placeholderColor}`,
+              color: `${modalPlaceholderColor}`,
               fontSize: "16px",
             }}
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel fontSize="16px" color={textColor} marginY={4}>
+          <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
             Module Directory path
           </FormLabel>
           <Input
             fontSize="16px"
             paddingX={6}
             rounded={50}
-            backgroundColor={inputBg}
+            backgroundColor={modalInputBgColor}
             placeholder="localhost/phpadmin/index.php"
             _placeholder={{
               opacity: 1,
-              color: `${placeholderColor}`,
+              color: `${modalPlaceholderColor}`,
               fontSize: "16px",
             }}
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel fontSize="16px" color={textColor} marginY={4}>
+          <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
             Description
           </FormLabel>
           <Textarea
@@ -85,16 +86,16 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
             height="200px"
             padding={4}
             rounded={30}
-            backgroundColor={inputBg}
+            backgroundColor={modalInputBgColor}
           />
         </FormControl>
         <Flex justifyContent="center" marginTop={10} gap={10}>
           <CancelButton
             onClick={onRequestClose}
-            textColor={cancelButtonTextColor}
+            textColor={modalCancelButtonTextColor}
             text="Cancel"
           />
-          <SubmitButton textColor={buttonTextColor} text="Submit" />
+          <SubmitButton textColor={modalSubmitButtonTextColor} text="Submit" />
         </Flex>
       </Flex>
     </ReactModal>

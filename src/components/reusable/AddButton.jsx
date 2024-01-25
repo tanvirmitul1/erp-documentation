@@ -4,18 +4,12 @@
 import { useColorMode } from "@chakra-ui/react";
 import React from "react";
 import { Button, Text } from "@chakra-ui/react";
-import { GrUpdate } from "react-icons/gr";
+import { CiCirclePlus } from "react-icons/ci";
 import useColorModeColors from "../../hooks/useColorModeColors";
 
-const UpdateButton = ({
-  text,
-  onClick,
-  iconSize,
-  buttonSize,
-  width,
-  textColor,
-}) => {
-  const { addButtonBgColor, addButtonHoverColor } = useColorModeColors();
+const AddButton = ({ text, onClick, iconSize, buttonSize, width }) => {
+  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
+    useColorModeColors();
 
   return (
     <Button
@@ -27,12 +21,15 @@ const UpdateButton = ({
       onClick={onClick}
       _hover={{ backgroundColor: `${addButtonHoverColor}` }}
     >
-      <GrUpdate size={iconSize ? iconSize : 20} color={textColor} />
-      <Text paddingTop={4} marginLeft={2} color={textColor}>
+      <CiCirclePlus
+        size={iconSize ? iconSize : 20}
+        color={addButtonTextColor}
+      />
+      <Text paddingTop={4} marginLeft={2} color={addButtonTextColor}>
         {text ? text : "Add"}
       </Text>
     </Button>
   );
 };
 
-export default UpdateButton;
+export default AddButton;

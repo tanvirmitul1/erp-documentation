@@ -1,35 +1,36 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// CustomButton.js
-import { useColorMode } from "@chakra-ui/react";
+
 import React from "react";
 import { Button, Text } from "@chakra-ui/react";
+import useColorModeColors from "../../hooks/useColorModeColors";
 
 const CancelButton = ({
   text,
   onClick,
-  iconSize,
+
   buttonSize,
 
   textColor,
 }) => {
-  const { colorMode } = useColorMode();
-
-  const buttonHoverColor = colorMode === "light" ? "#ddecf0" : "#251f1f";
-  const borderColor = colorMode === "light" ? "#199FD6" : "#0dd4ca";
+  const {
+    cancelButtonBgColor,
+    cancelButtonBorderColor,
+    cancelButtonHoverColor,
+  } = useColorModeColors();
 
   return (
     <Button
-      border={`2px solid ${borderColor}`}
+      border={`2px solid ${cancelButtonBorderColor}`}
       width={150}
       height="40px"
       fontSize="14px"
-      backgroundColor={colorMode === "light" ? "#ffffff" : "#0b0c0c"}
+      backgroundColor={cancelButtonBgColor}
       borderRadius={30}
       size={buttonSize ? buttonSize : "lg"}
       variant="solid"
       onClick={onClick}
-      _hover={{ backgroundColor: buttonHoverColor }}
+      _hover={{ backgroundColor: `${cancelButtonHoverColor}` }}
     >
       <Text paddingTop={4} color={textColor}>
         {text ? text : "Add"}

@@ -2,14 +2,14 @@
 // src/components/mainContent/MainComponent.js
 
 import { Box, Flex } from "@chakra-ui/react";
-import useModuleStore from "../../zustand/store";
+
 import ModuleDetails from "./module/moduleDetails";
 ModuleDetails;
 const MainComponent = () => {
-  const { selectedModule } = useModuleStore();
   return (
-    <Box maxHeight="92vh" overflow="auto">
+    <Box maxHeight="92vh" overflowX="auto">
       <ModuleDetails />
+      
     </Box>
   );
 };
