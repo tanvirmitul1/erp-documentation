@@ -22,9 +22,9 @@ const Header = () => {
   return (
     <Box>
       <Text as="h1">{selectedModule.name}</Text>
-      <Flex flexDirection="row" gap="10px">
-        {" "}
-        <Text fontWeight="bold">Added By:</Text>{" "}
+      <Flex flexDirection="row" gap="3px">
+       
+        <Text fontWeight="bold">Added By:</Text>
         <Text> {selectedModule.addedBy}</Text>
       </Flex>
       <Text> Module Directory Path: {selectedModule.moduleDirectoryPath}</Text>

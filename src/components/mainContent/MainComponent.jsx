@@ -8,7 +8,7 @@ ModuleDetails;
 const MainComponent = () => {
   const { selectedModule } = useModuleStore();
   return (
-    <Box maxHeight="94vh" overflow="auto">
+    <Box maxHeight="92vh" overflow="auto">
       <ModuleDetails />
     </Box>
   );
