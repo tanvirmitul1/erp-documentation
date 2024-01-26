@@ -28,7 +28,7 @@ const ComponentCard = ({ component }) => {
       marginBottom="10px"
       borderBottom="2px solid rgba(105, 105, 105, 0.2)"
       paddingBottom="20px"
-      paddingX="40px"
+      paddingX="70px"
     >
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">

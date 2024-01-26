@@ -19,22 +19,20 @@ import useColorModeColors from "../../../hooks/useColorModeColors";
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
-  const { selectedComponent } = useModuleStore();
+  const { selectedFunction } = useModuleStore();
 
   const handleButtonClick = () => {
     console.log("button clicked");
   };
   return (
     <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
-
-
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
-            <Text as="h2">{selectedComponent.name}</Text>
+            <Text as="h2">{selectedFunction.name}</Text>
             <HStack marginTop="26px">
               <Text>Added By:</Text>
-              <Text color={modulePathColor}> {selectedComponent.addedBy}</Text>
+              <Text color={modulePathColor}> {selectedFunction.addedBy}</Text>
             </HStack>
           </Flex>
 
@@ -50,7 +48,7 @@ const Header = () => {
             <Text fontWeight="bold">Module Directory Path:</Text>{" "}
             <Text color={modulePathColor}>
               {" "}
-              {selectedComponent.moduleDirectoryPath}
+              {selectedFunction.moduleDirectoryPath}
             </Text>
           </Flex>
         </VStack>
@@ -58,20 +56,19 @@ const Header = () => {
         <Flex flexDir="column">
           <div style={{ display: "flex", gap: "4px" }}>
             <Text>Created At:</Text>
-            <Text>{selectedComponent.createdAt}</Text>
+            <Text>{selectedFunction.createdAt}</Text>
           </div>
           <div style={{ display: "flex", gap: "4px" }}>
             <Text>Last Updated At:</Text>
-            <Text>{selectedComponent.lastUpdateAt}</Text>
+            <Text>{selectedFunction.lastUpdateAt}</Text>
           </div>
           <div style={{ display: "flex", gap: "4px" }}>
             <Text>last Updated By:</Text>
-            <Text color={modulePathColor}>{selectedComponent.lastUpdateBy}</Text>
+            <Text color={modulePathColor}>{selectedFunction.lastUpdateBy}</Text>
           </div>
 
           <UpdateButton
-            
-            text={`Update ${selectedComponent.name}`}
+            text={`Update ${selectedFunction.name}`}
             onClick={handleButtonClick}
             textColor={moduleTextColor}
           />
@@ -80,7 +77,7 @@ const Header = () => {
 
       <Text marginTop="12px">
         <CustomDescription
-          description={selectedComponent.description}
+          description={selectedFunction.description}
           word={500}
         />
       </Text>

@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-// AllComponents.jsx
+import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
-import ReactPaginate from "react-paginate";
+
 import {
   Text,
   Box,
@@ -18,23 +17,23 @@ import {
 import Searchbar from "../../reusable/SearchBar";
 import useModuleStore from "../../../zustand/store";
 
-import ComponentCard from "./ComponentCard";
 import useColorModeColors from "../../../hooks/useColorModeColors";
+import ElementCard from "./ElementCard";
 
-const AllComponents = () => {
+const AllElements = () => {
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
     useColorModeColors();
   // pagination start
 
-  const { selectedModule } = useModuleStore();
-  const components = selectedModule.components;
+  const { selectedComponent } = useModuleStore();
+  const elements = selectedComponent.elements;
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 1;
 
   const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
   const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
-  const currentComponents = components.slice(
+  const currentElements = elements.slice(
     indexOfFirstComponent,
     indexOfLastComponent
   );
@@ -55,8 +54,8 @@ const AllComponents = () => {
         <Searchbar width="350px" placeholder="Search Component" />
       </Box>
       <Box>
-        {currentComponents.map((component) => (
-          <ComponentCard component={component} key={component.id} />
+        {currentElements.map((element) => (
+          <ElementCard element={element} key={element.id} />
         ))}
       </Box>
 
@@ -72,7 +71,7 @@ const AllComponents = () => {
           </IconContext.Provider>
         }
         breakLabel={"..."}
-        pageCount={Math.ceil(components.length / itemsPerPage)}
+        pageCount={Math.ceil(elements.length / itemsPerPage)}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
@@ -84,4 +83,4 @@ const AllComponents = () => {
   );
 };
 
-export default AllComponents;
+export default AllElements;

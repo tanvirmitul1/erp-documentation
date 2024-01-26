@@ -11,6 +11,7 @@
 
 .pagination {
   list-style: none;
+ 
   height: 31.5px;
   width: 31.5px;
   display: flex;
@@ -23,11 +24,12 @@
 .active {
   background-color: #0dd4ca;
   border-radius: 50%;
+  
 }
 
 .page-item {
   list-style: none;
-  padding: 6px 12px;
+  padding: 12px 12px;
   height: 31.5px;
   width: 31.5px;
   display: flex;

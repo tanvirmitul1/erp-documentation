@@ -10,8 +10,10 @@ import ModuleModal from "../modal/ModuleModal";
 
 import Module from "../sidebar/Module";
 import SideSkeleton from "../reusable/SideSkeleton";
+import useColorModeColors from "../../hooks/useColorModeColors";
 
 function Sidebar() {
+  const { boxShadowColor } = useColorModeColors();
   const [moduleName, setModuleName] = React.useState("");
   const { data: modules, error, isLoading } = useGetModuleQuery();
 
@@ -31,20 +33,23 @@ function Sidebar() {
   };
 
   return (
-    <Stack>
-      {/* <Box marginTop="10px"> */}
-      {/* <Box position="absolute" top="50px"> */}
+    <Stack
+      h="100vh"
+      overflow="scroll"
+      boxShadow={`5px 0 5px -5px ${boxShadowColor}, -5px 0 5px -5px ${boxShadowColor}`}
+      p="6"
+    >
       <SearchBar
         value={moduleName}
         onChange={handleChange}
         placeholder="Search Module"
       />
-      {/* </Box> */}
 
-      {/* <Box position="absolute" top="100px"> */}
-      <AddButton text="Add New Module" onClick={handleButtonClick} />
-      {/* </Box> */}
-      {/* </Box> */}
+      <AddButton
+        text="Add New Module"
+        onClick={handleButtonClick}
+        width="200px"
+      />
 
       {isLoading ? (
         <SideSkeleton />

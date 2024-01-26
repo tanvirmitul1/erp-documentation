@@ -8,11 +8,12 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import useModuleStore from "../../zustand/store";
 import useColorModeColors from "../../hooks/useColorModeColors";
+import { Link } from "react-router-dom";
 const Module = ({ module }) => {
   const { moduleIconColor } = useColorModeColors();
-  const { selectedModule, setSelectedModule } = useModuleStore();
+  const { setSelectedModule } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
-  console.log(selectedModule);
+
   const handleModuleClick = () => {
     setSelectedModule(module);
     setIsOpen(!isOpen);
@@ -20,22 +21,25 @@ const Module = ({ module }) => {
 
   return (
     <Stack>
-      <Flex
-        alignItems="center"
-        justifyContent="left"
-        gap="5px"
-        cursor="pointer"
-        onClick={handleModuleClick}
-      >
-        <SiElementor size={20} color={moduleIconColor} />
-        <Text paddingTop="12px" fontSize={12} fontWeight="bold">
-          {module.name}
-        </Text>
-        {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
-      </Flex>
+      {/* to={`/module/${module.id}`} */}
+      <Link to={`/module/${module.id}`}>
+        <Flex
+          alignItems="center"
+          justifyContent="left"
+          gap="5px"
+          cursor="pointer"
+          onClick={handleModuleClick}
+        >
+          <SiElementor size={20} color={moduleIconColor} />
+          <Text paddingTop="12px" fontSize={12} fontWeight="bold">
+            {module.name}
+          </Text>
+          {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
+        </Flex>
+      </Link>
       {isOpen &&
         module.components.map((component) => (
-          <Component key={component.id} component={component} />
+          <Component key={component.id} module={module} component={component} />
         ))}
     </Stack>
   );

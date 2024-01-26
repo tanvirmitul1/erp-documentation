@@ -3,7 +3,7 @@ import Header from "./Header";
 import { Box } from "@chakra-ui/react";
 const ModuleDetails = () => {
   return (
-    <Box >
+    <Box>
       <Header />
       <AllComponents />
     </Box>

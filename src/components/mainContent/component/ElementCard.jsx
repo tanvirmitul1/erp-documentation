@@ -1,4 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+// ElementCard.jsx
+import React from "react";
 import {
   Text,
   Box,
@@ -9,32 +12,31 @@ import {
   useColorMode,
   Button,
 } from "@chakra-ui/react";
-import useModuleStore from "../../../zustand/store";
 import UpdateButton from "../../reusable/UpdateButton";
-import AddButton from "../../reusable/AddButton";
-
 import CustomDescription from "../../reusable/Description";
+import AddButton from "../../reusable/AddButton";
 import useColorModeColors from "../../../hooks/useColorModeColors";
+import ViewButton from "../../reusable/Viewbutton";
 
-const Header = () => {
+const ElementCard = ({ element }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
-  const { selectedComponent } = useModuleStore();
-
-  const handleButtonClick = () => {
-    console.log("button clicked");
-  };
   return (
-    <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
-
-
+    <Box
+      key={element.id}
+      marginTop="10px"
+      marginBottom="10px"
+      borderBottom="2px solid rgba(105, 105, 105, 0.2)"
+      paddingBottom="20px"
+      paddingX="40px"
+    >
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
-            <Text as="h2">{selectedComponent.name}</Text>
+            <Text as="h2">{element.name}</Text>
             <HStack marginTop="26px">
               <Text>Added By:</Text>
-              <Text color={modulePathColor}> {selectedComponent.addedBy}</Text>
+              <Text color={modulePathColor}>{element.addedBy}</Text>
             </HStack>
           </Flex>
 
@@ -47,46 +49,34 @@ const Header = () => {
             height="40px"
             rounded="50px"
           >
-            <Text fontWeight="bold">Module Directory Path:</Text>{" "}
-            <Text color={modulePathColor}>
-              {" "}
-              {selectedComponent.moduleDirectoryPath}
-            </Text>
+            <Text fontWeight="bold">Element Directory Path:</Text>{" "}
+            <Text color={modulePathColor}>{element.moduleDirectoryPath}</Text>
           </Flex>
         </VStack>
 
         <Flex flexDir="column">
           <div style={{ display: "flex", gap: "4px" }}>
             <Text>Created At:</Text>
-            <Text>{selectedComponent.createdAt}</Text>
+            <Text>{element.createdAt}</Text>
           </div>
           <div style={{ display: "flex", gap: "4px" }}>
             <Text>Last Updated At:</Text>
-            <Text>{selectedComponent.lastUpdateAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
-            <Text>last Updated By:</Text>
-            <Text color={modulePathColor}>{selectedComponent.lastUpdateBy}</Text>
+            <Text>{element.lastUpdateAt}</Text>
           </div>
 
           <UpdateButton
-            
-            text={`Update ${selectedComponent.name}`}
-            onClick={handleButtonClick}
+            text={`Update ${element.name}`}
             textColor={moduleTextColor}
           />
         </Flex>
       </Flex>
 
       <Text marginTop="12px">
-        <CustomDescription
-          description={selectedComponent.description}
-          word={500}
-        />
+        <CustomDescription description={element.description} word={500} />
       </Text>
-      <AddButton text="Add New Component" onClick={handleButtonClick} />
+      <ViewButton text={`View ${element.name}`} textColor={moduleTextColor} />
     </Box>
   );
 };
 
-export default Header;
+export default ElementCard;

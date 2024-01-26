@@ -2,14 +2,12 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "./Header";
-import AllElements from "./AllElements";
-const ComponentDetails = () => {
+const FunctionDetails = () => {
   return (
     <Box>
       <Header />
-      <AllElements />
     </Box>
   );
 };
 
-export default ComponentDetails;
+export default FunctionDetails;
