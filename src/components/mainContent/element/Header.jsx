@@ -54,18 +54,18 @@ const Header = () => {
         </VStack>
 
         <Flex flexDir="column">
-          <div style={{ display: "flex", gap: "4px" }}>
+          <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{selectedElement.createdAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
+          </Flex>
+          <Flex h="25px">
             <Text>Last Updated At:</Text>
             <Text>{selectedElement.lastUpdateAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
+          </Flex>
+          <Flex h="30px">
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>{selectedElement.lastUpdateBy}</Text>
-          </div>
+          </Flex>
 
           <UpdateButton
             text={`Update ${selectedElement.name}`}

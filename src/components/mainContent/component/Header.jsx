@@ -26,8 +26,6 @@ const Header = () => {
   };
   return (
     <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
-
-
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
@@ -56,21 +54,22 @@ const Header = () => {
         </VStack>
 
         <Flex flexDir="column">
-          <div style={{ display: "flex", gap: "4px" }}>
+          <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{selectedComponent.createdAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
+          </Flex>
+          <Flex h="25px">
             <Text>Last Updated At:</Text>
             <Text>{selectedComponent.lastUpdateAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
+          </Flex>
+          <Flex h="30px">
             <Text>last Updated By:</Text>
-            <Text color={modulePathColor}>{selectedComponent.lastUpdateBy}</Text>
-          </div>
+            <Text color={modulePathColor}>
+              {selectedComponent.lastUpdateBy}
+            </Text>
+          </Flex>
 
           <UpdateButton
-            
             text={`Update ${selectedComponent.name}`}
             onClick={handleButtonClick}
             textColor={moduleTextColor}

@@ -55,14 +55,14 @@ const ElementCard = ({ element }) => {
         </VStack>
 
         <Flex flexDir="column">
-          <div style={{ display: "flex", gap: "4px" }}>
+          <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{element.createdAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
+          </Flex>
+          <Flex h="30px">
             <Text>Last Updated At:</Text>
             <Text>{element.lastUpdateAt}</Text>
-          </div>
+          </Flex>
 
           <UpdateButton
             text={`Update ${element.name}`}

@@ -30,7 +30,7 @@ const ComponentCard = ({ component }) => {
       paddingBottom="20px"
       paddingX="70px"
     >
-      <Flex flexDirection="row" justifyContent="space-between">
+      <Flex justifyContent="space-between" alignItems="baseline">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
             <Text as="h2">{component.name}</Text>
@@ -55,14 +55,14 @@ const ComponentCard = ({ component }) => {
         </VStack>
 
         <Flex flexDir="column">
-          <div style={{ display: "flex", gap: "4px" }}>
+          <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{component.createdAt}</Text>
-          </div>
-          <div style={{ display: "flex", gap: "4px" }}>
+          </Flex>
+          <Flex h="30px">
             <Text>Last Updated At:</Text>
             <Text>{component.lastUpdateAt}</Text>
-          </div>
+          </Flex>
 
           <UpdateButton
             text={`Update ${component.name}`}

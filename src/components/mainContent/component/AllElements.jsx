@@ -4,27 +4,13 @@ import React, { useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 
-import {
-  Text,
-  Box,
-  Flex,
-  VStack,
-  HStack,
-  Stack,
-  useColorMode,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
 import useModuleStore from "../../../zustand/store";
 
-import useColorModeColors from "../../../hooks/useColorModeColors";
 import ElementCard from "./ElementCard";
 
 const AllElements = () => {
-  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
-    useColorModeColors();
-  // pagination start
-
   const { selectedComponent } = useModuleStore();
   const elements = selectedComponent.elements;
 
