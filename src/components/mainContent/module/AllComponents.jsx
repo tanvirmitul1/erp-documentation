@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 // AllComponents.jsx
 import React, { useState } from "react";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import { IconContext } from "react-icons";
 import ReactPaginate from "react-paginate";
 import {
   Text,
@@ -17,35 +19,12 @@ import Searchbar from "../../reusable/SearchBar";
 import useModuleStore from "../../../zustand/store";
 
 import ComponentCard from "./ComponentCard";
+import useColorModeColors from "../../../hooks/useColorModeColors";
 
 const AllComponents = () => {
+  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
+    useColorModeColors();
   // pagination start
-  const paginationStyle = {
-    container: {
-      display: "flex",
-      listStyleType: "none",
-      justifyContent: "center",
-      padding: 0,
-    },
-    item: {
-      margin: "0 4px",
-      padding: "8px 16px",
-      borderRadius: "5px",
-      border: "1px solid #d4d4d4",
-      color: "#555",
-      cursor: "pointer",
-      userSelect: "none",
-    },
-    itemActive: {
-      backgroundColor: "#007bff",
-      color: "white",
-      border: "1px solid #007bff",
-    },
-    itemDisabled: {
-      color: "#d4d4d4",
-      cursor: "not-allowed",
-    },
-  };
 
   const { selectedModule } = useModuleStore();
   const components = selectedModule.components;
@@ -80,27 +59,26 @@ const AllComponents = () => {
           <ComponentCard component={component} key={component.id} />
         ))}
       </Box>
+
       <ReactPaginate
-        previousLabel={"Prev"}
-        nextLabel={"Next"}
+        previousLabel={
+          <IconContext.Provider value={{ size: "36px" }}>
+            <AiFillLeftCircle />
+          </IconContext.Provider>
+        }
+        nextLabel={
+          <IconContext.Provider value={{ size: "36px" }}>
+            <AiFillRightCircle />
+          </IconContext.Provider>
+        }
         breakLabel={"..."}
         pageCount={Math.ceil(components.length / itemsPerPage)}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
-        pageLinkClassName={"page-link"}
-        previousLinkClassName={"page-link"}
-        nextLinkClassName={"page-link"}
         activeClassName={"active"}
-        disabledClassName={"disabled"}
-        style={paginationStyle.container}
         pageClassName={"page-item"}
-        previousClassName={"page-item"}
-        nextClassName={"page-item"}
-        breakLinkClassName={"page-link"}
-        activeLinkClassName={"active"}
-        disabledLinkClassName={"disabled"}
       />
     </Flex>
   );
