@@ -17,8 +17,8 @@ function App() {
     <Router>
       <Box height="100vh" overflow="hidden">
         <Grid
-          templateAreas={`"nav nav nav nav nav nav"
-                           "sidebar home home home home home"`}
+          templateAreas={`"nav nav nav "
+                           "sidebar home home"`}
           templateColumns="250px 1fr"
         >
           <GridItem area="nav">{user && <NavBar />}</GridItem>

@@ -45,7 +45,7 @@ const Header = () => {
             height="40px"
             rounded="50px"
           >
-            <Text fontWeight="bold">Module Directory Path:</Text>{" "}
+            <Text fontWeight="bold">Function Directory Path:</Text>{" "}
             <Text color={modulePathColor}>
               {" "}
               {selectedFunction.moduleDirectoryPath}
@@ -81,7 +81,6 @@ const Header = () => {
           word={500}
         />
       </Text>
-      <AddButton text="Add New Component" onClick={handleButtonClick} />
     </Box>
   );
 };

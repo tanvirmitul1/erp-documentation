@@ -49,7 +49,7 @@ const FunctionCard = ({ fn }) => {
             height="40px"
             rounded="50px"
           >
-            <Text fontWeight="bold">Fn Directory Path:</Text>{" "}
+            <Text fontWeight="bold">Function Directory Path:</Text>{" "}
             <Text color={modulePathColor}>{fn.moduleDirectoryPath}</Text>
           </Flex>
         </VStack>

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import {
   Text,
   Box,
@@ -16,7 +17,18 @@ import AddButton from "../../reusable/AddButton";
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 
+import React from "react";
+import ElementModal from "../../modal/ElementModal";
+
 const Header = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleCreateElementButtonClick = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
   const { selectedComponent } = useModuleStore();
@@ -45,7 +57,7 @@ const Header = () => {
             height="40px"
             rounded="50px"
           >
-            <Text fontWeight="bold">Module Directory Path:</Text>{" "}
+            <Text fontWeight="bold">Component Directory Path:</Text>{" "}
             <Text color={modulePathColor}>
               {" "}
               {selectedComponent.moduleDirectoryPath}
@@ -83,7 +95,11 @@ const Header = () => {
           word={500}
         />
       </Text>
-      <AddButton text="Add New Component" onClick={handleButtonClick} />
+      <AddButton
+        text="Add New Element"
+        onClick={handleCreateElementButtonClick}
+      />
+      <ElementModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
     </Box>
   );
 };

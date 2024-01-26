@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import {
   Text,
   Box,
@@ -12,9 +13,10 @@ import {
 import useModuleStore from "../../../zustand/store";
 import UpdateButton from "../../reusable/UpdateButton";
 import AddButton from "../../reusable/AddButton";
-
+import FunctionModal from "../../modal/FunctionModal";
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
+import React from "react";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -23,6 +25,15 @@ const Header = () => {
 
   const handleButtonClick = () => {
     console.log("button clicked");
+  };
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleCreateFunctionButtonClick = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
   return (
     <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
@@ -45,7 +56,7 @@ const Header = () => {
             height="40px"
             rounded="50px"
           >
-            <Text fontWeight="bold">Module Directory Path:</Text>{" "}
+            <Text fontWeight="bold">Element Directory Path:</Text>{" "}
             <Text color={modulePathColor}>
               {" "}
               {selectedElement.moduleDirectoryPath}
@@ -81,7 +92,11 @@ const Header = () => {
           word={500}
         />
       </Text>
-      <AddButton text="Add New Component" onClick={handleButtonClick} />
+      <AddButton
+        text="Add New Function"
+        onClick={handleCreateFunctionButtonClick}
+      />
+      <FunctionModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
     </Box>
   );
 };

@@ -37,7 +37,7 @@ const AllElements = () => {
       marginTop="20px"
     >
       <Box>
-        <Searchbar width="350px" placeholder="Search Component" />
+        <Searchbar width="350px" placeholder="Search Element" />
       </Box>
       <Box>
         {currentElements.map((element) => (

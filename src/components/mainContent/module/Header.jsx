@@ -1,20 +1,14 @@
 /* eslint-disable no-unused-vars */
-import {
-  Text,
-  Box,
-  Flex,
-  VStack,
-  HStack,
-  Stack,
-  useColorMode,
-  Button,
-} from "@chakra-ui/react";
+
+import { Text, Box, Flex, VStack, HStack } from "@chakra-ui/react";
 import useModuleStore from "../../../zustand/store";
 import UpdateButton from "../../reusable/UpdateButton";
 import AddButton from "../../reusable/AddButton";
 
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
+import ComponentModal from "../../modal/ComponentModal";
+import React from "react";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -24,10 +18,17 @@ const Header = () => {
   const handleButtonClick = () => {
     console.log("button clicked");
   };
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleCreateComponentButtonClick = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
-
-
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
@@ -70,7 +71,6 @@ const Header = () => {
           </Flex>
 
           <UpdateButton
-            
             text={`Update ${selectedModule.name}`}
             onClick={handleButtonClick}
             textColor={moduleTextColor}
@@ -84,7 +84,11 @@ const Header = () => {
           word={500}
         />
       </Text>
-      <AddButton text="Add New Component" onClick={handleButtonClick} />
+      <AddButton
+        text="Add New Component"
+        onClick={handleCreateComponentButtonClick}
+      />
+      <ComponentModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
     </Box>
   );
 };

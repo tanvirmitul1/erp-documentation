@@ -52,7 +52,7 @@ const AllFunctions = () => {
       marginTop="20px"
     >
       <Box>
-        <Searchbar width="350px" placeholder="Search Component" />
+        <Searchbar width="350px" placeholder="Search Function" />
       </Box>
       <Box>
         {currentFunctions.map((fn) => (
