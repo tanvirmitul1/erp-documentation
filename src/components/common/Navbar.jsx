@@ -29,7 +29,7 @@ const NavBar = () => {
       boxShadow={`0 2px 4px ${boxShadowColor} `}
     >
       <HStack justifyContent="space-between">
-        <Link to="/">
+        <Link to="/module/1">
           {colorMode === "light" ? (
             <Image src={Logo} width={20} />
           ) : (

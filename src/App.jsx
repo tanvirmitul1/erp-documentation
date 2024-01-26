@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // App.jsx
-
+import { Navigate } from "react-router-dom";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
@@ -16,8 +17,9 @@ function App() {
     <Router>
       <Box height="100vh" overflow="hidden">
         <Grid
-          templateAreas={`"nav nav nav nav nav"
-                           "sidebar home home home home"`}
+          templateAreas={`"nav nav nav nav nav nav"
+                           "sidebar home home home home home"`}
+          templateColumns="250px 1fr"
         >
           <GridItem area="nav">{user && <NavBar />}</GridItem>
           <GridItem area="sidebar">{user && <SideBar />}</GridItem>
@@ -25,7 +27,15 @@ function App() {
             <Routes>
               <Route path="register" element={<Register />} />
               <Route path="login" element={<Login />} />
-              <Route path="/module/:moduleId/*" element={<MainComponent />} />
+
+              <Route
+                path="/module/:moduleId/*"
+                element={
+                  <PrivateRouteForRole role="admin">
+                    <MainComponent />
+                  </PrivateRouteForRole>
+                }
+              />
             </Routes>
           </GridItem>
         </Grid>
@@ -33,5 +43,13 @@ function App() {
     </Router>
   );
 }
+const PrivateRouteForRole = ({ children, role }) => {
+  const userRole = "admin";
 
+  if (userRole === role) {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
+};
 export default App;
