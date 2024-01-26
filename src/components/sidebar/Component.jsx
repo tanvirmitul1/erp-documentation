@@ -29,6 +29,7 @@ const Component = ({ component, module }) => {
       {/* to={`/module/${module.id}/component/${component.id}`} */}
       <Link to={`/module/${module.id}/component/${component.id}`}>
         <Flex
+         height="25px"
           onClick={handleClick}
           justifyContent="left"
           gap="3px"

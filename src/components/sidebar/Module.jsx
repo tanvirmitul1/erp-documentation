@@ -24,6 +24,7 @@ const Module = ({ module }) => {
       {/* to={`/module/${module.id}`} */}
       <Link to={`/module/${module.id}`}>
         <Flex
+          height="30px"
           alignItems="center"
           justifyContent="left"
           gap="5px"

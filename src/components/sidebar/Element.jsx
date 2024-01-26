@@ -43,6 +43,7 @@ const Element = ({ module, component, element }) => {
         to={`/module/${module.id}/component/${component.id}/element/${element.id}`}
       >
         <Flex
+          height="25px"
           onClick={handleClick}
           justifyContent="left"
           gap="3px"
@@ -62,6 +63,7 @@ const Element = ({ module, component, element }) => {
             to={`/module/${module.id}/component/${component.id}/element/${element.id}/function/${fn.id}`}
           >
             <Text
+              height="20px"
               onClick={handleFunctionClick(fn)}
               fontSize={12}
               cursor="pointer"
