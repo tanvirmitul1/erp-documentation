@@ -30,7 +30,7 @@ const AllComponents = () => {
   const components = selectedModule.components;
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 1;
+  const itemsPerPage = 4;
 
   const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
   const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;

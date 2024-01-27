@@ -32,7 +32,7 @@ const ElementModal = ({ isOpen, onRequestClose }) => {
           borderRadius: "20px",
           backgroundColor: modalBgColor,
           maxWidth: "550px",
-          height: "620px",
+          maxHeight: "730px",
           margin: "auto auto",
           border: "none",
         },

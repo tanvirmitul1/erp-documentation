@@ -30,7 +30,7 @@ const ComponentCard = ({ component }) => {
       paddingBottom="20px"
       paddingX="70px"
     >
-      <Flex justifyContent="space-between" alignItems="baseline">
+      <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
             <Text as="h2">{component.name}</Text>
