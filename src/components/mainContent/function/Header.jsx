@@ -15,6 +15,8 @@ import AddButton from "../../reusable/AddButton";
 
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
+import CodeBlock from "./CodeBlock";
+import formatJSXCodeString from "../../../utils/FormatJsxCode";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -24,6 +26,8 @@ const Header = () => {
   const handleButtonClick = () => {
     console.log("button clicked");
   };
+
+  const formattedCode = formatJSXCodeString(selectedFunction.functionCode);
   return (
     <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
       <Flex flexDirection="row" justifyContent="space-between">
@@ -76,10 +80,8 @@ const Header = () => {
       </Flex>
 
       <Text marginTop="12px">
-        <CustomDescription
-          description={selectedFunction.description}
-          word={500}
-        />
+        <CustomDescription description={selectedFunction.description} />
+        <CodeBlock code={formattedCode} language="jsx" />
       </Text>
     </Box>
   );

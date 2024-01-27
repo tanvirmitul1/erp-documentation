@@ -43,7 +43,7 @@ const Element = ({ module, component, element }) => {
         to={`/module/${module.id}/component/${component.id}/element/${element.id}`}
       >
         <Flex
-          height="25px"
+          height="auto"
           onClick={handleClick}
           justifyContent="left"
           gap="3px"
