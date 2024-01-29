@@ -22,14 +22,15 @@ const Component = ({ component, module }) => {
 
   return (
     <Stack
-      marginLeft={4}
+      marginLeft={isOpen ? "16px" : "4px"}
+      transition="margin-left 0.3s ease"
       paddingX={2}
       borderLeft={`2px solid ${componentBorderColor}`}
     >
       {/* to={`/module/${module.id}/component/${component.id}`} */}
       <Link to={`/module/${module.id}/component/${component.id}`}>
         <Flex
-         height="25px"
+          height="25px"
           onClick={handleClick}
           justifyContent="left"
           gap="3px"
@@ -45,7 +46,12 @@ const Component = ({ component, module }) => {
       </Link>
       {isOpen &&
         component.elements.map((element) => (
-          <Element key={element.id} module={module} component={component} element={element} />
+          <Element
+            key={element.id}
+            module={module}
+            component={component}
+            element={element}
+          />
         ))}
     </Stack>
   );

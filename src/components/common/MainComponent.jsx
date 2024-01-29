@@ -64,8 +64,9 @@ const MainComponent = () => {
         position="absolute"
         zIndex={100}
         display={{ base: "block", lg: "none" }}
-        left={{ base: showLeftBar ? "0" : "-400px", lg: 0 }}
+        left={{ base: showLeftBar ? "0" : "-250px", lg: 0 }}
         backgroundColor={sidebarBgColor}
+        transition="left 0.3s ease-out"
       >
         <Sidebar />
       </Box>
@@ -79,6 +80,7 @@ const MainComponent = () => {
           paddingX="12px"
           paddingTop="10px"
           rounded="md"
+          transition="margin-left 0.3s ease-in"
         >
           <Routes>
             <Route path="/module/:moduleId" element={<ModuleDetails />} />

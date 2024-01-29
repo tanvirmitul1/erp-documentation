@@ -9,6 +9,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import useModuleStore from "../../zustand/store";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import { Link } from "react-router-dom";
+
 const Module = ({ module }) => {
   const { moduleIconColor } = useColorModeColors();
   const { setSelectedModule } = useModuleStore();
@@ -20,7 +21,10 @@ const Module = ({ module }) => {
   };
 
   return (
-    <Stack>
+    <Stack
+      marginLeft={isOpen ? "16px" : "0"} // Adjust the value based on your design
+      transition="margin-left 0.3s ease" // Add the transition property
+    >
       {/* to={`/module/${module.id}`} */}
       <Link to={`/module/${module.id}`}>
         <Flex
@@ -45,4 +49,5 @@ const Module = ({ module }) => {
     </Stack>
   );
 };
+
 export default Module;

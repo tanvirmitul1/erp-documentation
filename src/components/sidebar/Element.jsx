@@ -36,7 +36,8 @@ const Element = ({ module, component, element }) => {
   );
   return (
     <Stack
-      marginLeft={4}
+      marginLeft={isOpen ? "16px" : "4px"} // Adjust the value based on your design
+      transition="margin-left 0.3s ease" // Add the transition property
       paddingX={2}
       borderLeft={`2px solid ${elementBorderColor}`}
     >
@@ -69,7 +70,8 @@ const Element = ({ module, component, element }) => {
               fontSize={12}
               cursor="pointer"
               key={fn.id}
-              marginLeft={4}
+              marginLeft={isOpen ? "16px" : "4px"} // Adjust the value based on your design
+              transition="margin-left 0.3s ease" // Add the transition property
               paddingX={2}
               borderLeft={`2px solid ${functionBorderColor}`}
             >
