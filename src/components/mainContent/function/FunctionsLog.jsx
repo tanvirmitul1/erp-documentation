@@ -33,7 +33,7 @@ const FunctionsLog = () => {
   };
 
   return (
-    <Box>
+    <Box >
       <Flex
         onClick={handleViewLogClick}
         cursor="pointer"

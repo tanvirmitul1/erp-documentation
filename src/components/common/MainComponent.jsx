@@ -13,6 +13,8 @@ import NavBar from "./Navbar";
 import Sidebar from "./Sidebar";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import useModuleStore from "../../zustand/store";
+
+import FrontPage from "./Home";
 const MainComponent = () => {
   const { showLeftBar, toggleLeftBar } = useModuleStore();
 
@@ -83,6 +85,7 @@ const MainComponent = () => {
           transition="margin-left 0.3s ease-in"
         >
           <Routes>
+            <Route path="/" element={<FrontPage />} />
             <Route path="/module/:moduleId" element={<ModuleDetails />} />
             <Route
               path="/module/:moduleId/component/:componentId"
