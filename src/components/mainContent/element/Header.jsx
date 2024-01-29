@@ -36,7 +36,7 @@ const Header = () => {
     setIsModalOpen(false);
   };
   return (
-    <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
+    <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px"marginX="20px">
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">

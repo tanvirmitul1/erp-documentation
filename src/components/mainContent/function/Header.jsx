@@ -36,7 +36,12 @@ const Header = () => {
   );
   return (
     <Box>
-      <Flex flexDirection="row" justifyContent="space-between">
+      <Flex
+        flexDirection="row"
+        justifyContent="space-between"
+        paddingBottom="30px"
+        marginX="20px"
+      >
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
             <Text as="h2">{selectedFunction.name}</Text>
@@ -84,11 +89,11 @@ const Header = () => {
         </Flex>
       </Flex>
 
-      <Text marginTop="12px">
+      <Box marginTop="12px" paddingBottom="20px" marginX="40px">
         <CustomDescription description={selectedFunction.description} />
         <Box as="h5"> Function Code</Box>
         <CodeBlock code={formattedCode} language="jsx" />
-      </Text>
+      </Box>
     </Box>
   );
 };
