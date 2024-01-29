@@ -1,28 +1,39 @@
 /* eslint-disable no-useless-escape */
-const formatJSXCodeString = (code) => {
-  // Add a newline before comments, import statements, and specified keywords
+const formatCodeString = (code, language) => {
+  if (!code) {
+    return "No code available";
+  }
 
+  switch (language) {
+    case "js":
+      return formatJSXCodeString(code);
+    case "php":
+      return formatPHPCodeString(code);
+    case "laravel":
+      return formatLaravelCodeString(code);
+    default:
+      return formatPHPCodeString(code);
+  }
+};
+
+const formatJSXCodeString = (code) => {
+  // JSX formatting logic (as provided in your original code)
   if (code) {
     code = code.replace(
       /(\/\/|import |(?<!^)(const |let |if |else |export |function |for |switch ))/gm,
       "\n$1"
     );
 
-    // Handle "return" separately to add a newline before and after
     code = code.replace(/(?<!^)return /gm, "\nreturn ");
     code = code.replace(/return (.*);/g, "return $1;\n");
 
-    // Add a newline after every semicolon (consider context)
     code = code.replace(/;(?![^\[]*\])\s*/g, ";\n");
 
-    // Handle self-closing JSX tags by adding a newline after them
     code = code.replace(/(\/>)/g, "$1\n");
 
-    // Handle JSX opening and closing tags
     code = code.replace(/(>)/g, "$1\n");
     code = code.replace(/(<\/)/g, "\n$1");
 
-    // Add indentation for JSX (basic)
     let indentLevel = 0;
     code = code
       .split("\n")
@@ -50,4 +61,20 @@ const formatJSXCodeString = (code) => {
   return "No code available";
 };
 
-export default formatJSXCodeString;
+const formatPHPCodeString = (code) => {
+  // Basic formatting logic for PHP code
+  code = code.replace(/(\(|\)|{|})/g, " $1 ");
+  code = code.replace(/;/g, ";\n");
+
+  return code.trim();
+};
+
+const formatLaravelCodeString = (code) => {
+  // Basic formatting logic for Laravel code
+  code = code.replace(/(\(|\)|{|})/g, " $1 ");
+  code = code.replace(/;/g, ";\n");
+
+  return code.trim();
+};
+
+export default formatCodeString;

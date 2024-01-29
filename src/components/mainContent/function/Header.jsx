@@ -9,6 +9,7 @@ import {
   useColorMode,
   Button,
 } from "@chakra-ui/react";
+
 import useModuleStore from "../../../zustand/store";
 import UpdateButton from "../../reusable/UpdateButton";
 import AddButton from "../../reusable/AddButton";
@@ -16,20 +17,25 @@ import AddButton from "../../reusable/AddButton";
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import CodeBlock from "./CodeBlock";
-import formatJSXCodeString from "../../../utils/FormatJsxCode";
+
+import formatCodeString from "../../../utils/FormatCode";
+import identifyLanguage from "../../../utils/LanguageIdentifier";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
   const { selectedFunction } = useModuleStore();
-
+  const language = identifyLanguage(selectedFunction.functionCode);
   const handleButtonClick = () => {
     console.log("button clicked");
   };
 
-  const formattedCode = formatJSXCodeString(selectedFunction.functionCode);
+  const formattedCode = formatCodeString(
+    selectedFunction.functionCode,
+    language
+  );
   return (
-    <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px">
+    <Box>
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
@@ -81,6 +87,7 @@ const Header = () => {
 
       <Text marginTop="12px">
         <CustomDescription description={selectedFunction.description} />
+        <Box as="h5"> Function Code</Box>
         <CodeBlock code={formattedCode} language="jsx" />
       </Text>
     </Box>

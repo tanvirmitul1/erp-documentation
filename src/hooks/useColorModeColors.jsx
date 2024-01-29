@@ -30,9 +30,9 @@ const useColorModeColors = () => {
 
   //module
   const moduleIconColor = useColorModeValue("#199FD6", "#0cf0e4");
-  const modulePathColor = useColorModeValue("#55c5f1" , "#0DD4CA");
+  const modulePathColor = useColorModeValue("#55c5f1", "#0DD4CA");
   const modulePathBgColor = useColorModeValue("#DDF1F9", "#2f2f30");
-  const moduleTextColor = useColorModeValue("white" , "black");
+  const moduleTextColor = useColorModeValue("white", "black");
 
   //component
   const componentBorderColor = useColorModeValue("#050149", "#0cf0e4");
@@ -42,6 +42,9 @@ const useColorModeColors = () => {
   //function
   const functionBorderColor = useColorModeValue("#362ddf", "#046964");
 
+  //copy icon color
+
+  const copyIconColor = useColorModeValue("black", "white");
   return {
     addButtonTextColor,
     addButtonBgColor,
@@ -63,7 +66,8 @@ const useColorModeColors = () => {
     functionBorderColor,
     modulePathColor,
     modulePathBgColor,
-    moduleTextColor
+    moduleTextColor,
+    copyIconColor,
   };
 };
 

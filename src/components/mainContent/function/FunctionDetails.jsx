@@ -2,10 +2,12 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "./Header";
+import FunctionsLog from "./FunctionsLog";
 const FunctionDetails = () => {
   return (
     <Box>
       <Header />
+      <FunctionsLog />
     </Box>
   );
 };
