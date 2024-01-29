@@ -28,24 +28,31 @@ const Header = () => {
     setIsModalOpen(false);
   };
   return (
-    <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px" marginX="40px">
+    <Box
+      borderBottom="1px solid rgb(197, 184, 184)"
+      paddingBottom="30px"
+      marginX="40px"
+    >
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
             <Text as="h2">{selectedModule.name}</Text>
-            <HStack marginTop="26px">
-              <Text>Added By:</Text>
-              <Text color={modulePathColor}> {selectedModule.addedBy}</Text>
-            </HStack>
+            <Flex flexDir={{ lg: "row", md: "column" }} marginTop="26px">
+              <Text h="10px">Added By:</Text>
+              <Text h="10px" color={modulePathColor}>
+                {" "}
+                {selectedModule.addedBy}
+              </Text>
+            </Flex>
           </Flex>
 
           <Flex
+            flexDir={{ lg: "row", md: "column" }}
             alignItems="center"
             gap="5px"
             backgroundColor={modulePathBgColor}
             paddingX="20px"
             paddingTop="10px"
-            height="40px"
             rounded="50px"
           >
             <Text fontWeight="bold">Module Directory Path:</Text>{" "}
@@ -56,16 +63,16 @@ const Header = () => {
           </Flex>
         </VStack>
 
-        <Flex flexDir="column">
-          <Flex h="25px">
+        <Flex flexDir="column" textAlign="center">
+          <Flex h={{ lg: "25px" }}>
             <Text>Created At:</Text>
             <Text>{selectedModule.createdAt}</Text>
           </Flex>
-          <Flex h="25px">
+          <Flex h={{ lg: "25px" }}>
             <Text>Last Updated At:</Text>
             <Text>{selectedModule.lastUpdateAt}</Text>
           </Flex>
-          <Flex h="30px">
+          <Flex h={{ lg: "30px" }}>
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>{selectedModule.lastUpdateBy}</Text>
           </Flex>

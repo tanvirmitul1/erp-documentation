@@ -10,30 +10,29 @@ import theme from "./themeForCode";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 useColorModeColors;
 const CodeBlock = ({ code, language }) => {
-  const { copyIconColor } = useColorModeColors();
-  const [copyColor, setCopyColor] = React.useState(copyIconColor); // Set initial color
+  const { copyIconColor, moduleTextColor } = useColorModeColors();
 
   const handleCopy = () => {
     copy(code);
 
-    setCopyColor("blue");
     alert("Copied to clipboard!");
   };
 
   return (
     <Box
-      margin="0 auto"
+      marginLeft="30px"
       position="relative"
       maxW="90%"
       maxH="300px"
       overflow="scroll"
     >
       <Button
+        bgColor={moduleTextColor}
         size="sm"
         onClick={handleCopy}
         style={{ position: "absolute", right: "5px", top: "5px" }}
       >
-        <FaCopy color={copyColor} />
+        <FaCopy color={copyIconColor} />
       </Button>
 
       <Highlight theme={theme} code={code.trim()} language={language}>

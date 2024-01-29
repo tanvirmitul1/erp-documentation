@@ -46,7 +46,6 @@ const ComponentCard = ({ component }) => {
             backgroundColor={modulePathBgColor}
             paddingX="20px"
             paddingTop="10px"
-            height="40px"
             rounded="50px"
           >
             <Text fontWeight="bold">Component Directory Path:</Text>{" "}
@@ -55,11 +54,11 @@ const ComponentCard = ({ component }) => {
         </VStack>
 
         <Flex flexDir="column">
-          <Flex h="25px">
+          <Flex h={{ lg: "25px" }}>
             <Text>Created At:</Text>
             <Text>{component.createdAt}</Text>
           </Flex>
-          <Flex h="30px">
+          <Flex h={{ lg: "25px" }}>
             <Text>Last Updated At:</Text>
             <Text>{component.lastUpdateAt}</Text>
           </Flex>

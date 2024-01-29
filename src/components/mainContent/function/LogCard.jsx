@@ -23,30 +23,32 @@ const LogCard = ({ fnLog }) => {
   const language = identifyLanguage(fnLog.functionCode);
   const formattedCode = formatCodeString(fnLog.functionCode, language);
   return (
-    <Box maxW="90%" padding="30px">
-      <Flex flexDirection="row" justifyContent="space-between">
-        <VStack align="left" marginTop="auto">
+    <Box
+      maxW="90%"
+      padding="30px"
+      borderBottom="2px solid rgba(25, 39, 59, 0.42)"
+    >
+      <Flex flexDir="column" gap="10px">
+        <Flex align="left" marginTop="auto">
           <Flex
             alignItems="center"
             gap="5px"
             backgroundColor={modulePathBgColor}
             paddingX="20px"
             paddingTop="10px"
-            height="40px"
             rounded="50px"
           >
             <Text fontWeight="bold">Function Directory Path:</Text>{" "}
             <Text color={modulePathColor}> {fnLog.functionDirectoryPath}</Text>
           </Flex>
-        </VStack>
-
-        <Flex flexDir="column">
-          <Flex h="25px">
-            <Text>Updated At:</Text>
+        </Flex>
+        <Flex gap="10px" marginLeft="10px">
+          <Flex h="25px" gap="5px">
+            <Text>Updated At: </Text>
             <Text>{fnLog.updatedAt}</Text>
           </Flex>
-          <Flex h="30px">
-            <Text>Updated By:</Text>
+          <Flex h="30px" gap="5px">
+            <Text>Updated By: </Text>
             <Text color={modulePathColor}>{fnLog.updateBy}</Text>
           </Flex>
         </Flex>

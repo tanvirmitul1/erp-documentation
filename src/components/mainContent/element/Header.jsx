@@ -53,7 +53,6 @@ const Header = () => {
             backgroundColor={modulePathBgColor}
             paddingX="20px"
             paddingTop="10px"
-            height="40px"
             rounded="50px"
           >
             <Text fontWeight="bold">Element Directory Path:</Text>{" "}
