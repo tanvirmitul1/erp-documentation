@@ -20,8 +20,7 @@ const NavBar = () => {
   const { colorMode } = useColorMode();
   const boxShadowColor =
     colorMode === "light" ? "rgba(0, 0, 0, 0.2)" : "rgba(256, 256, 256, 0.2)";
-  // const textColor = useColorModeValue("white");
-  // const changeColor = useColorModeValue("black", "white");
+
   return (
     <Box
       w="100vw"
@@ -29,14 +28,16 @@ const NavBar = () => {
       paddingY={1}
       boxShadow={`0 2px 4px ${boxShadowColor} `}
     >
-      <HStack justifyContent="space-between">
-        <Link to="/module/1">
-          {colorMode === "light" ? (
-            <Image src={Logo} width={20} />
-          ) : (
-            <Image src={LogoWhite} width={20} />
-          )}
-        </Link>
+      <HStack justifyContent={{ base: "right", lg: "space-between" }}>
+        <Box display={{ base: "none", lg: "block" }}>
+          <Link to="/module/1">
+            {colorMode === "light" ? (
+              <Image src={Logo} width={20} />
+            ) : (
+              <Image src={LogoWhite} width={20} />
+            )}
+          </Link>
+        </Box>
         <HStack gap={10}>
           <ColorMOdeSwitch />
           <Image src={Avatar} width={8} />
