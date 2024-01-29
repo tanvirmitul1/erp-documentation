@@ -34,10 +34,11 @@ function Sidebar() {
 
   return (
     <Stack
+      w="100%"
       h="100vh"
       overflow="scroll"
+      p="10px"
       boxShadow={`5px 0 5px -5px ${boxShadowColor}, -5px 0 5px -5px ${boxShadowColor}`}
-      p="6"
     >
       <SearchBar
         value={moduleName}

@@ -8,6 +8,7 @@ import {
   Text,
   useColorModeValue,
   useColorMode,
+  Button,
 } from "@chakra-ui/react";
 import Logo from "../../assets/logo.jpg";
 import LogoWhite from "../../assets/logoWhite.png";

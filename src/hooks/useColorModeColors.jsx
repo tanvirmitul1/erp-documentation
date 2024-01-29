@@ -45,6 +45,10 @@ const useColorModeColors = () => {
   //copy icon color
 
   const copyIconColor = useColorModeValue("black", "white");
+
+  //sidebar
+
+  const sidebarBgColor = useColorModeValue("white", "#1A202C");
   return {
     addButtonTextColor,
     addButtonBgColor,
@@ -68,6 +72,7 @@ const useColorModeColors = () => {
     modulePathBgColor,
     moduleTextColor,
     copyIconColor,
+    sidebarBgColor,
   };
 };
 

@@ -516,6 +516,8 @@ const useModuleStore = create((set) => ({
   },
 
   setSelectedFunction: (fn) => set({ selectedFunction: fn }),
+  showLeftBar: false,
+  toggleLeftBar: () => set((state) => ({ showLeftBar: !state.showLeftBar })),
 }));
 
 export default useModuleStore;
