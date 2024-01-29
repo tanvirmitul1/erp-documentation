@@ -14,6 +14,7 @@ const Element = ({ module, component, element }) => {
     selectedElement,
     setSelectedElement,
     setSelectedFunction,
+    toggleLeftBar,
   } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +25,7 @@ const Element = ({ module, component, element }) => {
   };
   const handleFunctionClick = (fn) => () => {
     setSelectedFunction(fn);
-    console.log("click fn", fn);
+    toggleLeftBar();
   };
 
   console.log(

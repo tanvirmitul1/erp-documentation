@@ -49,7 +49,7 @@ const MainComponent = () => {
       {showLeftBar && (
         <Box
           color={addButtonBgColor}
-          left="210px"
+          left="230px"
           top="30px"
           zIndex={200}
           cursor="pointer"

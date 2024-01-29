@@ -35,7 +35,7 @@ const Header = () => {
     language
   );
   return (
-    <Box paddingBottom="30px" marginX="20px">
+    <Box paddingBottom="30px" marginX="20px" maxW="100vw">
       <Flex flexDirection="row" justifyContent="space-between">
         <VStack align="left" marginTop="auto">
           <Flex alignItems="center" gap="4px">
