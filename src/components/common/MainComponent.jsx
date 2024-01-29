@@ -64,7 +64,7 @@ const MainComponent = () => {
         position="absolute"
         zIndex={100}
         display={{ base: "block", lg: "none" }}
-        left={{ base: showLeftBar ? "0" : "-250px", lg: 0 }}
+        left={{ base: showLeftBar ? "0" : "-260px", lg: 0 }}
         backgroundColor={sidebarBgColor}
         transition="left 0.3s ease-out"
       >
@@ -74,7 +74,7 @@ const MainComponent = () => {
       {/* end absolute view of sidebar */}
       <GridItem area="home">
         <Box
-          marginLeft={{ base: showLeftBar ? "250px" : "0", lg: "0" }}
+          marginLeft={{ base: showLeftBar ? "260px" : "0", lg: "0" }}
           maxHeight="92vh"
           overflow="auto"
           paddingX="12px"
