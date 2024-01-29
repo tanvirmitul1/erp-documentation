@@ -22,6 +22,7 @@ const LogCard = ({ fnLog }) => {
   const { modulePathColor, modulePathBgColor } = useColorModeColors();
   const language = identifyLanguage(fnLog.functionCode);
   const formattedCode = formatCodeString(fnLog.functionCode, language);
+
   return (
     <Box
       maxW="90%"
