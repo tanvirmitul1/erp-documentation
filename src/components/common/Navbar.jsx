@@ -30,7 +30,7 @@ const NavBar = () => {
     >
       <HStack justifyContent={{ base: "right", lg: "space-between" }}>
         <Box display={{ base: "none", lg: "block" }}>
-          <Link to="/module/1">
+          <Link to="/">
             {colorMode === "light" ? (
               <Image src={Logo} width={20} />
             ) : (
