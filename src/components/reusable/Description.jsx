@@ -7,9 +7,14 @@ function CustomDescription({ description, word, seeMoreButton }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const useSeeMoreButton = seeMoreButton !== undefined ? seeMoreButton : true;
   const displayThreshold = word !== undefined ? word : 500;
-  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } = useColorModeColors();
+  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
+    useColorModeColors();
 
-  const truncatedDescription = showFullDescription ? description : `${description?.slice(0, displayThreshold)}...`;
+  const truncatedDescription = showFullDescription
+    ? description || "No description available"
+    : description
+      ? `${description.slice(0, displayThreshold)}...`
+      : "No description available";
 
   const handleSeeMoreClick = () => {
     setShowFullDescription(!showFullDescription);

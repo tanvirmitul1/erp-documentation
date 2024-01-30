@@ -20,7 +20,7 @@ const BreadCrumb = () => {
     <Breadcrumb
       h="20px"
       separator={<MdOutlineChevronRight />}
-      fontSize={{ base: "10px", lg: "16px" }}
+      fontSize={{ base: "14px", lg: "16px" }}
     >
       <BreadcrumbItem>
         <BreadcrumbLink as={Link} to={`/module/${moduleId}`}>

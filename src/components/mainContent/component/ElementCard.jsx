@@ -23,37 +23,46 @@ const ElementCard = ({ element }) => {
     useColorModeColors();
   return (
     <Box
-      key={element.id}
-      marginTop="10px"
-      marginBottom="10px"
-      borderBottom="2px solid rgba(105, 105, 105, 0.2)"
-      paddingBottom="20px"
-      paddingX="40px"
+      borderBottom="1px solid rgb(197, 184, 184)"
+      paddingBottom="30px"
+      marginX="20px"
     >
-      <Flex flexDirection="row" justifyContent="space-between">
+      <Flex
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="space-between"
+      >
         <VStack align="left" marginTop="auto">
-          <Flex alignItems="center" gap="4px">
-            <Text as="h2">{element.name}</Text>
-            <HStack marginTop="26px">
-              <Text>Added By:</Text>
-              <Text color={modulePathColor}>{element.addedBy}</Text>
-            </HStack>
+          <Flex gap="4px" marginTop={4}>
+            <Text h="20px" as="h5">
+              {element.name}
+            </Text>
+            <Flex marginTop="10px">
+              <Text h="20px">Added By:</Text>
+              <Text h="20px" color={modulePathColor}>
+                {element.addedBy}
+              </Text>
+            </Flex>
           </Flex>
 
           <Flex
-            alignItems="center"
+            flexDirection={{ base: "column", md: "row" }}
             gap="5px"
             backgroundColor={modulePathBgColor}
-            paddingX="20px"
+            paddingX="40px"
             paddingTop="10px"
+            paddingBottom={2}
             rounded="50px"
           >
-            <Text fontWeight="bold">Element Directory Path:</Text>{" "}
-            <Text color={modulePathColor}>{element.moduleDirectoryPath}</Text>
+            <Text h="10px" fontWeight="bold">
+              Element Directory Path:
+            </Text>{" "}
+            <Text h="10px" color={modulePathColor}>
+              {element.moduleDirectoryPath}
+            </Text>
           </Flex>
         </VStack>
 
-        <Flex flexDir="column">
+        <Flex flexDir="column" textAlign="center">
           <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{element.createdAt}</Text>

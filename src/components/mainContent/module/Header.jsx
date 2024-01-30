@@ -33,11 +33,16 @@ const Header = () => {
       paddingBottom="30px"
       marginX="20px"
     >
-      <Flex flexDirection="row" justifyContent="space-between">
+      <Flex
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="space-between"
+      >
         <VStack align="left" marginTop="auto">
-          <Flex alignItems="center" gap="4px">
-            <Text as="h2">{selectedModule.name}</Text>
-            <Flex flexDir={{ lg: "row", md: "column" }} marginTop="26px">
+          <Flex gap="4px">
+            <Text h="10px" as="h3">
+              {selectedModule.name}
+            </Text>
+            <Flex marginTop="10px">
               <Text h="10px">Added By:</Text>
               <Text h="10px" color={modulePathColor}>
                 {" "}
@@ -47,16 +52,18 @@ const Header = () => {
           </Flex>
 
           <Flex
-            flexDir={{ lg: "row", md: "column" }}
-            alignItems="center"
+            flexDirection={{ base: "column", md: "row" }}
             gap="5px"
             backgroundColor={modulePathBgColor}
-            paddingX="20px"
+            paddingX="40px"
             paddingTop="10px"
+            paddingBottom={2}
             rounded="50px"
           >
-            <Text fontWeight="bold">Module Directory Path:</Text>{" "}
-            <Text color={modulePathColor}>
+            <Text h="10px" fontWeight="bold">
+              Module Directory Path:
+            </Text>{" "}
+            <Text h="10px" color={modulePathColor}>
               {" "}
               {selectedModule.moduleDirectoryPath}
             </Text>
@@ -64,15 +71,15 @@ const Header = () => {
         </VStack>
 
         <Flex flexDir="column" textAlign="center">
-          <Flex h={{ lg: "25px" }}>
+          <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{selectedModule.createdAt}</Text>
           </Flex>
-          <Flex h={{ lg: "25px" }}>
+          <Flex h="25px">
             <Text>Last Updated At:</Text>
             <Text>{selectedModule.lastUpdateAt}</Text>
           </Flex>
-          <Flex h={{ lg: "30px" }}>
+          <Flex h="30px">
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>{selectedModule.lastUpdateBy}</Text>
           </Flex>

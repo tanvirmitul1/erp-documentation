@@ -3,13 +3,13 @@ import { useColorModeValue } from "@chakra-ui/react";
 const useColorModeColors = () => {
   //add  and update button
   const addButtonTextColor = useColorModeValue("white", "black");
-  const addButtonBgColor = useColorModeValue("#199FD6", "#0cf0e4");
-  const addButtonHoverColor = useColorModeValue("#090e11", "#0dd4ca");
+  const addButtonBgColor = useColorModeValue("#199FD6", "#33bb73");
+  const addButtonHoverColor = useColorModeValue("#090e11", "#33bb73");
 
   //cancel button
   const cancelButtonHoverColor = useColorModeValue("#ddecf0", "#251f1f");
   const cancelButtonBgColor = useColorModeValue("#ffffff", "#0b0c0c");
-  const cancelButtonBorderColor = useColorModeValue("#199FD6", "#0dd4ca");
+  const cancelButtonBorderColor = useColorModeValue("#199FD6", "#33bb73");
 
   //searchbar
   const searchBgColor = useColorModeValue("#DDF1F9", "#2f2f30");
@@ -29,16 +29,16 @@ const useColorModeColors = () => {
   const modalPlaceholderColor = useColorModeValue("#73caf0", "gray.600");
 
   //module
-  const moduleIconColor = useColorModeValue("#199FD6", "#0cf0e4");
-  const modulePathColor = useColorModeValue("#55c5f1", "#0DD4CA");
+  const moduleIconColor = useColorModeValue("#199FD6", "#33bb73");
+  const modulePathColor = useColorModeValue("#55c5f1", "#33bb73");
   const modulePathBgColor = useColorModeValue("#DDF1F9", "#2f2f30");
   const moduleTextColor = useColorModeValue("white", "black");
 
   //component
-  const componentBorderColor = useColorModeValue("#050149", "#0cf0e4");
+  const componentBorderColor = useColorModeValue("#050149", "#33bb73");
 
   //element
-  const elementBorderColor = useColorModeValue("#1911b8", "#04a19a");
+  const elementBorderColor = useColorModeValue("#1911b8", "#33bb73");
   //function
   const functionBorderColor = useColorModeValue("#362ddf", "#046964");
 
@@ -49,6 +49,15 @@ const useColorModeColors = () => {
   //sidebar
 
   const sidebarBgColor = useColorModeValue("white", "#1A202C");
+
+  //home header
+  const homeHeaderBgColor = useColorModeValue("#1f7ca1", "#33bb73");
+  const homeHeaderTextColor = useColorModeValue("#ffffff", "#ffffff");
+
+  //module card
+  const cardHoverBgColor = useColorModeValue("#d8f2fc", "#242b2a");
+  const cardIconColor = useColorModeValue("#1f7ca1", "#33bb73");
+
   return {
     addButtonTextColor,
     addButtonBgColor,
@@ -73,6 +82,10 @@ const useColorModeColors = () => {
     moduleTextColor,
     copyIconColor,
     sidebarBgColor,
+    cardHoverBgColor,
+    homeHeaderBgColor,
+    homeHeaderTextColor,
+    cardIconColor
   };
 };
 

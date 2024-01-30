@@ -15,6 +15,7 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import useModuleStore from "../../zustand/store";
 
 import FrontPage from "./Home";
+import Home from "./Home";
 const MainComponent = () => {
   const { showLeftBar, toggleLeftBar } = useModuleStore();
 
@@ -51,7 +52,7 @@ const MainComponent = () => {
       {showLeftBar && (
         <Box
           color={addButtonBgColor}
-          left="230px"
+          left="260px"
           top="30px"
           zIndex={200}
           cursor="pointer"
@@ -66,7 +67,7 @@ const MainComponent = () => {
         position="absolute"
         zIndex={100}
         display={{ base: "block", lg: "none" }}
-        left={{ base: showLeftBar ? "0" : "-260px", lg: 0 }}
+        left={{ base: showLeftBar ? "0" : "-267px", lg: 0 }}
         backgroundColor={sidebarBgColor}
         transition="left 0.3s ease-out"
       >
@@ -85,7 +86,7 @@ const MainComponent = () => {
           transition="margin-left 0.3s ease-in"
         >
           <Routes>
-            <Route path="/" element={<FrontPage />} />
+            <Route path="/" element={<Home />} />
             <Route path="/module/:moduleId" element={<ModuleDetails />} />
             <Route
               path="/module/:moduleId/component/:componentId"

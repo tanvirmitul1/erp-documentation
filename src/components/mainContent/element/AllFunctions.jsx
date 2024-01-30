@@ -46,13 +46,14 @@ const AllFunctions = () => {
 
   return (
     <Flex
+      flexWrap="wrap"
       flexDir="column"
       alignItems="center"
-      justifyContent="center"
+      justifyContent={{ base: "left", md: "center" }}
       marginTop="20px"
     >
-      <Box>
-        <Searchbar width="350px" placeholder="Search Function" />
+      <Box marginRight={{ base: "150px", md: "0" }}>
+        <Searchbar placeholder="Search Function" />
       </Box>
       <Box>
         {currentFunctions.map((fn) => (

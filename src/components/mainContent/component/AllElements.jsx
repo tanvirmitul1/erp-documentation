@@ -31,13 +31,14 @@ const AllElements = () => {
 
   return (
     <Flex
+      flexWrap="wrap"
       flexDir="column"
       alignItems="center"
-      justifyContent="center"
+      justifyContent={{ base: "left", md: "center" }}
       marginTop="20px"
     >
-      <Box>
-        <Searchbar width="350px" placeholder="Search Element" />
+      <Box marginRight={{ base: "150px", md: "0" }}>
+        <Searchbar width="250px" placeholder="Search Element" />
       </Box>
       <Box>
         {currentElements.map((element) => (

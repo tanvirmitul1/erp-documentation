@@ -46,13 +46,14 @@ const AllComponents = () => {
 
   return (
     <Flex
+      flexWrap="wrap"
       flexDir="column"
       alignItems="center"
-      justifyContent="center"
+      justifyContent={{ base: "left", md: "center" }}
       marginTop="20px"
     >
-      <Box>
-        <Searchbar width="350px" placeholder="Search Component" />
+      <Box marginRight={{ base: "150px", md: "0" }}>
+        <Searchbar placeholder="Search Component" />
       </Box>
       <Box>
         {currentComponents.map((component) => (

@@ -37,34 +37,49 @@ const Header = () => {
     console.log("button clicked");
   };
   return (
-    <Box borderBottom="1px solid rgb(197, 184, 184)" paddingBottom="30px"marginX="20px" >
-      <Flex flexDirection="row" justifyContent="space-between">
+    <Box
+      borderBottom="1px solid rgb(197, 184, 184)"
+      paddingBottom="30px"
+      marginX="20px"
+    >
+      <Flex
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="space-between"
+      >
         <VStack align="left" marginTop="auto">
-          <Flex alignItems="center" gap="4px">
-            <Text as="h2">{selectedComponent.name}</Text>
-            <HStack marginTop="26px">
-              <Text>Added By:</Text>
-              <Text color={modulePathColor}> {selectedComponent.addedBy}</Text>
-            </HStack>
+          <Flex gap="4px">
+            <Text h="20px" as="h3">
+              {selectedComponent.name}
+            </Text>
+            <Flex marginTop="10px">
+              <Text h="20px">Added By:</Text>
+              <Text h="20px" color={modulePathColor}>
+                {" "}
+                {selectedComponent.addedBy}
+              </Text>
+            </Flex>
           </Flex>
 
           <Flex
-            alignItems="center"
+            flexDirection={{ base: "column", md: "row" }}
             gap="5px"
             backgroundColor={modulePathBgColor}
-            paddingX="20px"
+            paddingX="40px"
             paddingTop="10px"
+            paddingBottom={2}
             rounded="50px"
           >
-            <Text fontWeight="bold">Component Directory Path:</Text>{" "}
-            <Text color={modulePathColor}>
+            <Text h="10px" fontWeight="bold">
+              Component Directory Path:
+            </Text>{" "}
+            <Text h="10px" color={modulePathColor}>
               {" "}
               {selectedComponent.moduleDirectoryPath}
             </Text>
           </Flex>
         </VStack>
 
-        <Flex flexDir="column">
+        <Flex flexDir="column" textAlign="center">
           <Flex h="25px">
             <Text>Created At:</Text>
             <Text>{selectedComponent.createdAt}</Text>

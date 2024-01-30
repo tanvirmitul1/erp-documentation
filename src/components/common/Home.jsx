@@ -2,8 +2,10 @@
 /* eslint-disable no-unused-vars */
 
 import Searchbar from "../reusable/SearchBar";
-import React from "react";
-
+import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import { IconContext } from "react-icons";
 import {
   Box,
   Container,
@@ -17,26 +19,53 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import useModuleStore from "../../zustand/store";
 import { useGetModuleQuery } from "../../redux/api/docApiSlice";
 import CustomDescription from "../reusable/Description";
-
-const FrontPage = () => {
+import { RiSoundModuleFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
+const Home = () => {
+  const ITEMS_PER_PAGE = 6;
   const { data: modules, error, isLoading } = useGetModuleQuery();
   const { selectedModules } = useModuleStore();
-  const { addButtonBgColor, addButtonTextColor } = useColorModeColors();
+  const {
+    addButtonBgColor,
+    addButtonTextColor,
+    cardHoverBgColor,
+    homeHeaderBgColor,
+    homeHeaderTextColor,
+    cardIconColor,
+  } = useColorModeColors();
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected);
+  };
+
+  const pageCount = Math.ceil(modules?.length / ITEMS_PER_PAGE);
+
+  const offset = currentPage * ITEMS_PER_PAGE;
+  const currentModules = modules?.slice(offset, offset + ITEMS_PER_PAGE);
+
   return (
     <Box>
       <Container
+        rounded="10px"
         textAlign="center"
         paddingY="20px"
         display="flex"
         flexDir="column"
         alignItems="center"
         maxW="100%"
-        backgroundColor={addButtonBgColor}
+        backgroundColor={homeHeaderBgColor}
       >
-        <Heading as="h1" fontSize="3xl" color={addButtonTextColor}>
+        <Heading
+          as="h1"
+          fontSize="3xl"
+          color={homeHeaderTextColor}
+          opacity=".9"
+        >
           Documentation
         </Heading>
-        <Text fontSize="xl" color={addButtonTextColor}>
+        <Text fontSize="xl" color={homeHeaderTextColor} opacity=".6">
           Welcome to the official documentation for SeoPage1!
         </Text>
         <Box>
@@ -63,7 +92,7 @@ const FrontPage = () => {
           gap: 1,
         }}
       >
-        {modules?.map((module, index) => (
+        {currentModules?.map((module, index) => (
           <Card
             cursor="pointer"
             key={index}
@@ -71,23 +100,56 @@ const FrontPage = () => {
             m={{ base: 2, lg: 4 }}
             _hover={{
               boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
-              transition: "box-shadow 0.3s ease-in-out",
+              backgroundColor: cardHoverBgColor,
+              transition: "all 0.3s ease-in-out",
             }}
           >
-            <CardBody>
-              <Text>{module.name}</Text>
-              <CustomDescription
-                description={module.description}
-                word="50"
-                seeMoreButton={false}
-              />
-              
+            <CardBody textAlign="center" marginX="auto">
+              <Link
+                to={`/module/${module.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Flex gap={5}>
+                  <Box>
+                    <RiSoundModuleFill size={25} color={cardIconColor} />
+                  </Box>
+                  <Text fontWeight="bold">{module.name}</Text>
+                </Flex>
+                <CustomDescription
+                  description={module.description}
+                  word="20"
+                  seeMoreButton={false}
+                />
+              </Link>
             </CardBody>
           </Card>
         ))}
+      </Flex>
+
+      <Flex justifyContent="center" mt={10}>
+        <ReactPaginate
+          previousLabel={
+            <IconContext.Provider value={{ size: "36px" }}>
+              <AiFillLeftCircle />
+            </IconContext.Provider>
+          }
+          nextLabel={
+            <IconContext.Provider value={{ size: "36px" }}>
+              <AiFillRightCircle />
+            </IconContext.Provider>
+          }
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+          pageClassName={"page-item"}
+        />
       </Flex>
     </Box>
   );
 };
 
-export default FrontPage;
+export default Home;
