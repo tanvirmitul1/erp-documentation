@@ -17,6 +17,7 @@ import ColorMOdeSwitch from "../navigation/ColorModeSwitch";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  
   const { colorMode } = useColorMode();
   const boxShadowColor =
     colorMode === "light" ? "rgba(0, 0, 0, 0.2)" : "rgba(256, 256, 256, 0.2)";
@@ -24,12 +25,14 @@ const NavBar = () => {
   return (
     <Box
       w="100vw"
-      paddingX={12}
+      paddingRight={5}
+      paddingLeft="50px"
+
       paddingY={1}
       boxShadow={`0 2px 4px ${boxShadowColor} `}
     >
-      <HStack justifyContent={{ base: "right", lg: "space-between" }}>
-        <Box display={{ base: "none", lg: "block" }}>
+      <HStack justifyContent="space-between">
+        <Box>
           <Link to="/">
             {colorMode === "light" ? (
               <Image src={Logo} width={20} />
@@ -38,7 +41,7 @@ const NavBar = () => {
             )}
           </Link>
         </Box>
-        <HStack gap={10}>
+        <HStack gap={5}>
           <ColorMOdeSwitch />
           <Image src={Avatar} width={8} />
         </HStack>

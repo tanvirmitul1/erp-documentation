@@ -1,19 +1,15 @@
 /* eslint-disable react/prop-types */
-import { Text } from "@chakra-ui/react";
-
+import { Text, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { Button } from "@chakra-ui/react";
 import useColorModeColors from "../../hooks/useColorModeColors";
-function CustomDescription({ description, word }) {
+
+function CustomDescription({ description, word, seeMoreButton }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const useSeeMoreButton = seeMoreButton !== undefined ? seeMoreButton : true;
+  const displayThreshold = word !== undefined ? word : 500;
+  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } = useColorModeColors();
 
-  const displayThreshold = `${word ? word : 500}`;
-  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
-    useColorModeColors();
-
-  const truncatedDescription = showFullDescription
-    ? description
-    : `${description?.slice(0, displayThreshold)}...`;
+  const truncatedDescription = showFullDescription ? description : `${description?.slice(0, displayThreshold)}...`;
 
   const handleSeeMoreClick = () => {
     setShowFullDescription(!showFullDescription);
@@ -23,7 +19,7 @@ function CustomDescription({ description, word }) {
     <>
       <Text marginTop="12px">
         {truncatedDescription}{" "}
-        {description?.length > displayThreshold && (
+        {description?.length > displayThreshold && useSeeMoreButton && (
           <Button
             size=""
             fontSize="10px"
@@ -31,7 +27,7 @@ function CustomDescription({ description, word }) {
             paddingX="4px"
             color={addButtonTextColor}
             backgroundColor={addButtonBgColor}
-            _hover={{ backgroundColor: `${addButtonHoverColor}` }}
+            _hover={{ backgroundColor: addButtonHoverColor }}
             onClick={handleSeeMoreClick}
           >
             {showFullDescription ? "See Less" : "See More"}

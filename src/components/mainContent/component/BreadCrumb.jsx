@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-
+import { MdOutlineChevronRight } from "react-icons/md";
 import {
   Box,
   Breadcrumb,
@@ -17,7 +17,11 @@ const BreadCrumb = () => {
   const { selectedComponent, selectedModule } = useModuleStore();
 
   return (
-    <Breadcrumb h="20px">
+    <Breadcrumb
+      h="20px"
+      separator={<MdOutlineChevronRight />}
+      fontSize={{ base: "10px", lg: "16px" }}
+    >
       <BreadcrumbItem>
         <BreadcrumbLink as={Link} to={`/module/${moduleId}`}>
           {selectedModule.name}

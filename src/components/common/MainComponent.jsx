@@ -40,12 +40,12 @@ const MainComponent = () => {
         color={addButtonBgColor}
         cursor="pointer"
         position="absolute"
-        left="10px"
-        top="5px"
+        left="4px"
+        top="1px"
         display={{ base: "block", lg: "none" }}
         onClick={toggleLeftBar}
       >
-        <GiHamburgerMenu size={30} />
+        <GiHamburgerMenu size={38} />
       </Box>
 
       {showLeftBar && (
