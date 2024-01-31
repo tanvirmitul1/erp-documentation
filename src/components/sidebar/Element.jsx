@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
-import { Text, Stack, Flex, Box } from "@chakra-ui/react";
+import { Text, Stack, Flex, Box, HStack } from "@chakra-ui/react";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import useModuleStore from "../../zustand/store"; // Corrected import
 import { Link } from "react-router-dom";
@@ -22,6 +22,7 @@ const Element = ({ module, component, element }) => {
   const handleClick = () => {
     setSelectedElement(element);
     setIsOpen(!isOpen);
+    toggleLeftBar();
   };
   const handleFunctionClick = (fn) => () => {
     setSelectedFunction(fn);
@@ -41,24 +42,33 @@ const Element = ({ module, component, element }) => {
       paddingX={2}
       borderLeft={`2px solid ${elementBorderColor}`}
     >
-      <Link
-        to={`/module/${module.id}/component/${component.id}/element/${element.id}`}
-      >
-        <Flex
-          height="auto"
-          onClick={handleClick}
-          justifyContent="left"
-          gap="3px"
-          cursor="pointer"
+      <HStack>
+        <Link
+          to={`/module/${module.id}/component/${component.id}/element/${element.id}`}
         >
-          <Text paddingTop="4px" fontSize={12} cursor="pointer">
-            {element.name}
-          </Text>
-          <Box paddingTop="6px">
-            {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
-          </Box>
-        </Flex>
-      </Link>
+          <Flex
+            height="auto"
+            onClick={handleClick}
+            justifyContent="left"
+            gap="3px"
+            cursor="pointer"
+          >
+            <Text paddingTop="4px" fontSize={12} cursor="pointer">
+              {element.name}
+            </Text>
+          </Flex>
+        </Link>
+        <Box
+          marginBottom={2}
+          cursor="pointer"
+          onClick={() => {
+            setSelectedElement(element);
+            setIsOpen(!isOpen);
+          }}
+        >
+          {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
+        </Box>
+      </HStack>
       {isOpen &&
         element.functions.map((fn) => (
           <Link

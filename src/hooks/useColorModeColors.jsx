@@ -4,7 +4,7 @@ const useColorModeColors = () => {
   //add  and update button
   const addButtonTextColor = useColorModeValue("white", "black");
   const addButtonBgColor = useColorModeValue("#199FD6", "#33bb73");
-  const addButtonHoverColor = useColorModeValue("#090e11", "#33bb73");
+  const addButtonHoverColor = useColorModeValue("#090e11", "#51dd93");
 
   //cancel button
   const cancelButtonHoverColor = useColorModeValue("#ddecf0", "#251f1f");

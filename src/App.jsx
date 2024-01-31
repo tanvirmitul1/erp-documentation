@@ -9,7 +9,7 @@ import { Box } from "@chakra-ui/react";
 import MainComponent from "./components/common/MainComponent";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Home from "./components/common/Home";
+
 
 function App() {
   return (
