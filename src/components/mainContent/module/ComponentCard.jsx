@@ -32,11 +32,11 @@ const ComponentCard = ({ component }) => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px" marginTop={4}>
-            <Text h="20px" as="h5">
+          <Flex gap="6px" marginTop={4}>
+            <Text h="20px" as="h4">
               {component.name}
             </Text>
-            <Flex marginTop="10px">
+            <Flex marginTop="6px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {component.addedBy}
@@ -63,11 +63,11 @@ const ComponentCard = ({ component }) => {
         </VStack>
 
         <Flex flexDir="column" textAlign="center">
-          <Flex h="25px">
+          <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
             <Text>{component.createdAt}</Text>
           </Flex>
-          <Flex h="30px">
+          <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
             <Text>{component.lastUpdateAt}</Text>
           </Flex>

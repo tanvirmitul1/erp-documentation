@@ -67,7 +67,7 @@ const MainComponent = () => {
         position="absolute"
         zIndex={100}
         display={{ base: "block", lg: "none" }}
-        left={{ base: showLeftBar ? "0" : "-267px", lg: 0 }}
+        left={{ base: showLeftBar ? "0" : "-275px", lg: 0 }}
         backgroundColor={sidebarBgColor}
         transition="left 0.3s ease-out"
       >

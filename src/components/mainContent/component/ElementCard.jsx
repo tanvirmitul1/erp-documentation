@@ -36,7 +36,7 @@ const ElementCard = ({ element }) => {
             <Text h="20px" as="h5">
               {element.name}
             </Text>
-            <Flex marginTop="10px">
+            <Flex marginTop="2px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {element.addedBy}
@@ -63,11 +63,11 @@ const ElementCard = ({ element }) => {
         </VStack>
 
         <Flex flexDir="column" textAlign="center">
-          <Flex h="25px">
+          <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
             <Text>{element.createdAt}</Text>
           </Flex>
-          <Flex h="30px">
+          <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
             <Text>{element.lastUpdateAt}</Text>
           </Flex>

@@ -47,11 +47,11 @@ const Header = () => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px">
+          <Flex gap={2}>
             <Text h="20px" as="h3">
               {selectedComponent.name}
             </Text>
-            <Flex marginTop="10px">
+            <Flex marginTop="6px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {" "}
@@ -80,15 +80,15 @@ const Header = () => {
         </VStack>
 
         <Flex flexDir="column" textAlign="center">
-          <Flex h="25px">
+          <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
             <Text>{selectedComponent.createdAt}</Text>
           </Flex>
-          <Flex h="25px">
+          <Flex h="25px" gap={2}>
             <Text>Last Updated At:</Text>
             <Text>{selectedComponent.lastUpdateAt}</Text>
           </Flex>
-          <Flex h="30px">
+          <Flex h="30px" gap={2}>
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>
               {selectedComponent.lastUpdateBy}

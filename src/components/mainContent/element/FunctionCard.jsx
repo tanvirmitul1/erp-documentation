@@ -32,11 +32,11 @@ const FunctionCard = ({ fn }) => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px" marginTop={4}>
+          <Flex gap="4px" marginTop={4}flexDir="column" >
             <Text h="10px" as="h5">
               {fn.name}
             </Text>
-            <Flex marginTop="10px">
+            <Flex marginTop="10px" gap={2}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {fn.addedBy}
@@ -63,11 +63,11 @@ const FunctionCard = ({ fn }) => {
         </VStack>
 
         <Flex flexDir="column" textAlign="center">
-          <Flex h="25px">
+          <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
             <Text>{fn.createdAt}</Text>
           </Flex>
-          <Flex h="30px">
+          <Flex h="30px"gap={2}>
             <Text>Last Updated At:</Text>
             <Text>{fn.lastUpdateAt}</Text>
           </Flex>
