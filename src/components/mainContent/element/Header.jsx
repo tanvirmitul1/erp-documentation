@@ -46,7 +46,7 @@ const Header = () => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px" flexDir="column" h="auto">
+          <Flex gap="4px" flexDir={{ base: "column", md: "row" }} h="auto">
             <Text h="20px" as="h3">
               {selectedElement.name}
             </Text>

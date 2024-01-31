@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // ElementCard.jsx
+import { useParams } from "react-router-dom";
+import useModuleStore from "../../../zustand/store";
+
 import React from "react";
 import {
   Text,
@@ -17,10 +20,17 @@ import CustomDescription from "../../reusable/Description";
 import AddButton from "../../reusable/AddButton";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ViewButton from "../../reusable/Viewbutton";
+import { Link } from "react-router-dom";
 
 const ElementCard = ({ element }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
+
+  const { setSelectedElement } = useModuleStore();
+  const { moduleId, componentId } = useParams();
+  const handleViewClick = () => {
+    setSelectedElement(element);
+  };
   return (
     <Box
       borderBottom="1px solid rgb(197, 184, 184)"
@@ -32,7 +42,7 @@ const ElementCard = ({ element }) => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px" marginTop={4}>
+          <Flex gap="4px" marginTop={4} flexDir={{ base: "column", md: "row" }}>
             <Text h="20px" as="h5">
               {element.name}
             </Text>
@@ -82,7 +92,12 @@ const ElementCard = ({ element }) => {
       <Text marginTop="12px">
         <CustomDescription description={element.description} word={500} />
       </Text>
-      <ViewButton text={`View ${element.name}`} textColor={moduleTextColor} />
+      <Link
+        to={`/module/${moduleId}/component/${componentId}/element/${element.id}`}
+        onClick={handleViewClick}
+      >
+        <ViewButton text={`View ${element.name}`} textColor={moduleTextColor} />
+      </Link>
     </Box>
   );
 };

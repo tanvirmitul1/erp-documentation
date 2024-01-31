@@ -38,7 +38,7 @@ const Header = () => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="8px">
+          <Flex gap="8px" flexDir={{ base: "column", md: "row" }}>
             <Text h="10px" as="h3">
               {selectedModule.name}
             </Text>

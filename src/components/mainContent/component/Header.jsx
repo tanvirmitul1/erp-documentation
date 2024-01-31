@@ -41,17 +41,18 @@ const Header = () => {
       borderBottom="1px solid rgb(197, 184, 184)"
       paddingBottom="30px"
       marginX="20px"
+      marginTop={1}
     >
       <Flex
         flexDirection={{ base: "column", md: "row" }}
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap={2}>
-            <Text h="20px" as="h3">
+          <Flex gap={2} flexDir={{ base: "column", md: "row" }}>
+            <Text h={{ base: "4px", md: "20px" }} as="h3">
               {selectedComponent.name}
             </Text>
-            <Flex marginTop="6px" gap={1}>
+            <Flex marginTop="10px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {" "}

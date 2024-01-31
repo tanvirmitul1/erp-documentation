@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 // FnCard.jsx
 import React from "react";
+import { useParams } from "react-router-dom";
+import useModuleStore from "../../../zustand/store";
 import {
   Text,
   Box,
@@ -17,10 +19,17 @@ import CustomDescription from "../../reusable/Description";
 import AddButton from "../../reusable/AddButton";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ViewButton from "../../reusable/Viewbutton";
+import { Link } from "react-router-dom";
 
 const FunctionCard = ({ fn }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
+
+  const { setSelectedFunction } = useModuleStore();
+  const { moduleId, componentId, elementId } = useParams();
+  const handleViewClick = () => {
+    setSelectedFunction(fn);
+  };
   return (
     <Box
       borderBottom="1px solid rgb(197, 184, 184)"
@@ -32,11 +41,11 @@ const FunctionCard = ({ fn }) => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px" marginTop={4}flexDir="column" >
-            <Text h="10px" as="h5">
+          <Flex gap="4px" marginTop={4} flexDir={{ base: "column", md: "row" }}>
+            <Text h="10px" as="h4">
               {fn.name}
             </Text>
-            <Flex marginTop="10px" gap={2}>
+            <Flex marginTop="6px" gap={2}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {fn.addedBy}
@@ -67,7 +76,7 @@ const FunctionCard = ({ fn }) => {
             <Text>Created At:</Text>
             <Text>{fn.createdAt}</Text>
           </Flex>
-          <Flex h="30px"gap={2}>
+          <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
             <Text>{fn.lastUpdateAt}</Text>
           </Flex>
@@ -82,7 +91,12 @@ const FunctionCard = ({ fn }) => {
       <Text marginTop="12px">
         <CustomDescription description={fn.description} word={500} />
       </Text>
-      <ViewButton text={`View ${fn.name}`} textColor={moduleTextColor} />
+      <Link
+        to={`/module/${moduleId}/component/${componentId}/element/${elementId}/function/${fn.id}`}
+        onClick={handleViewClick}
+      >
+        <ViewButton text={`View ${fn.name}`} textColor={moduleTextColor} />
+      </Link>
     </Box>
   );
 };
