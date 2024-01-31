@@ -8,7 +8,7 @@ import { Highlight } from "prism-react-renderer";
 import copy from "copy-to-clipboard";
 import theme from "./themeForCode";
 import useColorModeColors from "../../../hooks/useColorModeColors";
-useColorModeColors;
+
 const CodeBlock = ({ code, language }) => {
   const { copyIconColor, moduleTextColor } = useColorModeColors();
 
@@ -25,6 +25,7 @@ const CodeBlock = ({ code, language }) => {
       maxW={{ base: "90%", md: "1000px" }}
       maxH="300px"
       overflow="scroll"
+      fontSize={{ base: "10px", md: "inherit" }}
     >
       <Button
         bgColor={moduleTextColor}
