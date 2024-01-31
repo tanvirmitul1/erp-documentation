@@ -45,7 +45,7 @@ const Header = () => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px">
+          <Flex gap="4px" flexDir={{ base: "column", md: "row" }}>
             <Text h="10px" as="h2">
               {selectedFunction.name}
             </Text>
@@ -66,6 +66,7 @@ const Header = () => {
             paddingTop="10px"
             paddingBottom={2}
             rounded="50px"
+            width={{ base: "90vw", md: "auto" }}
           >
             <Text h="10px" fontWeight="bold">
               Component Directory Path:
@@ -92,6 +93,7 @@ const Header = () => {
           </Flex>
 
           <UpdateButton
+            width={{ base: "90vw", md: "auto" }}
             text={`Update ${selectedFunction.name}`}
             onClick={handleButtonClick}
             textColor={moduleTextColor}
@@ -99,7 +101,7 @@ const Header = () => {
         </Flex>
       </Flex>
 
-      <Box marginTop="12px" paddingBottom="20px" marginX="40px">
+      <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={selectedFunction.description} />
         <Box as="h5"> Function Code</Box>
         <CodeBlock code={formattedCode} language="jsx" />

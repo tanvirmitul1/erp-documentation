@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const ITEMS_PER_PAGE = 6;
   const { data: modules, error, isLoading } = useGetModuleQuery();
-  const { selectedModules } = useModuleStore();
+  const { selectedModules, setSelectedModule } = useModuleStore();
   const {
     addButtonBgColor,
     addButtonTextColor,
@@ -44,7 +44,9 @@ const Home = () => {
 
   const offset = currentPage * ITEMS_PER_PAGE;
   const currentModules = modules?.slice(offset, offset + ITEMS_PER_PAGE);
-
+  const handleClickCard = (module) => {
+    setSelectedModule(module);
+  };
   return (
     <Box>
       <Container
@@ -94,6 +96,7 @@ const Home = () => {
       >
         {currentModules?.map((module, index) => (
           <Card
+            onClick={() => handleClickCard(module)}
             cursor="pointer"
             key={index}
             W={{ base: "10%", lg: "400px" }}

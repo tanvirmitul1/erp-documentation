@@ -20,9 +20,9 @@ const CodeBlock = ({ code, language }) => {
 
   return (
     <Box
-      marginLeft="30px"
+      marginLeft="5px"
       position="relative"
-      maxW="90%"
+      maxW={{ base: "90%", md: "1000px" }}
       maxH="300px"
       overflow="scroll"
     >
@@ -30,7 +30,9 @@ const CodeBlock = ({ code, language }) => {
         bgColor={moduleTextColor}
         size="sm"
         onClick={handleCopy}
-        style={{ position: "absolute", right: "5px", top: "5px" }}
+        position="absolute"
+        right="5px"
+        top="5px"
       >
         <FaCopy color={copyIconColor} />
       </Button>

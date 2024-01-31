@@ -26,24 +26,36 @@ const LogCard = ({ fnLog }) => {
   return (
     <Box
       maxW="90%"
-      padding="30px"
+      paddingY="20px"
+      paddingX="10px"
       borderBottom="2px solid rgba(25, 39, 59, 0.42)"
     >
       <Flex flexDir="column" gap="10px">
         <Flex align="left" marginTop="auto">
           <Flex
-            alignItems="center"
+            flexDirection={{ base: "column", md: "row" }}
             gap="5px"
             backgroundColor={modulePathBgColor}
-            paddingX="20px"
+            paddingX="40px"
             paddingTop="10px"
+            paddingBottom={2}
             rounded="50px"
+            width={{ base: "90vw", md: "auto" }}
           >
-            <Text fontWeight="bold">Function Directory Path:</Text>{" "}
-            <Text color={modulePathColor}> {fnLog.functionDirectoryPath}</Text>
+            <Text h="10px" fontWeight="bold">
+              Function Directory Path:
+            </Text>{" "}
+            <Text h="10px" color={modulePathColor}>
+              {" "}
+              {fnLog.functionDirectoryPath}
+            </Text>
           </Flex>
         </Flex>
-        <Flex gap="10px" marginLeft="10px">
+        <Flex
+          gap="10px"
+          marginLeft="10px"
+          flexDir={{ base: "column", md: "row" }}
+        >
           <Flex h="25px" gap="5px">
             <Text>Updated At: </Text>
             <Text>{fnLog.updatedAt}</Text>
@@ -55,11 +67,11 @@ const LogCard = ({ fnLog }) => {
         </Flex>
       </Flex>
 
-      <Text marginTop="12px">
+      <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={fnLog.description} />
         <Box as="h5"> Function Code</Box>
         <CodeBlock code={formattedCode} language="jsx" />
-      </Text>
+      </Box>
     </Box>
   );
 };

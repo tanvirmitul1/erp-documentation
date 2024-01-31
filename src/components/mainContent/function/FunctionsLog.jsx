@@ -12,7 +12,7 @@ import useModuleStore from "../../../zustand/store";
 import LogCard from "./LogCard";
 
 const FunctionsLog = () => {
-  const [viewLog, setViewLog] = useState(false);
+  const [viewLog, setViewLog] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2;
 
@@ -33,12 +33,12 @@ const FunctionsLog = () => {
   };
 
   return (
-    <Box >
+    <Box>
       <Flex
         onClick={handleViewLogClick}
         cursor="pointer"
         justifyContent="space-between"
-        maxW="90%"
+        maxW="90vw"
         as="h4"
         bg={addButtonBgColor}
         color={addButtonTextColor}
