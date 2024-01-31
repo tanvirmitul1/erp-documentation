@@ -1,109 +1,128 @@
-import style from "./Login.module.css";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-children-prop */
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  FormLabel,
+  Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Stack,
+  useToast,
+  Flex,
+} from "@chakra-ui/react";
+import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 
 function Register() {
-  // useEffect(() => {
-  //   new WOW().init();
-  //   $(".js-tilt").tilt({
-  //     scale: 1.2,
-  //   });
-  // }, []);
+  const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast({
+      position: "top-right",
+      title: "Registration successful.",
+      description: "We've created your account for you.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+
+    // Redirect to home after the toast is displayed
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000); // Change the delay time as needed
   };
 
   return (
-    <div className={style.limiter}>
-      <div className={style.containerLogin100}>
-        <div className={style.wrapLogin100}>
-          <div className={style.login100Pic}>
-            <img
-              className="animate__animated animate__zoomIn"
-              src="https://erp.seopage1.net/custom/img/login.png"
-              alt="IMG"
-            />
-          </div>
-          <form id="login-form" className="ajax-form" onSubmit={handleSubmit}>
-            <input
-              type="hidden"
-              name="_token"
-              value="iLzf2ELdE6n1Z62EALhItk439DucTjo7gA2JONaM"
-            />
+    <Container centerContent p={4}>
+      <Flex
+        width="full"
+        maxW="500px"
+        p={4}
+        overflow="hidden"
+        flexDir="column"
+        marginTop={{ base: "80px", md: 0 }}
+      >
+        <Box textAlign="center" mb={8}>
+          <Image
+            className="animate__animated animate__zoomIn"
+            src="https://erp.seopage1.net/custom/img/login.png"
+            alt="IMG"
+            m="auto"
+            maxH={230}
+          />
+        </Box>
+        <form id="register-form" onSubmit={handleSubmit}>
+          <Stack spacing={4}>
+            <FormControl isRequired>
+              <FormLabel htmlFor="email">Email*</FormLabel>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<EmailIcon color="gray.300" />}
+                />
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email*"
+                />
+              </InputGroup>
+            </FormControl>
 
-            <span className={style.login100FormTitle}>
-              {/* Sign In */}
-              <img src="https://erp.seopage1.net/custom/img/logo2.png" alt="" />
-            </span>
-
-            <div
-              className={style.wrapInput100}
-              data-validate="Valid User Name* is required: ex@ john doe"
-            >
-              <input
-                className={style.input100}
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email*"
-              />
-
-              <span className={style.focusInput100}></span>
-              <span className={style.symbolInput100}>
-                <i className="fa fa-envelope" aria-hidden="true"></i>
-              </span>
-              <input type="hidden" id="g_recaptcha" name="g_recaptcha" />
-            </div>
-
-            <div id="password-section">
-              <div
-                className={style.wrapInput100}
-                data-validate="Password is required"
-              >
-                <input
-                  className={style.input100}
+            <FormControl isRequired>
+              <FormLabel htmlFor="password">Password*</FormLabel>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<LockIcon color="gray.300" />}
+                />
+                <Input
                   type="password"
                   name="password"
                   id="password"
                   placeholder="Password*"
                 />
-                <span className={style.focusInput100}></span>
-                <span className={style.symbolInput100}>
-                  <i className="fa fa-lock" aria-hidden="true"></i>
-                </span>
-              </div>
-            </div>
-            <div id="password-section">
-              <div
-                className={style.wrapInput100}
-                data-validate="Password is required"
-              >
-                <input
-                  className={style.input100}
+              </InputGroup>
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel htmlFor="confirm-password">
+                Confirm Password*
+              </FormLabel>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<LockIcon color="gray.300" />}
+                />
+                <Input
                   type="password"
-                  name="password"
-                  id="password"
+                  name="confirm-password"
+                  id="confirm-password"
                   placeholder="Confirm Password*"
                 />
-                <span className={style.focusInput100}></span>
-                <span className={style.symbolInput100}>
-                  <i className="fa fa-lock" aria-hidden="true"></i>
-                </span>
-              </div>
-            </div>
+              </InputGroup>
+            </FormControl>
 
-            <div className={style.containerLogin100FormBtn}>
-              <button
-                className={style.login100FormBtn}
-                id="submit-login"
-                type="submit"
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+            <Button
+              width="full"
+              mt={4}
+              colorScheme="blue"
+              id="submit-register"
+              type="submit"
+            >
+              Sign Up
+            </Button>
+          </Stack>
+        </form>
+      </Flex>
+    </Container>
   );
 }
 
