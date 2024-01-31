@@ -35,11 +35,7 @@ const Header = () => {
     language
   );
   return (
-    <Box
-      borderBottom="1px solid rgb(197, 184, 184)"
-      paddingBottom="30px"
-      marginX="20px"
-    >
+    <Box paddingBottom="30px" marginX="20px">
       <Flex
         flexDirection={{ base: "column", md: "row" }}
         justifyContent="space-between"
