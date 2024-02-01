@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 import HomeSkeleton from "../reusable/HomeSkeleton";
 useGetModuleQuery;
 const Home = () => {
-  const ITEMS_PER_PAGE = 6;
+  const ITEMS_PER_PAGE = 12;
   const { data, error, isLoading } = useGetModuleQuery();
   const { selectedModules, setSelectedModule } = useModuleStore();
   const {

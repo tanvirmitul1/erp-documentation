@@ -22,7 +22,7 @@ const SkeletonCard = () => {
 const HomeSkeleton = () => {
   return (
     <>
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: 12 }).map((_, index) => (
         <SkeletonCard key={index} />
       ))}
     </>
