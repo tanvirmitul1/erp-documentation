@@ -1,22 +1,33 @@
 /* eslint-disable no-unused-vars */
 import { apiSlice } from "./apiSlice";
 
+// Retrieve the token from localStorage
+const token = JSON.parse(localStorage.getItem("loginData"))?.token;
+
 const docApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getModule: builder.query({
       query: () => {
-        // Retrieve the token from localStorage
-        const token = JSON.parse(localStorage.getItem("loginData"))?.token;
-
         return {
           url: "/modules",
           headers: {
-            // Include the token in the Authorization header
             Authorization: token ? `Bearer ${token}` : "",
           },
         };
       },
       providesTags: ["GET_MODULE"],
+    }),
+
+    getComponent: builder.query({
+      query: (moduleId) => {
+        return {
+          url: `/components/${moduleId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_COMPONENT"],
     }),
 
     loginUser: builder.mutation({
@@ -45,6 +56,7 @@ const docApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetModuleQuery,
+  useGetComponentQuery,
   useLoginUserMutation,
   useAddModuleMutation,
   useAddComponentMutation,

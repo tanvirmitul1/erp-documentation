@@ -1,22 +1,26 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
+
 import { useState } from "react";
 import { Text, Stack, Flex, Box, HStack } from "@chakra-ui/react";
 import Component from "./Component";
 import { SiElementor } from "react-icons/si";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import useModuleStore from "../../zustand/store";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import { Link } from "react-router-dom";
+import { useGetComponentQuery } from "../../redux/api/docApiSlice";
+import useModuleStore from "../../zustand/store";
 
 const Module = ({ module }) => {
+  const { data, error, isLoading } = useGetComponentQuery(module.id);
+  const components = data?.data;
   const { moduleIconColor } = useColorModeColors();
-  const { setSelectedModule, toggleLeftBar } = useModuleStore();
+  const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleModuleClick = () => {
-    setSelectedModule(module);
     setIsOpen(!isOpen);
     toggleLeftBar();
   };
@@ -47,7 +51,6 @@ const Module = ({ module }) => {
         <Box
           cursor="pointer"
           onClick={() => {
-            setSelectedModule(module);
             setIsOpen(!isOpen);
           }}
         >
@@ -56,7 +59,7 @@ const Module = ({ module }) => {
       </HStack>
 
       {isOpen &&
-        module.components.map((component) => (
+        components?.map((component) => (
           <Component key={component.id} module={module} component={component} />
         ))}
     </Stack>
