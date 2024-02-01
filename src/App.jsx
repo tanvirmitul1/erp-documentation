@@ -21,7 +21,7 @@ function App() {
           <Route
             path="/*"
             element={
-              <PrivateRouteForRole role="admin">
+              <PrivateRouteForRole role="token">
                 <MainComponent />
               </PrivateRouteForRole>
             }
@@ -32,9 +32,16 @@ function App() {
   );
 }
 const PrivateRouteForRole = ({ children, role }) => {
-  const userRole = "admin";
+  // Check if "loginData" exists in localStorage and has a token
+  let token = "";
 
-  if (userRole === role) {
+  if (localStorage.getItem("loginData")) {
+    token = Object.keys(JSON.parse(localStorage.getItem("loginData")))[1];
+  } else {
+    token = "";
+  }
+
+  if (token === role) {
     return children;
   } else {
     return <Navigate to="/login" />;

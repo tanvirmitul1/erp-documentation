@@ -58,6 +58,9 @@ const useColorModeColors = () => {
   const cardHoverBgColor = useColorModeValue("#d8f2fc", "#242b2a");
   const cardIconColor = useColorModeValue("#1f7ca1", "#33bb73");
 
+  //login registration
+  const authTextColor = useColorModeValue("black", "black");
+
   return {
     addButtonTextColor,
     addButtonBgColor,
@@ -85,7 +88,8 @@ const useColorModeColors = () => {
     cardHoverBgColor,
     homeHeaderBgColor,
     homeHeaderTextColor,
-    cardIconColor
+    cardIconColor,
+    authTextColor,
   };
 };
 

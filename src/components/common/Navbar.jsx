@@ -15,8 +15,14 @@ import LogoWhite from "../../assets/logoWhite.png";
 import Avatar from "../../assets/avatar.svg";
 import ColorMOdeSwitch from "../navigation/ColorModeSwitch";
 import { Link } from "react-router-dom";
+import Logout from "../../pages/Logout";
 
 const NavBar = () => {
+  const loginData = JSON.parse(localStorage.getItem("loginData"));
+
+  // Access the name property from loginData.data
+  const userName = loginData?.data?.name || "Guest"; // Use a default value if not found
+
   const { colorMode } = useColorMode();
   const boxShadowColor =
     colorMode === "light" ? "rgba(0, 0, 0, 0.2)" : "rgba(256, 256, 256, 0.2)";
@@ -40,7 +46,11 @@ const NavBar = () => {
         </Box>
         <HStack gap={10}>
           <ColorMOdeSwitch />
-          <Image src={Avatar} width={8} />
+          <HStack>
+            <Box>{userName}</Box>
+            <Image src={Avatar} width={8} />
+          </HStack>
+          <Logout />
         </HStack>
       </HStack>
     </Box>

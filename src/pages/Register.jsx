@@ -23,7 +23,10 @@ import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 
 import LogoWhite from "../../src/assets/logo.jpg";
 import { useRegisterUserMutation } from "../redux/api/authApiSlice";
+import useColorModeColors from "../hooks/useColorModeColors";
+
 function Register() {
+  const { authTextColor } = useColorModeColors();
   const [submitData, { isLoading }] = useRegisterUserMutation();
   const navigate = useNavigate();
   const toast = useToast();
@@ -36,7 +39,6 @@ function Register() {
   });
 
   console.log(submitData, isLoading);
-  // console.log("registerdata", formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,8 +47,18 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
+    if (formData.password.length < 8) {
+      return toast({
+        position: "top-right",
+        title: "Error.",
+        description: "Password must be at least 8 characters long.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
 
-    console.log("Form Data:", formData);
     if (formData.password !== formData.password_confirmation) {
       return toast({
         position: "top-right",
@@ -60,7 +72,6 @@ function Register() {
 
     try {
       const payload = await submitData(formData).unwrap();
-      localStorage.setItem("userData", JSON.stringify(payload));
       toast({
         position: "top-right",
         title: "Registration successful.",
@@ -72,7 +83,7 @@ function Register() {
 
       console.log("payload", payload);
 
-      setTimeout(() => navigate("/login"), 1000);
+      setTimeout(() => navigate("/login"), 500);
     } catch (err) {
       if (err.status === 422) {
         for (const key in err.data.errors) {
@@ -100,6 +111,7 @@ function Register() {
 
   return (
     <Stack
+      color={authTextColor}
       h="100vh"
       gap={8}
       justifyContent="center"
@@ -130,12 +142,11 @@ function Register() {
             marginLeft={5}
             display={{ base: "none", md: "block" }}
           />
-          <form id="register-form" onSubmit={handleSubmit}>
+          <form>
             <Stack spacing={4}>
               {inputField("name", "Name", <RxAvatar />)}
-
               {inputField("email", "Email", <EmailIcon />)}
-              {inputField("password", "Password", <LockIcon />, "password")}
+              {inputField("password", "Password ", <LockIcon />, "password")}
               {inputField(
                 "password_confirmation",
                 "Confirm Password",
@@ -151,6 +162,7 @@ function Register() {
                 type="submit"
                 isLoading={isLoading}
                 loadingText="Submitting"
+                onClick={handleSubmit}
               >
                 {isLoading ? (
                   <CircularProgress
@@ -191,6 +203,7 @@ function Register() {
             placeholder={placeholder}
             value={formData[name]}
             onChange={handleChange}
+            _placeholder={{ opacity: 0.4, color: authTextColor }}
           />
         </InputGroup>
       </FormControl>
