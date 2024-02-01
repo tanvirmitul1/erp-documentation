@@ -21,6 +21,7 @@ import { useGetModuleQuery } from "../../redux/api/docApiSlice";
 import CustomDescription from "../reusable/Description";
 import { RiSoundModuleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import HomeSkeleton from "../reusable/HomeSkeleton";
 useGetModuleQuery;
 const Home = () => {
   const ITEMS_PER_PAGE = 6;
@@ -49,7 +50,6 @@ const Home = () => {
   const handleClickCard = (module) => {
     setSelectedModule(module);
   };
-
 
   return (
     <Box>
@@ -98,39 +98,43 @@ const Home = () => {
           gap: 1,
         }}
       >
-        {currentModules?.map((module, index) => (
-          <Card
-            onClick={() => handleClickCard(module)}
-            cursor="pointer"
-            key={index}
-            W={{ base: "10%", lg: "400px" }}
-            m={{ base: 2, lg: 4 }}
-            _hover={{
-              boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
-              backgroundColor: cardHoverBgColor,
-              transition: "all 0.3s ease-in-out",
-            }}
-          >
-            <CardBody textAlign="center" marginX="auto">
-              <Link
-                to={`/module/${module.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Flex gap={5}>
-                  <Box>
-                    <RiSoundModuleFill size={25} color={cardIconColor} />
-                  </Box>
-                  <Text fontWeight="bold">{module.name}</Text>
-                </Flex>
-                <CustomDescription
-                  description={module.description}
-                  word="20"
-                  seeMoreButton={false}
-                />
-              </Link>
-            </CardBody>
-          </Card>
-        ))}
+        {isLoading ? (
+          <HomeSkeleton />
+        ) : (
+          currentModules.map((module, index) => (
+            <Card
+              onClick={() => handleClickCard(module)}
+              cursor="pointer"
+              key={index}
+              W={{ base: "10%", lg: "400px" }}
+              m={{ base: 2, lg: 4 }}
+              _hover={{
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
+                backgroundColor: cardHoverBgColor,
+                transition: "all 0.3s ease-in-out",
+              }}
+            >
+              <CardBody textAlign="center" marginX="auto">
+                <Link
+                  to={`/module/${module.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Flex gap={5}>
+                    <Box>
+                      <RiSoundModuleFill size={25} color={cardIconColor} />
+                    </Box>
+                    <Text fontWeight="bold">{module.name}</Text>
+                  </Flex>
+                  <CustomDescription
+                    description={module.description}
+                    word="20"
+                    seeMoreButton={false}
+                  />
+                </Link>
+              </CardBody>
+            </Card>
+          ))
+        )}
       </Flex>
 
       <Flex justifyContent="center" mt={10}>

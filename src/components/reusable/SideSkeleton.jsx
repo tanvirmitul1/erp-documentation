@@ -2,7 +2,7 @@
 import { Skeleton, Stack } from "@chakra-ui/react";
 
 const SideSkeleton = () => {
-  const skeletonCount = 5;
+  const skeletonCount = 20;
   const skeletons = [];
 
   for (let index = 0; index < skeletonCount; index++) {

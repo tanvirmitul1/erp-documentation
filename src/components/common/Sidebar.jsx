@@ -36,6 +36,7 @@ function Sidebar() {
     <Stack
       w="100%"
       h="100vh"
+      maxW="250px"
       overflow="scroll"
       p="10px"
       boxShadow={`5px 0 5px -5px ${boxShadowColor}, -5px 0 5px -5px ${boxShadowColor}`}
