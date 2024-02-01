@@ -21,9 +21,10 @@ import { useGetModuleQuery } from "../../redux/api/docApiSlice";
 import CustomDescription from "../reusable/Description";
 import { RiSoundModuleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+useGetModuleQuery;
 const Home = () => {
   const ITEMS_PER_PAGE = 6;
-  const { data: modules, error, isLoading } = useGetModuleQuery();
+  const { data, error, isLoading } = useGetModuleQuery();
   const { selectedModules, setSelectedModule } = useModuleStore();
   const {
     addButtonBgColor,
@@ -39,7 +40,8 @@ const Home = () => {
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
-
+  const modules = data?.data;
+  console.log("modules in home", modules);
   const pageCount = Math.ceil(modules?.length / ITEMS_PER_PAGE);
 
   const offset = currentPage * ITEMS_PER_PAGE;
@@ -47,6 +49,8 @@ const Home = () => {
   const handleClickCard = (module) => {
     setSelectedModule(module);
   };
+
+
   return (
     <Box>
       <Container

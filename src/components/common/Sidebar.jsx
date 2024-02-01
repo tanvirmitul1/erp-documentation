@@ -15,8 +15,8 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 function Sidebar() {
   const { boxShadowColor } = useColorModeColors();
   const [moduleName, setModuleName] = React.useState("");
-  const { data: modules, error, isLoading } = useGetModuleQuery();
-
+  const { data, error, isLoading } = useGetModuleQuery();
+  const modules = data?.data;
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleButtonClick = () => {
@@ -27,7 +27,7 @@ function Sidebar() {
   };
 
   if (error) return <div>Error: {error.message}</div>;
-  
+
   const handleChange = (e) => {
     setModuleName(e.target.value);
   };

@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { apiSlice } from "./apiSlice";
 
-// const _token = document
-//   .querySelector("meta[name='csrt-token']")
-//   .getAttribute("content");
-
 const docApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getModule: builder.query({
-      query: () => `api/modules`,
+      query: () => {
+        // Retrieve the token from localStorage
+        const token = JSON.parse(localStorage.getItem("loginData"))?.token;
+
+        return {
+          url: "/modules",
+          headers: {
+            // Include the token in the Authorization header
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
       providesTags: ["GET_MODULE"],
     }),
 
@@ -38,7 +45,6 @@ const docApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetModuleQuery,
-
   useLoginUserMutation,
   useAddModuleMutation,
   useAddComponentMutation,
