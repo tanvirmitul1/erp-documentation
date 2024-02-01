@@ -23,6 +23,7 @@ import { RiSoundModuleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import HomeSkeleton from "../reusable/HomeSkeleton";
 useGetModuleQuery;
+
 const Home = () => {
   const ITEMS_PER_PAGE = 12;
   const { data, error, isLoading } = useGetModuleQuery();
@@ -37,18 +38,32 @@ const Home = () => {
   } = useColorModeColors();
 
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState(""); // Step 1
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
+
   const modules = data?.data;
-  console.log("modules in home", modules);
-  const pageCount = Math.ceil(modules?.length / ITEMS_PER_PAGE);
+  const filteredModules = modules?.filter((module) =>
+    module.name.toLowerCase().includes(searchQuery.toLowerCase())
+  ); // Step 2
+
+  const pageCount = Math.ceil(filteredModules?.length / ITEMS_PER_PAGE);
 
   const offset = currentPage * ITEMS_PER_PAGE;
-  const currentModules = modules?.slice(offset, offset + ITEMS_PER_PAGE);
+  const currentModules = filteredModules?.slice(
+    offset,
+    offset + ITEMS_PER_PAGE
+  );
+
   const handleClickCard = (module) => {
     setSelectedModule(module);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(0); // Reset page when a new search is performed
   };
 
   return (
@@ -78,6 +93,7 @@ const Home = () => {
           <Searchbar
             width={{ base: "80vw", lg: "500px" }}
             placeholder="Search Module"
+            onChange={handleSearchChange} // Step 3
           />
         </Box>
       </Container>

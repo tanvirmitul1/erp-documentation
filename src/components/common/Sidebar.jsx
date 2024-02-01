@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-key */
+// src/components/navigation/Sidebar.js
 /* eslint-disable react/jsx-key */
 // src/components/navigation/Sidebar.js
 import { Stack } from "@chakra-ui/react";
 
 import SearchBar from "../reusable/SearchBar";
-import React from "react";
+import React, { useState } from "react";
 import AddButton from "../reusable/AddButton";
 import { useGetModuleQuery } from "../../redux/api/docApiSlice";
 import ModuleModal from "../modal/ModuleModal";
@@ -14,14 +17,15 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 
 function Sidebar() {
   const { boxShadowColor } = useColorModeColors();
-  const [moduleName, setModuleName] = React.useState("");
+  const [moduleName, setModuleName] = useState("");
   const { data, error, isLoading } = useGetModuleQuery();
   const modules = data?.data;
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -31,6 +35,10 @@ function Sidebar() {
   const handleChange = (e) => {
     setModuleName(e.target.value);
   };
+
+  const filteredModules = modules?.filter((module) =>
+    module.name.toLowerCase().includes(moduleName.toLowerCase())
+  );
 
   return (
     <Stack
@@ -56,7 +64,9 @@ function Sidebar() {
       {isLoading ? (
         <SideSkeleton />
       ) : (
-        modules.map((module) => <Module key={module.id} module={module} />)
+        filteredModules.map((module) => (
+          <Module key={module.id} module={module} />
+        ))
       )}
 
       <ModuleModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />

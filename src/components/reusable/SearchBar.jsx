@@ -16,6 +16,10 @@ const Searchbar = ({
   width,
 }) => {
   const { searchBgColor } = useColorModeColors();
+
+  // Provide a default empty function for onChange
+  const handleChange = onChange ?? (() => {});
+
   return (
     <InputGroup>
       <InputLeftElement pointerEvents="none" paddingLeft={4}>
@@ -32,7 +36,7 @@ const Searchbar = ({
         placeholder={placeholder ? placeholder : "search"}
         _placeholder={{ opacity: 1, color: "gray.400" }}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
       />
     </InputGroup>
   );
