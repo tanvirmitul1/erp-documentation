@@ -7,20 +7,20 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme.js";
-import { makeServer } from "./server.js";
+// import { makeServer } from "./server.js";
 
-if (process.env.NODE_ENV === "development") {
-  makeServer({ environment: "development" });
-}
+// if (process.env.NODE_ENV === "development") {
+//   makeServer({ environment: "development" });
+// }
 
 // theme={theme}
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ChakraProvider>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Provider store={store}>
+    <Provider store={store}>
+      <ChakraProvider>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
-      </Provider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </Provider>
   </React.StrictMode>
 );

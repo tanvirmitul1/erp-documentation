@@ -1,8 +1,8 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-children-prop */
-import React from "react";
-import { useNavigate } from "react-router-dom";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -14,82 +14,80 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
-  Text,
   useToast,
+  Flex,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
+import { useLoginUserMutation } from "../redux/api/docApiSlice"; // Uncomment and use appropriately
 
 function Login() {
+  const [loginUser, { isLoading }] = useLoginUserMutation(); // Uncomment and use appropriately
+  const navigate = useNavigate();
   const toast = useToast();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    toast({
-      position: "top-right",
-      title: "Login successful.",
-      description: "We've created your account for you.",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
 
-    // Redirect to home after the toast is displayed
-    setTimeout(() => {
-      navigate("/");
-    }, 1000); // Change the delay time as needed
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Uncomment and adjust according to your login logic and API
+
+    try {
+      const payload = await loginUser(formData).unwrap();
+      localStorage.setItem("userData", JSON.stringify(payload));
+      toast({
+        position: "top-right",
+        title: "Login successful.",
+        description: "Welcome back!",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      setTimeout(() => navigate("/"), 1000);
+    } catch (err) {
+      toast({
+        position: "top-right",
+        title: "Login failed.",
+        description: err.data?.message || "Could not log in.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+
+      setTimeout(() => navigate("/"), 1000);
+    }
+  };
+
   return (
-    <Container centerContent>
-      <Box
-        width="full"
-        maxW="500px"
-        p={4}
-        overflow="hidden"
-        flexDir="column"
-        marginTop={{ base: "100px", md: 0 }}
-      >
-        <Box textAlign="center" mb={8}>
+    <Container centerContent p={4}>
+      <Flex maxH="100vh" width="full" p={10} overflow="hidden" flexDir="column">
+        <Box textAlign="center" mb={8} width={220} marginX="auto">
           <Image
             className="animate__animated animate__zoomIn"
             src="https://erp.seopage1.net/custom/img/login.png"
             alt="IMG"
             m="auto"
+            maxH={230}
           />
         </Box>
+
         <form id="login-form" onSubmit={handleSubmit}>
           <Stack spacing={4}>
-            <FormControl isRequired>
-              <FormLabel htmlFor="email">Email*</FormLabel>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<EmailIcon color="gray.300" />}
-                />
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Email*"
-                />
-              </InputGroup>
-            </FormControl>
-
-            <FormControl isRequired>
-              <FormLabel htmlFor="password">Password*</FormLabel>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<LockIcon color="gray.300" />}
-                />
-                <Input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password*"
-                />
-              </InputGroup>
-            </FormControl>
+            {inputField("email", "Email*", <EmailIcon color="gray.300" />)}
+            {inputField(
+              "password",
+              "Password*",
+              <LockIcon color="gray.300" />,
+              "password"
+            )}
 
             <Button
               width="full"
@@ -97,14 +95,41 @@ function Login() {
               colorScheme="blue"
               id="submit-login"
               type="submit"
+              isLoading={isLoading} // Uncomment when you use the mutation
+              loadingText="Logging in"
             >
-              Sign in
+              {/* Uncomment when you use the mutation */}
+              {!isLoading && "Login"}
             </Button>
           </Stack>
         </form>
-      </Box>
+        {/* Link to the register page */}
+        <Box mt={4} textAlign="center">
+          <Link to="/register">Don't have an account? Register here</Link>
+        </Box>
+      </Flex>
     </Container>
   );
+
+  // Helper function for rendering input fields
+  function inputField(name, placeholder, leftIcon, type = "text") {
+    return (
+      <FormControl key={name} isRequired>
+        <FormLabel htmlFor={name}>{placeholder}</FormLabel>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={leftIcon} />
+          <Input
+            type={type}
+            name={name}
+            id={name}
+            placeholder={placeholder}
+            value={formData[name]}
+            onChange={handleChange}
+          />
+        </InputGroup>
+      </FormControl>
+    );
+  }
 }
 
 export default Login;

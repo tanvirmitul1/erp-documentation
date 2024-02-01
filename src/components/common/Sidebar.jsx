@@ -27,7 +27,7 @@ function Sidebar() {
   };
 
   if (error) return <div>Error: {error.message}</div>;
-
+  
   const handleChange = (e) => {
     setModuleName(e.target.value);
   };

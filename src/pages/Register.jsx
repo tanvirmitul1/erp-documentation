@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-children-prop */
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { RxAvatar } from "react-icons/rx";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -15,115 +16,186 @@ import {
   Stack,
   useToast,
   Flex,
+  CircularProgress,
+  CircularProgressLabel,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 
+import LogoWhite from "../../src/assets/logo.jpg";
+import { useRegisterUserMutation } from "../redux/api/authApiSlice";
 function Register() {
+  const [submitData, { isLoading }] = useRegisterUserMutation();
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    toast({
-      position: "top-right",
-      title: "Registration successful.",
-      description: "We've created your account for you.",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
 
-    // Redirect to home after the toast is displayed
-    setTimeout(() => {
-      navigate("/login");
-    }, 1000); // Change the delay time as needed
+  console.log(submitData, isLoading);
+  // console.log("registerdata", formData);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("Form Data:", formData);
+    if (formData.password !== formData.password_confirmation) {
+      return toast({
+        position: "top-right",
+        title: "Error.",
+        description: "Passwords don't match.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    try {
+      const payload = await submitData(formData).unwrap();
+      localStorage.setItem("userData", JSON.stringify(payload));
+      toast({
+        position: "top-right",
+        title: "Registration successful.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+
+      console.log("payload", payload);
+
+      setTimeout(() => navigate("/login"), 1000);
+    } catch (err) {
+      if (err.status === 422) {
+        for (const key in err.data.errors) {
+          toast({
+            position: "top-right",
+            title: "Validation Error",
+            description: err.data.errors[key],
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      } else {
+        toast({
+          position: "top-right",
+          title: "Registration failed.",
+          description: err.data?.message || "Could not register.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    }
   };
 
   return (
-    <Container centerContent p={4}>
+    <Stack
+      h="100vh"
+      gap={8}
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="#E7F5FA"
+    >
       <Flex
-        width="full"
-        maxW="500px"
-        p={4}
-        overflow="hidden"
-        flexDir="column"
-        marginTop={{ base: "80px", md: 0 }}
+        flexDir={{ base: "column", md: "row" }}
+        backgroundColor="#FFFFFF"
+        padding={20}
+        rounded={30}
       >
-        <Box textAlign="center" mb={8}>
+        <Box mr={{ base: 0, md: 8 }}>
           <Image
             className="animate__animated animate__zoomIn"
             src="https://erp.seopage1.net/custom/img/login.png"
             alt="IMG"
             m="auto"
-            maxH={230}
+            maxW="1000px"
           />
         </Box>
-        <form id="register-form" onSubmit={handleSubmit}>
-          <Stack spacing={4}>
-            <FormControl isRequired>
-              <FormLabel htmlFor="email">Email*</FormLabel>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<EmailIcon color="gray.300" />}
-                />
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Email*"
-                />
-              </InputGroup>
-            </FormControl>
 
-            <FormControl isRequired>
-              <FormLabel htmlFor="password">Password*</FormLabel>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<LockIcon color="gray.300" />}
-                />
-                <Input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password*"
-                />
-              </InputGroup>
-            </FormControl>
+        <Box>
+          <Image
+            src={LogoWhite}
+            marginBottom={2}
+            width={200}
+            marginLeft={5}
+            display={{ base: "none", md: "block" }}
+          />
+          <form id="register-form" onSubmit={handleSubmit}>
+            <Stack spacing={4}>
+              {inputField("name", "Name", <RxAvatar />)}
 
-            <FormControl isRequired>
-              <FormLabel htmlFor="confirm-password">
-                Confirm Password*
-              </FormLabel>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<LockIcon color="gray.300" />}
-                />
-                <Input
-                  type="password"
-                  name="confirm-password"
-                  id="confirm-password"
-                  placeholder="Confirm Password*"
-                />
-              </InputGroup>
-            </FormControl>
+              {inputField("email", "Email", <EmailIcon />)}
+              {inputField("password", "Password", <LockIcon />, "password")}
+              {inputField(
+                "password_confirmation",
+                "Confirm Password",
+                <LockIcon />,
+                "password"
+              )}
 
-            <Button
-              width="full"
-              mt={4}
-              colorScheme="blue"
-              id="submit-register"
-              type="submit"
-            >
-              Sign Up
-            </Button>
-          </Stack>
-        </form>
+              <Button
+                width="full"
+                mt={4}
+                colorScheme="blue"
+                id="submit-register"
+                type="submit"
+                isLoading={isLoading}
+                loadingText="Submitting"
+              >
+                {isLoading ? (
+                  <CircularProgress
+                    size={10}
+                    isIndeterminate
+                    color="green.300"
+                    mt={4}
+                  >
+                    <CircularProgressLabel></CircularProgressLabel>
+                  </CircularProgress>
+                ) : (
+                  "Register"
+                )}
+              </Button>
+            </Stack>
+          </form>
+
+          {/* Link to the login page */}
+          <Box mt={4} textAlign="center">
+            <Link to="/login">Already registered? Login here</Link>
+          </Box>
+        </Box>
       </Flex>
-    </Container>
+    </Stack>
   );
+
+  // Helper function for rendering input fields
+  function inputField(name, placeholder, leftIcon, type = "text") {
+    return (
+      <FormControl key={name} isRequired>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={leftIcon} />
+          <Input
+            border="1px solid gray"
+            type={type}
+            name={name}
+            id={name}
+            placeholder={placeholder}
+            value={formData[name]}
+            onChange={handleChange}
+          />
+        </InputGroup>
+      </FormControl>
+    );
+  }
 }
 
 export default Register;

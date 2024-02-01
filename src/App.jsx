@@ -3,7 +3,7 @@
 // App.jsx
 import { Navigate } from "react-router-dom";
 import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
 import MainComponent from "./components/common/MainComponent";

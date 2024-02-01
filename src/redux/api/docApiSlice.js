@@ -6,49 +6,40 @@ import { apiSlice } from "./apiSlice";
 //   .getAttribute("content");
 
 const docApiSlice = apiSlice.injectEndpoints({
-  endpoints: (build) => ({
-    getModule: build.query({
+  endpoints: (builder) => ({
+    getModule: builder.query({
       query: () => `api/modules`,
       providesTags: ["GET_MODULE"],
     }),
 
-    // getProjectStatus: build.query({
-    //   query: (query) => `/account/get-project-status-date?${query}`,
-    //   providesTags: ["GET_PROJECT_STATUS"],
-    // }),
-    // createExtendRequest: build.mutation({
-    //   query: (data) => ({
-    //     url: `account/pm-extend-request-store`,
-    //     method: "POST",
-    //     body: data,
-    //     formData: true,
-    //   }),
-    //   invalidatesTags: ["PENDING_EXTEND_REQUEST", "AUTHORIZE_PARENT_TASK"],
-    // }),
-    // createResolveSuggestionComment: build.mutation({
-    //   query: (data) => ({
-    //     url: `/account/project-status-resolve-submit`,
-    //     method: "POST",
-    //     body: {
-    //       ...data,
-    //       _token: _token,
-    //     },
-    //     headers: {
-    //       _token: _token,
-    //     },
-    //   }),
-    //   invalidatesTags: [
-    //     "PENDING_RESOLVE_SUGGESTION_COMMENT",
-    //     "AUTHORIZE_PARENT_TASK",
-    //   ],
-    // }),
+    loginUser: builder.mutation({
+      query: (user) => ({
+        url: "login",
+        method: "POST",
+        body: user,
+      }),
+    }),
+    addModule: builder.mutation({
+      query: (moduleData) => ({
+        url: "/modules",
+        method: "POST",
+        body: moduleData,
+      }),
+    }),
+    addComponent: builder.mutation({
+      query: (componentData) => ({
+        url: "/modules",
+        method: "POST",
+        body: componentData,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetModuleQuery,
-  useGetProjectStatusQuery,
 
-  useCreateResolveSuggestionCommentMutation,
-  useCreateExtendRequestMutation,
+  useLoginUserMutation,
+  useAddModuleMutation,
+  useAddComponentMutation,
 } = docApiSlice;

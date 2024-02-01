@@ -1,18 +1,25 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 import {
   Flex,
   FormControl,
   Input,
   FormLabel,
   Textarea,
+  useToast,
+  CircularProgress,
+  CircularProgressLabel,
 } from "@chakra-ui/react";
 import ReactModal from "react-modal";
-
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
+import { useAddModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
 
 const ModuleModal = ({ isOpen, onRequestClose }) => {
+  const [addModule, { isLoading }] = useAddModuleMutation();
+  const toast = useToast();
   const {
     modalBgColor,
     modalInputBgColor,
@@ -22,12 +29,51 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     modalPlaceholderColor,
   } = useColorModeColors();
 
+  const [formData, setFormData] = useState({
+    moduleName: "",
+    modulePath: "",
+    description: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const payload = await addModule(formData).unwrap();
+      toast({
+        position: "top-right",
+        title: "Module Added.",
+        description: "Your module has been added successfully.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      onRequestClose();
+    } catch (err) {
+      toast({
+        zIndex: 100000,
+        position: "top-right",
+        title: "Adding Module failed.",
+        description: err.data?.message || "Could not add the module.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <ReactModal
       style={{
         overlay: {
           backgroundColor: "rgba(0, 0, 0, 0.6)",
           margin: "auto auto",
+          zIndex: 1000,
         },
         content: {
           borderRadius: "20px",
@@ -41,63 +87,85 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <Flex flexDirection="column">
-        <FormControl isRequired>
-          <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-            Module Name
-          </FormLabel>
-          <Input
-            paddingX={6}
-            rounded={50}
-            backgroundColor={modalInputBgColor}
-            placeholder="Select Module"
-            _placeholder={{
-              opacity: 1,
-              color: `${modalPlaceholderColor}`,
-              fontSize: "16px",
-            }}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-            Module Directory path
-          </FormLabel>
-          <Input
-            fontSize="16px"
-            paddingX={6}
-            rounded={50}
-            backgroundColor={modalInputBgColor}
-            placeholder="localhost/phpadmin/index.php"
-            _placeholder={{
-              opacity: 1,
-              color: `${modalPlaceholderColor}`,
-              fontSize: "16px",
-            }}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-            Description
-          </FormLabel>
-          <Textarea
-            fontSize="16px"
-            overflowX="hidden"
-            overflowY="auto"
-            height="200px"
-            padding={4}
-            rounded={30}
-            backgroundColor={modalInputBgColor}
-          />
-        </FormControl>
-        <Flex justifyContent="center" marginTop={10} gap={10}>
-          <CancelButton
-            onClick={onRequestClose}
-            textColor={modalCancelButtonTextColor}
-            text="Cancel"
-          />
-          <SubmitButton textColor={modalSubmitButtonTextColor} text="Submit" />
+      <form onSubmit={handleSubmit}>
+        <Flex flexDirection="column">
+          <FormControl isRequired>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+              Module Name
+            </FormLabel>
+            <Input
+              paddingX={6}
+              rounded={50}
+              backgroundColor={modalInputBgColor}
+              placeholder="Select Module"
+              _placeholder={{
+                opacity: 1,
+                color: `${modalPlaceholderColor}`,
+                fontSize: "16px",
+              }}
+              name="moduleName"
+              value={formData.moduleName}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+              Module Directory path
+            </FormLabel>
+            <Input
+              fontSize="16px"
+              paddingX={6}
+              rounded={50}
+              backgroundColor={modalInputBgColor}
+              placeholder="localhost/phpadmin/index.php"
+              _placeholder={{
+                opacity: 1,
+                color: `${modalPlaceholderColor}`,
+                fontSize: "16px",
+              }}
+              name="modulePath"
+              value={formData.modulePath}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+              Description
+            </FormLabel>
+            <Textarea
+              fontSize="16px"
+              overflowX="hidden"
+              overflowY="auto"
+              height="200px"
+              padding={4}
+              rounded={30}
+              backgroundColor={modalInputBgColor}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <Flex justifyContent="center" marginTop={10} gap={10}>
+            <CancelButton
+              onClick={onRequestClose}
+              textColor={modalCancelButtonTextColor}
+              text="Cancel"
+            />
+            <SubmitButton
+              onClick={handleSubmit}
+              isLoading={isLoading}
+              textColor={modalSubmitButtonTextColor}
+              text="Submit"
+            >
+              {isLoading && (
+                <CircularProgress isIndeterminate color="green.300">
+                  <CircularProgressLabel>Submitting</CircularProgressLabel>
+                </CircularProgress>
+              )}
+            </SubmitButton>
+          </Flex>
         </Flex>
-      </Flex>
+      </form>
     </ReactModal>
   );
 };
