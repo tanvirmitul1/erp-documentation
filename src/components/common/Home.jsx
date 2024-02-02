@@ -25,9 +25,15 @@ import HomeSkeleton from "../reusable/HomeSkeleton";
 useGetModuleQuery;
 
 const Home = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
   const ITEMS_PER_PAGE = 12;
   const { data, error, isLoading } = useGetModuleQuery();
-  const { selectedModules, setSelectedModule } = useModuleStore();
+  const modules = data?.data;
+
+  const filteredModules = modules?.filter((module) =>
+    module.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   const {
     addButtonBgColor,
     addButtonTextColor,
@@ -37,17 +43,9 @@ const Home = () => {
     cardIconColor,
   } = useColorModeColors();
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(""); // Step 1
-
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
-
-  const modules = data?.data;
-  const filteredModules = modules?.filter((module) =>
-    module.name.toLowerCase().includes(searchQuery.toLowerCase())
-  ); // Step 2
 
   const pageCount = Math.ceil(filteredModules?.length / ITEMS_PER_PAGE);
 
@@ -57,9 +55,7 @@ const Home = () => {
     offset + ITEMS_PER_PAGE
   );
 
-  const handleClickCard = (module) => {
-    setSelectedModule(module);
-  };
+  const handleClickCard = (module) => {};
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -130,6 +126,7 @@ const Home = () => {
                 transition: "all 0.3s ease-in-out",
               }}
             >
+              {console.log("module in home", module)}
               <CardBody textAlign="center" marginX="auto">
                 <Link
                   to={`/module/${module.id}`}

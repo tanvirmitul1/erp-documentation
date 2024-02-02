@@ -14,7 +14,6 @@ import Sidebar from "./Sidebar";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import useModuleStore from "../../zustand/store";
 
-import FrontPage from "./Home";
 import Home from "./Home";
 const MainComponent = () => {
   const { showLeftBar, toggleLeftBar } = useModuleStore();
@@ -74,7 +73,6 @@ const MainComponent = () => {
         <Sidebar />
       </Box>
 
-      {/* end absolute view of sidebar */}
       <GridItem area="home">
         <Box
           marginLeft={{ base: showLeftBar ? "260px" : "0", lg: "0" }}

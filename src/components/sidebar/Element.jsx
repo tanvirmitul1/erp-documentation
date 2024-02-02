@@ -54,13 +54,13 @@ const Element = ({
           to={`/module/${module.id}/component/${component.id}/element/${element.id}`}
         >
           <Flex
-            height="auto"
+            height="40px"
             onClick={() => handleElementClick(element.id)}
             justifyContent="left"
             gap="3px"
             cursor="pointer"
           >
-            <Text paddingTop="4px" fontSize={12} cursor="pointer">
+            <Text paddingTop="6px" fontSize={12} cursor="pointer">
               {element.name}
             </Text>
           </Flex>

@@ -13,23 +13,21 @@ import { Link } from "react-router-dom";
 import { useGetElementQuery } from "../../redux/api/docApiSlice";
 import SideSkeleton from "../reusable/SideSkeleton";
 
-const Component = ({ component, module, setModuleId }) => {
-  const [componentId, setComponentId] = useState("");
-  const { data, error, isLoading } = useGetElementQuery(componentId);
+const Component = ({ component, module, setModuleId, moduleId, index }) => {
+  const { data, error, isLoading } = useGetElementQuery(index + 1);
   const elements = data?.data;
   const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
   const { componentBorderColor } = useColorModeColors();
   const handleComponentClick = (componentId) => {
+    console.log("moduleId in elment", moduleId);
     setIsOpen(!isOpen);
-
     toggleLeftBar();
-    setComponentId(componentId);
   };
 
   return (
     <Stack
-      marginLeft={isOpen ? "16px" : "4px"}
+      marginLeft={isOpen ? "20px" : "16px"}
       transition="margin-left 0.3s ease"
       paddingX={2}
       borderLeft={`2px solid ${componentBorderColor}`}
@@ -38,13 +36,13 @@ const Component = ({ component, module, setModuleId }) => {
         {/* to={`/module/${module.id}/component/${component.id}`} */}
         <Link to={`/module/${module.id}/component/${component.id}`}>
           <Flex
-            height="25px"
-            onClick={() => handleComponentClick(component.id)}
+            height="40px"
+            onClick={() => handleComponentClick()}
             justifyContent="left"
             gap="3px"
             cursor="pointer"
           >
-            <Text paddingTop="4px" fontSize={12} cursor="pointer">
+            <Text paddingTop="10px" fontSize={12} cursor="pointer">
               {component.name}
             </Text>
             <Box paddingTop="6px"></Box>
@@ -54,7 +52,6 @@ const Component = ({ component, module, setModuleId }) => {
         <Box
           cursor="pointer"
           onClick={() => {
-            setComponentId(component.id);
             setIsOpen(!isOpen);
           }}
         >
@@ -69,8 +66,8 @@ const Component = ({ component, module, setModuleId }) => {
           elements?.map((element) => (
             <Element
               key={element.id}
+              moduleId={moduleId}
               setModuleId={setModuleId}
-              setComponentId={setComponentId}
               module={module}
               component={component}
               element={element}

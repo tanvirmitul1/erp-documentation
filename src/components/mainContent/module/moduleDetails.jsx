@@ -13,7 +13,6 @@ const ModuleDetails = () => {
     const storedData = localStorage.getItem("loginData");
 
     if (!storedData) {
-      // Navigate to "/" if "loginData" not found
       navigate("/");
     }
   }, [navigate]);

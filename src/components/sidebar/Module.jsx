@@ -30,15 +30,15 @@ const Module = ({ module }) => {
 
   return (
     <Stack
-      marginLeft={isOpen ? "16px" : "0"} // Adjust the value based on your design
-      transition="margin-left 0.3s ease" // Add the transition property
+      marginLeft={isOpen ? "16px" : "0"}
+      transition="margin-left 0.3s ease"
     >
       {/* to={`/module/${module.id}`} */}
 
       <HStack>
         <Link to={`/module/${module.id}`}>
           <Flex
-            height="30px"
+            height="40px"
             alignItems="center"
             justifyContent="left"
             gap="5px"
@@ -66,9 +66,11 @@ const Module = ({ module }) => {
         (isLoading ? (
           <SideSkeleton Count={5} width={150} />
         ) : (
-          components?.map((component) => (
+          components?.map((component, index) => (
             <Component
-            setModuleId={setModuleId}
+              index={index}
+              moduleId={moduleId}
+              setModuleId={setModuleId}
               key={component.id}
               module={module}
               component={component}

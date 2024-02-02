@@ -73,20 +73,22 @@ const docApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: moduleData,
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("loginData"))?.token}`,
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+    addComponent: builder.mutation({
+      query: (componentData) => ({
+        url: "/store-component",
+        method: "POST",
+        body: componentData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
         },
       }),
     }),
 
     ///dummy
-
-    addComponent: builder.mutation({
-      query: (componentData) => ({
-        url: "/modules",
-        method: "POST",
-        body: componentData,
-      }),
-    }),
   }),
 });
 
