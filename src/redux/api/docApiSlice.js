@@ -18,6 +18,18 @@ const docApiSlice = apiSlice.injectEndpoints({
       providesTags: ["GET_MODULE"],
     }),
 
+    getSingleModule: builder.query({
+      query: (moduleId) => {
+        return {
+          url: `/show-module/${moduleId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_SINGLE_MODULE"],
+    }),
+
     getComponent: builder.query({
       query: (moduleId) => {
         return {
@@ -29,21 +41,45 @@ const docApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ["GET_COMPONENT"],
     }),
-
-    loginUser: builder.mutation({
-      query: (user) => ({
-        url: "login",
-        method: "POST",
-        body: user,
-      }),
+    getElement: builder.query({
+      query: (elementId) => {
+        return {
+          url: `/elements/${elementId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_ELEMENT"],
     }),
+
+    getFunction: builder.query({
+      query: (elementId) => {
+        return {
+          url: `/functions/${elementId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_FUNCTION"],
+    }),
+
+    //modal submission
+
     addModule: builder.mutation({
       query: (moduleData) => ({
-        url: "/modules",
+        url: "/store-module",
         method: "POST",
         body: moduleData,
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("loginData"))?.token}`,
+        },
       }),
     }),
+
+    ///dummy
+
     addComponent: builder.mutation({
       query: (componentData) => ({
         url: "/modules",
@@ -56,8 +92,10 @@ const docApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetModuleQuery,
+  useGetSingleModuleQuery,
   useGetComponentQuery,
-  useLoginUserMutation,
+  useGetElementQuery,
+  useGetFunctionQuery,
   useAddModuleMutation,
   useAddComponentMutation,
 } = docApiSlice;

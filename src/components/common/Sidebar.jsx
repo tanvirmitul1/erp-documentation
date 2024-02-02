@@ -62,7 +62,7 @@ function Sidebar() {
       />
 
       {isLoading ? (
-        <SideSkeleton />
+        <SideSkeleton Count={20} width={200} />
       ) : (
         filteredModules.map((module) => (
           <Module key={module.id} module={module} />

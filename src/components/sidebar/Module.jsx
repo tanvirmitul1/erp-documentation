@@ -12,15 +12,18 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import { Link } from "react-router-dom";
 import { useGetComponentQuery } from "../../redux/api/docApiSlice";
 import useModuleStore from "../../zustand/store";
+import SideSkeleton from "../reusable/SideSkeleton";
 
 const Module = ({ module }) => {
-  const { data, error, isLoading } = useGetComponentQuery(module.id);
+  const [moduleId, setModuleId] = useState("");
+  const { data, error, isLoading } = useGetComponentQuery(moduleId);
   const components = data?.data;
   const { moduleIconColor } = useColorModeColors();
   const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleModuleClick = () => {
+  const handleModuleClick = (moduleId) => {
+    setModuleId(moduleId);
     setIsOpen(!isOpen);
     toggleLeftBar();
   };
@@ -40,7 +43,7 @@ const Module = ({ module }) => {
             justifyContent="left"
             gap="5px"
             cursor="pointer"
-            onClick={handleModuleClick}
+            onClick={() => handleModuleClick(module.id)}
           >
             <SiElementor size={20} color={moduleIconColor} />
             <Text paddingTop="12px" fontSize={12} fontWeight="bold">
@@ -51,6 +54,7 @@ const Module = ({ module }) => {
         <Box
           cursor="pointer"
           onClick={() => {
+            setModuleId(module.id);
             setIsOpen(!isOpen);
           }}
         >
@@ -59,8 +63,17 @@ const Module = ({ module }) => {
       </HStack>
 
       {isOpen &&
-        components?.map((component) => (
-          <Component key={component.id} module={module} component={component} />
+        (isLoading ? (
+          <SideSkeleton Count={5} width={150} />
+        ) : (
+          components?.map((component) => (
+            <Component
+            setModuleId={setModuleId}
+              key={component.id}
+              module={module}
+              component={component}
+            />
+          ))
         ))}
     </Stack>
   );

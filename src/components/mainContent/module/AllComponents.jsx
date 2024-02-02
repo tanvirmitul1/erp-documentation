@@ -34,7 +34,7 @@ const AllComponents = () => {
 
   const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
   const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
-  const currentComponents = components.slice(
+  const currentComponents = components?.slice(
     indexOfFirstComponent,
     indexOfLastComponent
   );

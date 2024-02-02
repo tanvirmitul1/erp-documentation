@@ -3,14 +3,19 @@
 // CustomButton.js
 import { useColorMode } from "@chakra-ui/react";
 import React from "react";
-import { Button, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Text,
+  CircularProgress,
+  CircularProgressLabel,
+} from "@chakra-ui/react";
 
 const SubmitButton = ({
   text,
   onClick,
   iconSize,
   buttonSize,
-
+  isLoading,
   textColor,
   width,
 }) => {
@@ -20,6 +25,9 @@ const SubmitButton = ({
 
   return (
     <Button
+      isLoading={isLoading}
+      loadingText="submitting"
+      color={textColor}
       border="none"
       width={width ? width : "auto"}
       height="40px"
@@ -31,9 +39,13 @@ const SubmitButton = ({
       onClick={onClick}
       _hover={{ backgroundColor: buttonHoverColor }}
     >
-      <Text paddingTop={4} color={textColor}>
-        {text ? text : "Add"}
-      </Text>
+      {isLoading ? (
+        <CircularProgress size={10} isIndeterminate color="green.300" mt={4}>
+          <CircularProgressLabel> </CircularProgressLabel>
+        </CircularProgress>
+      ) : (
+        `${text ? text : "Add"}`
+      )}
     </Button>
   );
 };

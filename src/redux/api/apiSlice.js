@@ -6,6 +6,6 @@ export const apiSlice = createApi({
     baseUrl: "https://360elevate.digital/api",
   }),
   keepUnusedDataFor: 60,
-  tagTypes: ["GET_MODULE", "GET_COMPONENT"],
+  tagTypes: ["GET_MODULE", "GET_COMPONENT", "GET_ELEMENT","GET_FUNCTION"],
   endpoints: () => ({}),
 });

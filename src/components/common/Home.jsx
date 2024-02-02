@@ -117,7 +117,7 @@ const Home = () => {
         {isLoading ? (
           <HomeSkeleton />
         ) : (
-          currentModules.map((module, index) => (
+          currentModules?.map((module, index) => (
             <Card
               onClick={() => handleClickCard(module)}
               cursor="pointer"

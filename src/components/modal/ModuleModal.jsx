@@ -30,8 +30,8 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    moduleName: "",
-    modulePath: "",
+    name: "",
+    directory_path: "",
     description: "",
   });
 
@@ -40,6 +40,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  console.log("form data in add module", formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -87,7 +88,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <form onSubmit={handleSubmit}>
+      <form>
         <Flex flexDirection="column">
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
@@ -103,8 +104,8 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
                 color: `${modalPlaceholderColor}`,
                 fontSize: "16px",
               }}
-              name="moduleName"
-              value={formData.moduleName}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
             />
           </FormControl>
@@ -123,8 +124,8 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
                 color: `${modalPlaceholderColor}`,
                 fontSize: "16px",
               }}
-              name="modulePath"
-              value={formData.modulePath}
+              name="directory_path"
+              value={formData.directory_path}
               onChange={handleChange}
             />
           </FormControl>
@@ -156,13 +157,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
               text="Submit"
-            >
-              {isLoading && (
-                <CircularProgress isIndeterminate color="green.300">
-                  <CircularProgressLabel>Submitting</CircularProgressLabel>
-                </CircularProgress>
-              )}
-            </SubmitButton>
+            ></SubmitButton>
           </Flex>
         </Flex>
       </form>

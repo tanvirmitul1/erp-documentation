@@ -10,15 +10,21 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import useModuleStore from "../../zustand/store";
 import { Link } from "react-router-dom";
+import { useGetElementQuery } from "../../redux/api/docApiSlice";
+import SideSkeleton from "../reusable/SideSkeleton";
 
-const Component = ({ component, module }) => {
-  const { setSelectedComponent, toggleLeftBar } = useModuleStore();
+const Component = ({ component, module, setModuleId }) => {
+  const [componentId, setComponentId] = useState("");
+  const { data, error, isLoading } = useGetElementQuery(componentId);
+  const elements = data?.data;
+  const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
   const { componentBorderColor } = useColorModeColors();
-  const handleClick = () => {
+  const handleComponentClick = (componentId) => {
     setIsOpen(!isOpen);
-    setSelectedComponent(component);
+
     toggleLeftBar();
+    setComponentId(componentId);
   };
 
   return (
@@ -33,7 +39,7 @@ const Component = ({ component, module }) => {
         <Link to={`/module/${module.id}/component/${component.id}`}>
           <Flex
             height="25px"
-            onClick={handleClick}
+            onClick={() => handleComponentClick(component.id)}
             justifyContent="left"
             gap="3px"
             cursor="pointer"
@@ -48,7 +54,7 @@ const Component = ({ component, module }) => {
         <Box
           cursor="pointer"
           onClick={() => {
-            setSelectedComponent(component);
+            setComponentId(component.id);
             setIsOpen(!isOpen);
           }}
         >
@@ -57,13 +63,19 @@ const Component = ({ component, module }) => {
       </HStack>
 
       {isOpen &&
-        component.elements.map((element) => (
-          <Element
-            key={element.id}
-            module={module}
-            component={component}
-            element={element}
-          />
+        (isLoading ? (
+          <SideSkeleton Count={3} width={130} />
+        ) : (
+          elements?.map((element) => (
+            <Element
+              key={element.id}
+              setModuleId={setModuleId}
+              setComponentId={setComponentId}
+              module={module}
+              component={component}
+              element={element}
+            />
+          ))
         ))}
     </Stack>
   );

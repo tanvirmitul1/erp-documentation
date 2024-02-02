@@ -64,14 +64,24 @@ function Login() {
       const payload = await submitData(formData).unwrap();
       localStorage.setItem("loginData", JSON.stringify(payload));
 
-      toast({
-        position: "top-right",
-        title: "Login successful.",
-        description: "Welcome back!",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
+      if (payload.status === 422) {
+        toast({
+          position: "top-right",
+          title: "Invalid Credentials",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          position: "top-right",
+          title: "Login successful.",
+          description: "Welcome back!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
 
       setTimeout(() => {
         if (payload.token) {
