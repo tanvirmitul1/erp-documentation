@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 // AllComponents.jsx
+
 import React, { useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
@@ -16,18 +17,21 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
-import useModuleStore from "../../../zustand/store";
 
 import ComponentCard from "./ComponentCard";
 import useColorModeColors from "../../../hooks/useColorModeColors";
+import { useGetComponentQuery } from "../../../redux/api/docApiSlice";
+import useZustandStore from "../../../zustand/store";
+import SideSkeleton from "../../reusable/SideSkeleton";
 
 const AllComponents = () => {
+  const { selectedModule } = useZustandStore();
+  const { data, error, isLoading } = useGetComponentQuery(selectedModule.id);
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
     useColorModeColors();
-  // pagination start
 
-  const { selectedModule } = useModuleStore();
-  const components = selectedModule.components;
+  // pagination start
+  const components = data?.data;
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2;
@@ -38,6 +42,7 @@ const AllComponents = () => {
     indexOfFirstComponent,
     indexOfLastComponent
   );
+
   //pagination end
 
   const handlePageClick = (selectedItem) => {
@@ -45,43 +50,49 @@ const AllComponents = () => {
   };
 
   return (
-    <Flex
-      flexWrap="wrap"
-      flexDir="column"
-      alignItems="center"
-      justifyContent={{ base: "left", md: "center" }}
-      marginTop="20px"
-    >
-      <Box marginRight={{ base: "150px", md: "0" }}>
-        <Searchbar placeholder="Search Component" />
-      </Box>
-      <Box>
-        {currentComponents.map((component) => (
-          <ComponentCard component={component} key={component.id} />
-        ))}
-      </Box>
+    <>
+      {isLoading ? (
+        <SideSkeleton count={40} width={1300} />
+      ) : (
+        <Flex
+          flexWrap="wrap"
+          flexDir="column"
+          alignItems="center"
+          justifyContent={{ base: "left", md: "center" }}
+          marginTop="20px"
+        >
+          <Box marginRight={{ base: "150px", md: "0" }}>
+            <Searchbar placeholder="Search Component" />
+          </Box>
+          <Box>
+            {currentComponents?.map((component) => (
+              <ComponentCard component={component} key={component.id} />
+            ))}
+          </Box>
 
-      <ReactPaginate
-        previousLabel={
-          <IconContext.Provider value={{ size: "36px" }}>
-            <AiFillLeftCircle />
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ size: "36px" }}>
-            <AiFillRightCircle />
-          </IconContext.Provider>
-        }
-        breakLabel={"..."}
-        pageCount={Math.ceil(components.length / itemsPerPage)}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-      />
-    </Flex>
+          <ReactPaginate
+            previousLabel={
+              <IconContext.Provider value={{ size: "36px" }}>
+                <AiFillLeftCircle />
+              </IconContext.Provider>
+            }
+            nextLabel={
+              <IconContext.Provider value={{ size: "36px" }}>
+                <AiFillRightCircle />
+              </IconContext.Provider>
+            }
+            breakLabel={"..."}
+            pageCount={Math.ceil(components?.length / itemsPerPage)}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            pageClassName={"page-item"}
+          />
+        </Flex>
+      )}
+    </>
   );
 };
 

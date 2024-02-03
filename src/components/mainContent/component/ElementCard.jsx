@@ -49,7 +49,7 @@ const ElementCard = ({ element }) => {
             <Flex marginTop="2px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
-                {element.addedBy}
+                {element.added_by_name}
               </Text>
             </Flex>
           </Flex>
@@ -67,7 +67,7 @@ const ElementCard = ({ element }) => {
               Element Directory Path:
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>
-              {element.moduleDirectoryPath}
+              {element.directory_path}
             </Text>
           </Flex>
         </VStack>
@@ -75,11 +75,11 @@ const ElementCard = ({ element }) => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{element.createdAt}</Text>
+            <Text>{element.created_at}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{element.lastUpdateAt}</Text>
+            <Text>{element.last_updated_at}</Text>
           </Flex>
 
           <UpdateButton

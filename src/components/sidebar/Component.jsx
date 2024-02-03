@@ -12,19 +12,28 @@ import useModuleStore from "../../zustand/store";
 import { Link } from "react-router-dom";
 import { useGetElementQuery } from "../../redux/api/docApiSlice";
 import SideSkeleton from "../reusable/SideSkeleton";
+import useZustandStore from "../../zustand/store";
+const Component = ({ component, module }) => {
+  const { selectedModule, setSelectedComponent, selectedComponent } =
+    useZustandStore();
 
-const Component = ({ component, module, setModuleId, moduleId, index }) => {
-  const { data, error, isLoading } = useGetElementQuery(index + 1);
+  const { data, isLoading, isError } = useGetElementQuery({
+    moduleId: selectedComponent.moduleId,
+    componentId: selectedComponent.id,
+  });
+
   const elements = data?.data;
+
   const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
   const { componentBorderColor } = useColorModeColors();
-  const handleComponentClick = (componentId) => {
-    console.log("moduleId in elment", moduleId);
+
+  const handleComponentClick = (component) => {
+    setSelectedComponent(component);
     setIsOpen(!isOpen);
     toggleLeftBar();
   };
-
+  console.log("selected component", selectedComponent);
   return (
     <Stack
       marginLeft={isOpen ? "20px" : "16px"}
@@ -37,7 +46,7 @@ const Component = ({ component, module, setModuleId, moduleId, index }) => {
         <Link to={`/module/${module.id}/component/${component.id}`}>
           <Flex
             height="40px"
-            onClick={() => handleComponentClick()}
+            onClick={() => handleComponentClick(component)}
             justifyContent="left"
             gap="3px"
             cursor="pointer"
@@ -58,21 +67,24 @@ const Component = ({ component, module, setModuleId, moduleId, index }) => {
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
         </Box>
       </HStack>
-
+      {console.log("elements in component", elements)}
       {isOpen &&
         (isLoading ? (
           <SideSkeleton Count={3} width={130} />
         ) : (
-          elements?.map((element) => (
-            <Element
-              key={element.id}
-              moduleId={moduleId}
-              setModuleId={setModuleId}
-              module={module}
-              component={component}
-              element={element}
-            />
-          ))
+          elements?.map((element) => {
+            if (element.componentName === component.name) {
+              return (
+                <Element
+                  key={element.id}
+                  module={module}
+                  component={component}
+                  element={element}
+                />
+              );
+            }
+            return null; // or any other placeholder if you want to skip rendering
+          })
         ))}
     </Stack>
   );

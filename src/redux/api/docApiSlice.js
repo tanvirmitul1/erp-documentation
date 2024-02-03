@@ -29,7 +29,7 @@ const docApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ["GET_SINGLE_MODULE"],
     }),
-
+    //get component using moduleid
     getComponent: builder.query({
       query: (moduleId) => {
         return {
@@ -41,10 +41,12 @@ const docApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ["GET_COMPONENT"],
     }),
+
+    //get elements using moduleid and componentid
     getElement: builder.query({
-      query: (elementId) => {
+      query: ({ moduleId, componentId }) => {
         return {
-          url: `/elements/${elementId}`,
+          url: `/elements/${moduleId}/${componentId}`,
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
           },
@@ -53,16 +55,18 @@ const docApiSlice = apiSlice.injectEndpoints({
       providesTags: ["GET_ELEMENT"],
     }),
 
+    //get function using moduleid ,componentid and elementid
+
     getFunction: builder.query({
-      query: (elementId) => {
+      query: ({ moduleId, componentId, elementId }) => {
         return {
-          url: `/functions/${elementId}`,
+          url: `/functions/${moduleId}/${componentId}/${elementId}`,
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
           },
         };
       },
-      providesTags: ["GET_FUNCTION"],
+      providesTags: ["GET_ELEMENT"],
     }),
 
     //modal submission

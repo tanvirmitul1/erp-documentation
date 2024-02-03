@@ -11,19 +11,19 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import { Link } from "react-router-dom";
 import { useGetComponentQuery } from "../../redux/api/docApiSlice";
-import useModuleStore from "../../zustand/store";
+
 import SideSkeleton from "../reusable/SideSkeleton";
+import useZustandStore from "../../zustand/store";
 
 const Module = ({ module }) => {
-  const [moduleId, setModuleId] = useState("");
-  const { data, error, isLoading } = useGetComponentQuery(moduleId);
+  const { toggleLeftBar, setSelectedModule } = useZustandStore();
+  const { data, error, isLoading } = useGetComponentQuery(module.id);
   const components = data?.data;
   const { moduleIconColor } = useColorModeColors();
-  const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleModuleClick = (moduleId) => {
-    setModuleId(moduleId);
+    setSelectedModule(module);
     setIsOpen(!isOpen);
     toggleLeftBar();
   };
@@ -54,7 +54,6 @@ const Module = ({ module }) => {
         <Box
           cursor="pointer"
           onClick={() => {
-            setModuleId(module.id);
             setIsOpen(!isOpen);
           }}
         >
@@ -69,8 +68,6 @@ const Module = ({ module }) => {
           components?.map((component, index) => (
             <Component
               index={index}
-              moduleId={moduleId}
-              setModuleId={setModuleId}
               key={component.id}
               module={module}
               component={component}

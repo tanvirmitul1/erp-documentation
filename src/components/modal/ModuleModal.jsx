@@ -40,7 +40,6 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  console.log("form data in add module", formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
 

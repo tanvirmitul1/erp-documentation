@@ -23,8 +23,8 @@ import useModuleStore from "../../../zustand/store";
 
 const ComponentCard = ({ component }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
-  useColorModeColors();
-  
+    useColorModeColors();
+
   const { setSelectedComponent } = useModuleStore();
   const { moduleId } = useParams();
   const handleViewClick = () => {
@@ -48,7 +48,7 @@ const ComponentCard = ({ component }) => {
             <Flex marginTop="6px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
-                {component.addedBy}
+                {component.added_by_name}
               </Text>
             </Flex>
           </Flex>
@@ -66,7 +66,7 @@ const ComponentCard = ({ component }) => {
               Component Directory Path:
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>
-              {component.moduleDirectoryPath}
+              {component.directory_path}
             </Text>
           </Flex>
         </VStack>
@@ -74,11 +74,11 @@ const ComponentCard = ({ component }) => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{component.createdAt}</Text>
+            <Text>{component.created_at}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{component.lastUpdateAt}</Text>
+            <Text>{component.last_updated_at}</Text>
           </Flex>
 
           <UpdateButton

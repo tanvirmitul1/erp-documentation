@@ -6,10 +6,11 @@ import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 import { Text, Stack, Flex, Box, HStack } from "@chakra-ui/react";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import useModuleStore from "../../zustand/store"; // Corrected import
+
 import { Link } from "react-router-dom";
 import { useGetFunctionQuery } from "../../redux/api/docApiSlice";
 import SideSkeleton from "../reusable/SideSkeleton";
+import useZustandStore from "../../zustand/store";
 
 const Element = ({
   module,
@@ -18,22 +19,22 @@ const Element = ({
   setComponentId,
   setModuleId,
 }) => {
-  const [elementId, setElementId] = useState("");
-  const { data, error, isLoading } = useGetFunctionQuery(elementId);
-  const functions = data?.data;
   const {
-    selectedFunction,
     selectedElement,
     setSelectedElement,
+    selectedFunction,
     setSelectedFunction,
     toggleLeftBar,
-  } = useModuleStore();
+  } = useZustandStore();
+
+  const [elementId, setElementId] = useState("");
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { elementBorderColor, functionBorderColor } = useColorModeColors();
-  const handleElementClick = (elementId) => {
-    setElementId(elementId);
+  const handleElementClick = (element) => {
     setSelectedElement(element);
+
     setIsOpen(!isOpen);
     toggleLeftBar();
   };
@@ -41,6 +42,12 @@ const Element = ({
     setSelectedFunction(fn);
     toggleLeftBar();
   };
+  const { data, error, isLoading } = useGetFunctionQuery({
+    moduleId: selectedElement.moduleId,
+    componentId: selectedElement.componentId,
+    elementId: selectedElement.id,
+  });
+  const functions = data?.data;
 
   return (
     <Stack
@@ -55,7 +62,7 @@ const Element = ({
         >
           <Flex
             height="40px"
-            onClick={() => handleElementClick(element.id)}
+            onClick={() => handleElementClick(element)}
             justifyContent="left"
             gap="3px"
             cursor="pointer"

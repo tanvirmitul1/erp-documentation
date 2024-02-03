@@ -22,9 +22,11 @@ import CustomDescription from "../reusable/Description";
 import { RiSoundModuleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import HomeSkeleton from "../reusable/HomeSkeleton";
+import useZustandStore from "../../zustand/store";
 useGetModuleQuery;
 
 const Home = () => {
+  const { setSelectedModule } = useZustandStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const ITEMS_PER_PAGE = 12;
@@ -55,11 +57,13 @@ const Home = () => {
     offset + ITEMS_PER_PAGE
   );
 
-  const handleClickCard = (module) => {};
+  const handleClickCard = (module) => {
+    setSelectedModule(module);
+  };
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-    setCurrentPage(0); // Reset page when a new search is performed
+    setCurrentPage(0);
   };
 
   return (
@@ -126,7 +130,6 @@ const Home = () => {
                 transition: "all 0.3s ease-in-out",
               }}
             >
-              {console.log("module in home", module)}
               <CardBody textAlign="center" marginX="auto">
                 <Link
                   to={`/module/${module.id}`}

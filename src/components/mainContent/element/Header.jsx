@@ -17,11 +17,12 @@ import FunctionModal from "../../modal/FunctionModal";
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import React from "react";
+import useZustandStore from "../../../zustand/store";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
-  const { selectedElement } = useModuleStore();
+  const { selectedElement } = useZustandStore();
 
   const handleButtonClick = () => {
     console.log("button clicked");
@@ -54,7 +55,7 @@ const Header = () => {
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {" "}
-                {selectedElement.addedBy}
+                {selectedElement.added_by_name}
               </Text>
             </Flex>
           </Flex>
@@ -73,7 +74,7 @@ const Header = () => {
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>
               {" "}
-              {selectedElement.moduleDirectoryPath}
+              {selectedElement.directory_path}
             </Text>
           </Flex>
         </VStack>
@@ -81,15 +82,17 @@ const Header = () => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{selectedElement.createdAt}</Text>
+            <Text>{selectedElement.created_at}</Text>
           </Flex>
           <Flex h="25px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{selectedElement.lastUpdateAt}</Text>
+            <Text>{selectedElement.las_update_at}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>last Updated By:</Text>
-            <Text color={modulePathColor}>{selectedElement.lastUpdateBy}</Text>
+            <Text color={modulePathColor}>
+              {selectedElement.last_update_by}
+            </Text>
           </Flex>
 
           <UpdateButton

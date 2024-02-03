@@ -14,15 +14,18 @@ import ReactModal from "react-modal";
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
+
+import useZustandStore from "../../zustand/store";
 import { useAddComponentMutation } from "../../redux/api/docApiSlice";
 
 const ComponentModal = ({
   isOpen,
   onRequestClose,
- 
+
   module,
-  
 }) => {
+  const { selectedModule } = useZustandStore();
+
   const [addComponent, { isLoading }] = useAddComponentMutation();
 
   const toast = useToast();
@@ -36,12 +39,21 @@ const ComponentModal = ({
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    module_id: module.id,
+    module_id: selectedModule.id,
     name: "",
     directory_path: "",
     description: "",
   });
 
+  // update formData when selectedModule changes
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      module_id: selectedModule.id,
+    }));
+  }, [selectedModule]);
+
+  console.log(formData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -89,7 +101,6 @@ const ComponentModal = ({
     }
   };
 
-  console.log(formData);
   return (
     <ReactModal
       style={{

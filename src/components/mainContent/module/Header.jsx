@@ -11,13 +11,15 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetSingleModuleQuery } from "../../../redux/api/docApiSlice";
 import SideSkeleton from "../../reusable/SideSkeleton";
+import useZustandStore from "../../../zustand/store";
 const Header = () => {
-  let { moduleId } = useParams();
-  const [module_id, setModule_id] = useState("");
-  const { data, isLoading, error } = useGetSingleModuleQuery(moduleId);
+  const { selectedModule: moduleFromClick } = useZustandStore();
+
+  const { data, isLoading, error } = useGetSingleModuleQuery(
+    moduleFromClick.id
+  );
   const selectedModule = data?.data;
 
-  console.log("selected module in from left", data);
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
 
@@ -29,7 +31,6 @@ const Header = () => {
 
   const handleCreateComponentButtonClick = () => {
     setIsModalOpen(true);
-    setModule_id(selectedModule?.id);
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -116,9 +117,7 @@ const Header = () => {
             onClick={handleCreateComponentButtonClick}
           />
           <ComponentModal
-            setModule_id={setModule_id}
             module={selectedModule}
-            module_id={module_id}
             isOpen={isModalOpen}
             onRequestClose={handleCloseModal}
           />

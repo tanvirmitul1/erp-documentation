@@ -56,7 +56,7 @@ const Header = () => {
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
                 {" "}
-                {selectedComponent.addedBy}
+                {selectedComponent.added_by_name}
               </Text>
             </Flex>
           </Flex>
@@ -75,7 +75,7 @@ const Header = () => {
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>
               {" "}
-              {selectedComponent.moduleDirectoryPath}
+              {selectedComponent.directory_path}
             </Text>
           </Flex>
         </VStack>
@@ -83,16 +83,16 @@ const Header = () => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{selectedComponent.createdAt}</Text>
+            <Text>{selectedComponent.created_at}</Text>
           </Flex>
           <Flex h="25px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{selectedComponent.lastUpdateAt}</Text>
+            <Text>{selectedComponent.last_updated_at}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>
-              {selectedComponent.lastUpdateBy}
+              {selectedComponent.last_updated_by}
             </Text>
           </Flex>
 

@@ -20,21 +20,30 @@ import useModuleStore from "../../../zustand/store";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 
 import FunctionCard from "./FunctionCard";
+import useZustandStore from "../../../zustand/store";
+import { useGetFunctionQuery } from "../../../redux/api/docApiSlice";
 
 const AllFunctions = () => {
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
     useColorModeColors();
   // pagination start
 
-  const { selectedElement } = useModuleStore();
-  const functions = selectedElement.functions;
+  const { selectedElement } = useZustandStore();
+
+  const { data, error, isLoading } = useGetFunctionQuery({
+    moduleId: selectedElement.moduleId,
+    componentId: selectedElement.componentId,
+    elementId: selectedElement.id,
+  });
+
+  const functions = data?.data;
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 1;
 
   const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
   const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
-  const currentFunctions = functions.slice(
+  const currentFunctions = functions?.slice(
     indexOfFirstComponent,
     indexOfLastComponent
   );
@@ -56,7 +65,7 @@ const AllFunctions = () => {
         <Searchbar placeholder="Search Function" />
       </Box>
       <Box>
-        {currentFunctions.map((fn) => (
+        {currentFunctions?.map((fn) => (
           <FunctionCard fn={fn} key={fn.id} />
         ))}
       </Box>
@@ -73,7 +82,7 @@ const AllFunctions = () => {
           </IconContext.Provider>
         }
         breakLabel={"..."}
-        pageCount={Math.ceil(functions.length / itemsPerPage)}
+        pageCount={Math.ceil(functions?.length / itemsPerPage)}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
