@@ -25,6 +25,7 @@ import useZustandStore from "../../../zustand/store";
 import SideSkeleton from "../../reusable/SideSkeleton";
 
 const AllComponents = () => {
+  const [componentName, setComponentName] = useState("");
   const { selectedModule } = useZustandStore();
   const { data, error, isLoading } = useGetComponentQuery(selectedModule.id);
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
@@ -45,6 +46,14 @@ const AllComponents = () => {
 
   //pagination end
 
+  const handleChange = (e) => {
+    setComponentName(e.target.value);
+  };
+
+  const filteredComponents = components?.filter((component) =>
+    component.name.toLowerCase().includes(componentName.toLowerCase())
+  );
+
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
@@ -62,10 +71,10 @@ const AllComponents = () => {
           marginTop="20px"
         >
           <Box marginRight={{ base: "150px", md: "0" }}>
-            <Searchbar placeholder="Search Component" />
+            <Searchbar placeholder="Search Component" onChange={handleChange} />
           </Box>
           <Box>
-            {currentComponents?.map((component) => (
+            {filteredComponents?.map((component) => (
               <ComponentCard component={component} key={component.id} />
             ))}
           </Box>

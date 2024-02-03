@@ -12,12 +12,13 @@ import useZustandStore from "../../../zustand/store";
 import { useGetElementQuery } from "../../../redux/api/docApiSlice";
 
 const AllElements = () => {
+  const [elementName, setElementName] = useState("");
   const { selectedComponent } = useZustandStore();
   const { data, isLoading, isError } = useGetElementQuery({
     moduleId: selectedComponent.moduleId,
     componentId: selectedComponent.id,
   });
-  
+
   const elements = data?.data;
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,6 +31,14 @@ const AllElements = () => {
     indexOfLastComponent
   );
   //pagination end
+
+  const handleChange = (e) => {
+    setElementName(e.target.value);
+  };
+
+  const filteredElements = elements?.filter((element) =>
+    element.name.toLowerCase().includes(elementName.toLowerCase())
+  );
 
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
@@ -44,10 +53,14 @@ const AllElements = () => {
       marginTop="20px"
     >
       <Box marginRight={{ base: "150px", md: "0" }}>
-        <Searchbar width="250px" placeholder="Search Element" />
+        <Searchbar
+          width="250px"
+          placeholder="Search Element"
+          onChange={handleChange}
+        />
       </Box>
       <Box>
-        {currentElements?.map((element) => (
+        {filteredElements?.map((element) => (
           <ElementCard element={element} key={element.id} />
         ))}
       </Box>

@@ -27,7 +27,7 @@ const AllFunctions = () => {
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
     useColorModeColors();
   // pagination start
-
+  const [functionName, setFunctionName] = useState("");
   const { selectedElement } = useZustandStore();
 
   const { data, error, isLoading } = useGetFunctionQuery({
@@ -48,7 +48,13 @@ const AllFunctions = () => {
     indexOfLastComponent
   );
   //pagination end
+  const handleChange = (e) => {
+    setFunctionName(e.target.value);
+  };
 
+  const filteredFunctions = functions?.filter((fn) =>
+    fn.name?.toLowerCase().includes(functionName?.toLowerCase())
+  );
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
@@ -62,10 +68,10 @@ const AllFunctions = () => {
       marginTop="20px"
     >
       <Box marginRight={{ base: "150px", md: "0" }}>
-        <Searchbar placeholder="Search Function" />
+        <Searchbar placeholder="Search Function" onChange={handleChange} />
       </Box>
       <Box>
-        {currentFunctions?.map((fn) => (
+        {filteredFunctions?.map((fn) => (
           <FunctionCard fn={fn} key={fn.id} />
         ))}
       </Box>
