@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { useGetSingleModuleQuery } from "../../../redux/api/docApiSlice";
 import SideSkeleton from "../../reusable/SideSkeleton";
 import useZustandStore from "../../../zustand/store";
+import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
 const Header = () => {
   const { selectedModule: moduleFromClick } = useZustandStore();
 
@@ -23,17 +24,19 @@ const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
 
-  const handleButtonClick = () => {
-    console.log("button clicked");
-  };
-
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
 
   const handleCreateComponentButtonClick = () => {
     setIsModalOpen(true);
   };
+  const handleUpdateMOdalButtonClick = () => {
+    setIsUpdateModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsUpdateModalOpen(false);
   };
   return (
     <>
@@ -100,7 +103,7 @@ const Header = () => {
 
               <UpdateButton
                 text={`Update ${selectedModule?.name}`}
-                onClick={handleButtonClick}
+                onClick={handleUpdateMOdalButtonClick}
                 textColor={moduleTextColor}
               />
             </Flex>
@@ -119,6 +122,11 @@ const Header = () => {
           <ComponentModal
             module={selectedModule}
             isOpen={isModalOpen}
+            onRequestClose={handleCloseModal}
+          />
+
+          <ModuleUpdateModal
+            isOpen={isUpdateModalOpen}
             onRequestClose={handleCloseModal}
           />
         </Box>

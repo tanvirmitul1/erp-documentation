@@ -82,6 +82,19 @@ const docApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    // update module
+
+    updateModule: builder.mutation({
+      query: (moduleData) => ({
+        url: "/update-module",
+        method: "POST",
+        body: moduleData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+
     //component modal
     addComponent: builder.mutation({
       query: (componentData) => ({
@@ -130,4 +143,5 @@ export const {
   useAddComponentMutation,
   useAddElementMutation,
   useAddFunctionMutation,
+  useUpdateModuleMutation
 } = docApiSlice;
