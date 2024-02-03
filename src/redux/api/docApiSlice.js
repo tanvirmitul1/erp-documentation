@@ -70,7 +70,7 @@ const docApiSlice = apiSlice.injectEndpoints({
     }),
 
     //modal submission
-
+    //module modal
     addModule: builder.mutation({
       query: (moduleData) => ({
         url: "/store-module",
@@ -81,11 +81,35 @@ const docApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+
+    //component modal
     addComponent: builder.mutation({
       query: (componentData) => ({
         url: "/store-component",
         method: "POST",
         body: componentData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+    //element modal
+    addElement: builder.mutation({
+      query: (elementData) => ({
+        url: "/store-element",
+        method: "POST",
+        body: elementData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+    //element modal
+    addFunction: builder.mutation({
+      query: (functionData) => ({
+        url: "/store-function",
+        method: "POST",
+        body: functionData,
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
         },
@@ -104,4 +128,6 @@ export const {
   useGetFunctionQuery,
   useAddModuleMutation,
   useAddComponentMutation,
+  useAddElementMutation,
+  useAddFunctionMutation,
 } = docApiSlice;
