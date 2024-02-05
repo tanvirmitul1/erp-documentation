@@ -54,29 +54,27 @@ const ComponentCard = ({ component }) => {
           </Flex>
 
           <Flex
-                flexDirection={{ base: "column", md: "row" }}
-                gap="5px"
-                backgroundColor={{ base: "", md: "", lg: modulePathBgColor }}
-                padding={{ base: "", md: "", lg: "10px" }}
-                paddingX={{ base: "", md: "", lg: "20px" }}
-                paddingTop={{ base: "", md: "", lg: "16px" }}
-                // paddingBottom={2}
-                rounded="50px"
-              >
-                <Text
-                  display={{
-                    base: "none",
-                    md: "none",
-                    lg: "none",
-                    xl: "block",
-                  }}
-                  fontWeight="bold"
-                >
+            flexDirection={{ base: "column", md: "row" }}
+            gap="5px"
+            backgroundColor={{ base: "", md: "", lg: modulePathBgColor }}
+            padding={{ base: "", md: "", lg: "10px" }}
+            paddingX={{ base: "", md: "", lg: "20px" }}
+            paddingTop={{ base: "", md: "", lg: "16px" }}
+            // paddingBottom={2}
+            rounded="50px"
+          >
+            <Text
+              display={{
+                base: "none",
+                md: "none",
+                lg: "none",
+                xl: "block",
+              }}
+              fontWeight="bold"
+            >
               Component Directory Path:
             </Text>{" "}
-            <Text h="10px" color={modulePathColor}>
-              {component.directory_path}
-            </Text>
+            <Text color={modulePathColor}>{component.directory_path}</Text>
           </Flex>
         </VStack>
 

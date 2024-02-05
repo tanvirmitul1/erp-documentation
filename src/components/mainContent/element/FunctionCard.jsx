@@ -74,9 +74,7 @@ const FunctionCard = ({ fn }) => {
             >
               Function Directory Path:
             </Text>{" "}
-            <Text h="10px" color={modulePathColor}>
-              {fn.moduleDirectoryPath}
-            </Text>
+            <Text color={modulePathColor}>{fn.directory_path}</Text>
           </Flex>
         </VStack>
 

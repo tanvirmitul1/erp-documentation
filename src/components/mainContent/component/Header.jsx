@@ -90,7 +90,7 @@ const Header = () => {
             >
               Component Directory Path:
             </Text>{" "}
-            <Text h="10px" color={modulePathColor}>
+            <Text color={modulePathColor}>
               {" "}
               {selectedComponent.directory_path}
             </Text>

@@ -89,7 +89,7 @@ const Header = () => {
             >
               Element Directory Path:
             </Text>{" "}
-            <Text h="10px" color={modulePathColor}>
+            <Text color={modulePathColor}>
               {" "}
               {selectedElement.directory_path}
             </Text>

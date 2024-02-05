@@ -75,9 +75,7 @@ const ElementCard = ({ element }) => {
             >
               Element Directory Path:
             </Text>{" "}
-            <Text h="10px" color={modulePathColor}>
-              {element.directory_path}
-            </Text>
+            <Text color={modulePathColor}>{element.directory_path}</Text>
           </Flex>
         </VStack>
 
