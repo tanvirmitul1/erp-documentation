@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import {
   Text,
   Box,
@@ -20,20 +21,29 @@ import CodeBlock from "./CodeBlock";
 import formatCodeString from "../../../utils/FormatCode";
 import identifyLanguage from "../../../utils/LanguageIdentifier";
 import useZustandStore from "../../../zustand/store";
+import React from "react";
+import FunctionUpdateModal from "../../modal/FunctionUpdateModal";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
   const { selectedFunction } = useZustandStore();
   const language = identifyLanguage(selectedFunction?.function_code);
-  const handleButtonClick = () => {
-    console.log("button clicked");
-  };
 
   const formattedCode = formatCodeString(
     selectedFunction?.function_code,
     language
   );
+
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+  const handleUpdateMOdalButtonClick = () => {
+    setIsUpdateModalOpen(true);
+    console.log("update fn button clicked");
+  };
+
+  const handleCloseModal = () => {
+    setIsUpdateModalOpen(false);
+  };
   return (
     <Box paddingBottom="30px" marginX="20px">
       <Flex
@@ -109,7 +119,7 @@ const Header = () => {
           <UpdateButton
             width={{ base: "90vw", md: "auto" }}
             text={`Update ${selectedFunction.name}`}
-            onClick={handleButtonClick}
+            onClick={handleUpdateMOdalButtonClick}
             textColor={moduleTextColor}
           />
         </Flex>
@@ -120,6 +130,11 @@ const Header = () => {
         <Box as="h5"> Function Code</Box>
         <CodeBlock code={formattedCode} language="jsx" />
       </Box>
+
+      <FunctionUpdateModal
+        isOpen={isUpdateModalOpen}
+        onRequestClose={handleCloseModal}
+      />
     </Box>
   );
 };

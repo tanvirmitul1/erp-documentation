@@ -18,6 +18,8 @@ import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import React from "react";
 import useZustandStore from "../../../zustand/store";
+import ComponentUpdateModal from "../../modal/ComponentUpdateModal";
+import ElementUpdateModal from "../../modal/ElementUpdateModal";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -29,12 +31,18 @@ const Header = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
 
   const handleCreateFunctionButtonClick = () => {
     setIsModalOpen(true);
   };
+  const handleUpdateMOdalButtonClick = () => {
+    setIsUpdateModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsUpdateModalOpen(false);
   };
   return (
     <Box
@@ -114,7 +122,7 @@ const Header = () => {
 
           <UpdateButton
             text={`Update ${selectedElement.name}`}
-            onClick={handleButtonClick}
+            onClick={handleUpdateMOdalButtonClick}
             textColor={moduleTextColor}
           />
         </Flex>
@@ -131,6 +139,10 @@ const Header = () => {
         onClick={handleCreateFunctionButtonClick}
       />
       <FunctionModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
+      <ElementUpdateModal
+        isOpen={isUpdateModalOpen}
+        onRequestClose={handleCloseModal}
+      />
     </Box>
   );
 };

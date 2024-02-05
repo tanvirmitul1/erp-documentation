@@ -106,6 +106,20 @@ const docApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+
+    // update component
+
+    updateComponent: builder.mutation({
+      query: (componentData) => ({
+        url: "/update-element",
+        method: "POST",
+        body: componentData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+
     //element modal
     addElement: builder.mutation({
       query: (elementData) => ({
@@ -117,12 +131,37 @@ const docApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    // update element
+
+    updateElement: builder.mutation({
+      query: (elementData) => ({
+        url: "/update-element",
+        method: "POST",
+        body: elementData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+
     //element modal
     addFunction: builder.mutation({
       query: (functionData) => ({
         url: "/store-function",
         method: "POST",
         body: functionData,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }),
+    }),
+    // update element
+
+    updateFunction: builder.mutation({
+      query: (updateFunction) => ({
+        url: "/update-element",
+        method: "POST",
+        body: updateFunction,
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
         },
@@ -143,5 +182,8 @@ export const {
   useAddComponentMutation,
   useAddElementMutation,
   useAddFunctionMutation,
-  useUpdateModuleMutation
+  useUpdateModuleMutation,
+  useUpdateComponentMutation,
+  useUpdateElementMutation,
+  useUpdateFunctionMutation,
 } = docApiSlice;

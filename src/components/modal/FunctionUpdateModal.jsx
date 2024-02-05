@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import {
   Flex,
@@ -8,20 +8,18 @@ import {
   FormLabel,
   Textarea,
   useToast,
-  CircularProgress,
-  CircularProgressLabel,
 } from "@chakra-ui/react";
 import ReactModal from "react-modal";
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import { useUpdateModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
+import { useUpdateFunctionMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
 import useZustandStore from "../../zustand/store";
 
-const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedModule } = useZustandStore();
+const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
+  const { selectedFunction } = useZustandStore(); // Assuming useZustandStore has a selectedFunction
 
-  const [updateModule, { isLoading }] = useUpdateModuleMutation();
+  const [updateFunction, { isLoading }] = useUpdateFunctionMutation(); // Adjust according to your actual mutation hook
   const toast = useToast();
   const {
     modalBgColor,
@@ -33,13 +31,18 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    module_id: selectedModule ? selectedModule.id : "",
-    name: selectedModule ? selectedModule.name : "",
-    directory_path: selectedModule ? selectedModule.directory_path : "",
-    description: selectedModule ? selectedModule.description : "",
+    function_id: selectedFunction ? selectedFunction.id : "",
+    element_id: selectedFunction ? selectedFunction.elementId : "",
+    component_id: selectedFunction ? selectedFunction.componentId : "",
+    module_id: selectedFunction ? selectedFunction.moduleId : "",
+    name: selectedFunction ? selectedFunction.name : "",
+    function_code: selectedFunction ? selectedFunction.function_code : "",
+    directory_path: selectedFunction ? selectedFunction.directory_path : "",
+    description: selectedFunction ? selectedFunction.description : "",
   });
 
-  console.log("form data in update module", formData);
+  console.log("form data from function", formData);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -49,12 +52,12 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
     e.preventDefault();
 
     try {
-      const payload = await updateModule(formData).unwrap();
+      const payload = await updateFunction(formData).unwrap();
       if (payload.status === 200) {
         toast({
           position: "top-right",
-          title: "Module Added.",
-          description: "Your module has been added successfully.",
+          title: "Function Updated.",
+          description: "Your function has been updated successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -64,8 +67,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
         toast({
           zIndex: 100000,
           position: "top-right",
-          title: "Adding Module failed.",
-
+          title: "Updating Function failed.",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -75,8 +77,8 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
       toast({
         zIndex: 100000,
         position: "top-right",
-        title: "Adding Module failed.",
-        description: err.data?.message || "Could not add the module.",
+        title: "Updating Function failed.",
+        description: err.data?.message || "Could not update the function.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -96,7 +98,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
           borderRadius: "20px",
           backgroundColor: modalBgColor,
           maxWidth: "550px",
-          height: "600px",
+          height: "auto", // Adjust to auto for content size
           margin: "auto auto",
           border: "none",
         },
@@ -104,17 +106,17 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <Flex flexDirection="column">
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Module Name
+              Function Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="Select Module"
+              placeholder="Enter Function Name"
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
@@ -127,7 +129,24 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
           </FormControl>
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Module Directory path
+              Function Code
+            </FormLabel>
+            <Textarea
+              fontSize="16px"
+              overflowX="hidden"
+              overflowY="auto"
+              height="200px"
+              padding={4}
+              rounded={30}
+              backgroundColor={modalInputBgColor}
+              name="function_code"
+              value={formData.function_code}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+              Function Directory Path
             </FormLabel>
             <Input
               fontSize="16px"
@@ -173,7 +192,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
               text="Submit"
-            ></SubmitButton>
+            />
           </Flex>
         </Flex>
       </form>
@@ -181,4 +200,4 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
   );
 };
 
-export default ModuleUpdateModal;
+export default FunctionUpdateModal;

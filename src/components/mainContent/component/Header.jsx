@@ -19,23 +19,28 @@ import useColorModeColors from "../../../hooks/useColorModeColors";
 
 import React from "react";
 import ElementModal from "../../modal/ElementModal";
+import ComponentUpdateModal from "../../modal/ComponentUpdateModal";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
 
   const handleCreateElementButtonClick = () => {
     setIsModalOpen(true);
   };
+  const handleUpdateMOdalButtonClick = () => {
+    setIsUpdateModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsUpdateModalOpen(false);
   };
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
   const { selectedComponent } = useModuleStore();
 
-  const handleButtonClick = () => {
-    console.log("button clicked");
-  };
+ 
   return (
     <Box
       borderBottom="1px solid rgb(197, 184, 184)"
@@ -115,7 +120,7 @@ const Header = () => {
 
           <UpdateButton
             text={`Update ${selectedComponent.name}`}
-            onClick={handleButtonClick}
+            onClick={handleUpdateMOdalButtonClick}
             textColor={moduleTextColor}
           />
         </Flex>
@@ -132,6 +137,10 @@ const Header = () => {
         onClick={handleCreateElementButtonClick}
       />
       <ElementModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
+      <ComponentUpdateModal
+        isOpen={isUpdateModalOpen}
+        onRequestClose={handleCloseModal}
+      />
     </Box>
   );
 };

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import {
   Flex,
@@ -8,20 +8,19 @@ import {
   FormLabel,
   Textarea,
   useToast,
-  CircularProgress,
-  CircularProgressLabel,
 } from "@chakra-ui/react";
 import ReactModal from "react-modal";
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import { useUpdateModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
+useUpdateComponentMutation; // Make sure this path is correct
 import useZustandStore from "../../zustand/store";
+import { useUpdateComponentMutation } from "../../redux/api/docApiSlice";
 
-const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedModule } = useZustandStore();
+const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
+  const { selectedComponent } = useZustandStore();
 
-  const [updateModule, { isLoading }] = useUpdateModuleMutation();
+  const [updateComponent, { isLoading }] = useUpdateComponentMutation();
   const toast = useToast();
   const {
     modalBgColor,
@@ -33,13 +32,13 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    module_id: selectedModule ? selectedModule.id : "",
-    name: selectedModule ? selectedModule.name : "",
-    directory_path: selectedModule ? selectedModule.directory_path : "",
-    description: selectedModule ? selectedModule.description : "",
+    component_id: selectedComponent ? selectedComponent.id : "",
+    module_id: selectedComponent ? selectedComponent.moduleId : "",
+    name: selectedComponent ? selectedComponent.name : "",
+    directory_path: selectedComponent ? selectedComponent.directory_path : "",
+    description: selectedComponent ? selectedComponent.description : "",
   });
-
-  console.log("form data in update module", formData);
+  console.log("form data from component", formData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -49,12 +48,12 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
     e.preventDefault();
 
     try {
-      const payload = await updateModule(formData).unwrap();
+      const payload = await updateComponent(formData).unwrap();
       if (payload.status === 200) {
         toast({
           position: "top-right",
-          title: "Module Added.",
-          description: "Your module has been added successfully.",
+          title: "Component Added.",
+          description: "Your component has been added successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -64,8 +63,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
         toast({
           zIndex: 100000,
           position: "top-right",
-          title: "Adding Module failed.",
-
+          title: "Adding Component failed.",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -75,8 +73,8 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
       toast({
         zIndex: 100000,
         position: "top-right",
-        title: "Adding Module failed.",
-        description: err.data?.message || "Could not add the module.",
+        title: "Adding Component failed.",
+        description: err.data?.message || "Could not add the component.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -96,7 +94,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
           borderRadius: "20px",
           backgroundColor: modalBgColor,
           maxWidth: "550px",
-          height: "600px",
+          height: "600px", // Adjust height as needed
           margin: "auto auto",
           border: "none",
         },
@@ -108,13 +106,13 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
         <Flex flexDirection="column">
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Module Name
+              Component Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="Select Module"
+              placeholder="Enter Component Name"
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
@@ -127,7 +125,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
           </FormControl>
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Module Directory path
+              Component Directory path
             </FormLabel>
             <Input
               fontSize="16px"
@@ -173,7 +171,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
               text="Submit"
-            ></SubmitButton>
+            />
           </Flex>
         </Flex>
       </form>
@@ -181,4 +179,4 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
   );
 };
 
-export default ModuleUpdateModal;
+export default ComponentUpdateModal;
