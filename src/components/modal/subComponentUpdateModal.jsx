@@ -35,7 +35,7 @@ const SubComponentUpdateModal = ({ isOpen, onRequestClose, component }) => {
     directory_path: component ? component.directory_path : "",
     description: component ? component.description : "",
   });
-  console.log("form data from component", formData);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));

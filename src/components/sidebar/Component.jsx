@@ -33,7 +33,7 @@ const Component = ({ component, module }) => {
     setIsOpen(!isOpen);
     toggleLeftBar();
   };
-  console.log("selected component", selectedComponent);
+
   return (
     <Stack
       marginLeft={isOpen ? "20px" : "16px"}
@@ -67,7 +67,7 @@ const Component = ({ component, module }) => {
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
         </Box>
       </HStack>
-      {console.log("elements in component", elements)}
+
       {isOpen &&
         (isLoading ? (
           <SideSkeleton Count={3} width={130} />

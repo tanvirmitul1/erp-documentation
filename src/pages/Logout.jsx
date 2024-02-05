@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { IconButton, useToast } from "@chakra-ui/react";
-import { FaSignOutAlt } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
@@ -9,10 +9,8 @@ const Logout = () => {
   const toast = useToast();
 
   const handleLogout = () => {
-    
     localStorage.removeItem("loginData");
 
-    
     navigate("/login");
 
     toast({
@@ -27,9 +25,9 @@ const Logout = () => {
 
   return (
     <IconButton
-    w={1}
-    h={7}
-      icon={<FaSignOutAlt />}
+      w={1}
+      h={7}
+      icon={<AiOutlineLogout />}
       colorScheme="red"
       aria-label="Logout"
       onClick={handleLogout}

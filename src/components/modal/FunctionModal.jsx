@@ -53,8 +53,6 @@ const FunctionModal = ({ isOpen, onRequestClose }) => {
     }));
   }, [selectedElement]);
 
-  console.log("form data from function modal", formData);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));

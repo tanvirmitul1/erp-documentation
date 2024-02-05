@@ -20,6 +20,7 @@ import useColorModeColors from "../../../hooks/useColorModeColors";
 import React from "react";
 import ElementModal from "../../modal/ElementModal";
 import ComponentUpdateModal from "../../modal/ComponentUpdateModal";
+import useZustandStore from "../../../zustand/store";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -38,7 +39,7 @@ const Header = () => {
   };
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
-  const { selectedComponent } = useModuleStore();
+  const { selectedComponent } = useZustandStore();
 
   return (
     <Box

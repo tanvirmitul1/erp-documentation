@@ -37,8 +37,6 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
     description: element ? element.description : "",
   });
 
-  console.log("form data from element", formData);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));

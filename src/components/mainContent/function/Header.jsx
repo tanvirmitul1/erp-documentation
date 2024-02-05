@@ -38,14 +38,12 @@ const Header = () => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
   const handleUpdateMOdalButtonClick = () => {
     setIsUpdateModalOpen(true);
-    console.log("update fn button clicked");
   };
 
   const handleCloseModal = () => {
     setIsUpdateModalOpen(false);
   };
 
-  console.log("selected function", selectedFunction);
   return (
     <Box paddingBottom="30px" marginX="20px">
       <Flex
@@ -62,12 +60,12 @@ const Header = () => {
               xl: "row",
             }}
           >
-            <Text as="h2">{selectedFunction.name}</Text>
+            <Text as="h2">{selectedFunction?.name}</Text>
             <Flex marginTop="14px" gap={1}>
               <Text h="10px">Added By:</Text>
               <Text h="10px" color={modulePathColor}>
                 {" "}
-                {selectedFunction.added_by_name}
+                {selectedFunction?.added_by_name}
               </Text>
             </Flex>
           </Flex>
@@ -95,7 +93,7 @@ const Header = () => {
             </Text>{" "}
             <Text color={modulePathColor}>
               {" "}
-              {selectedFunction.directory_path}
+              {selectedFunction?.directory_path}
             </Text>
           </Flex>
         </VStack>
@@ -103,16 +101,16 @@ const Header = () => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={1}>
             <Text>Created At:</Text>
-            <Text>{selectedFunction.created_at}</Text>
+            <Text>{selectedFunction?.created_at}</Text>
           </Flex>
           <Flex h="25px">
             <Text>Last Updated At:</Text>
-            <Text>{selectedFunction.last_update_at}</Text>
+            <Text>{selectedFunction?.last_update_at}</Text>
           </Flex>
           <Flex h="30px">
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>
-              {selectedFunction.last_update_by}
+              {selectedFunction?.last_update_by}
             </Text>
           </Flex>
 
@@ -126,7 +124,7 @@ const Header = () => {
       </Flex>
 
       <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
-        <CustomDescription description={selectedFunction.description} />
+        <CustomDescription description={selectedFunction?.description} />
         <Box as="h5"> Function Code</Box>
         <CodeBlock code={formattedCode} language="jsx" />
       </Box>

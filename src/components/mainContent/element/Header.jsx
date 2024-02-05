@@ -26,10 +26,6 @@ const Header = () => {
     useColorModeColors();
   const { selectedElement } = useZustandStore();
 
-  const handleButtonClick = () => {
-    console.log("button clicked");
-  };
-
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
 

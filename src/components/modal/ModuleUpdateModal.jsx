@@ -42,7 +42,7 @@ const ModuleUpdateModal = ({
     description: module ? module.description : "",
   });
 
-  console.log("form selected module", module);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));

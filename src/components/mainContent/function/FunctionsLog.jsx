@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import ReactPaginate from "react-paginate";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
@@ -10,9 +11,13 @@ import { IconContext } from "react-icons";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import useModuleStore from "../../../zustand/store";
 import LogCard from "./LogCard";
-
+import { useGetFunctionsLogQuery } from "../../../redux/api/docApiSlice";
+import useZustandStore from "../../../zustand/store";
 const FunctionsLog = () => {
-  const [viewLog, setViewLog] = useState(true);
+  const { data, isLoading } = useGetFunctionsLogQuery();
+  const { selectedFunction } = useZustandStore();
+
+  const [viewLog, setViewLog] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2;
 
@@ -21,16 +26,24 @@ const FunctionsLog = () => {
   };
 
   const { addButtonBgColor, addButtonTextColor } = useColorModeColors();
-  const { selectedFunction } = useModuleStore();
-  const functionLog = selectedFunction?.functionLog || [];
+  const functionLog = data?.data || [];
 
   const indexOfLastLog = (currentPage + 1) * itemsPerPage;
   const indexOfFirstLog = indexOfLastLog - itemsPerPage;
-  const currentLogs = functionLog.slice(indexOfFirstLog, indexOfLastLog);
+
+  const filteredLogs = functionLog.filter(
+    (fnLog) => fnLog.function_id === selectedFunction.id
+  );
+
+  const currentLogs = filteredLogs.slice(indexOfFirstLog, indexOfLastLog);
 
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Box>
@@ -56,7 +69,9 @@ const FunctionsLog = () => {
       {viewLog && (
         <>
           {currentLogs.map((fnLog) => (
-            <LogCard key={fnLog.id} fnLog={fnLog} />
+            <Box key={fnLog.id}>
+              <LogCard fnLog={fnLog} />
+            </Box>
           ))}
 
           <Box marginLeft="45%" marginTop="20px">
@@ -72,7 +87,7 @@ const FunctionsLog = () => {
                 </IconContext.Provider>
               }
               breakLabel={"..."}
-              pageCount={Math.ceil(functionLog.length / itemsPerPage)}
+              pageCount={Math.ceil(filteredLogs.length / itemsPerPage)}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}

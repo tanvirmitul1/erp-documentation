@@ -46,7 +46,6 @@ function Sidebar() {
     module?.name.toLowerCase().includes(moduleName.toLowerCase())
   );
 
-  console.log("modules in sidebar", modules);
   return (
     <Stack
       w="100%"

@@ -53,8 +53,6 @@ const ComponentModal = ({
     }));
   }, [selectedModule]);
 
-  console.log(formData);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -86,7 +84,6 @@ const ComponentModal = ({
         setComponents((prevComponents) => [...prevComponents, payload.data]);
       }
 
-      console.log("component  payload data", payload?.data);
       if (payload.status === 200) {
         toast({
           position: "top-right",

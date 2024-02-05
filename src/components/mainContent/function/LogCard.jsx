@@ -20,8 +20,8 @@ import formatCodeString from "../../../utils/FormatCode";
 
 const LogCard = ({ fnLog }) => {
   const { modulePathColor, modulePathBgColor } = useColorModeColors();
-  const language = identifyLanguage(fnLog.functionCode);
-  const formattedCode = formatCodeString(fnLog.functionCode, language);
+  const language = identifyLanguage(fnLog.function_code);
+  const formattedCode = formatCodeString(fnLog.function_code, language);
 
   return (
     <Box

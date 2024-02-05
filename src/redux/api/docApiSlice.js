@@ -111,7 +111,7 @@ const docApiSlice = apiSlice.injectEndpoints({
 
     updateComponent: builder.mutation({
       query: (componentData) => ({
-        url: "/update-element",
+        url: "/update-component",
         method: "POST",
         body: componentData,
         headers: {
@@ -159,7 +159,7 @@ const docApiSlice = apiSlice.injectEndpoints({
 
     updateFunction: builder.mutation({
       query: (updateFunction) => ({
-        url: "/update-element",
+        url: "/update-function",
         method: "POST",
         body: updateFunction,
         headers: {
@@ -168,7 +168,19 @@ const docApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    ///dummy
+    ///function log
+
+    getFunctionsLog: builder.query({
+      query: () => {
+        return {
+          url: `/log-functions`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_FUNCTIONS_LOG"],
+    }),
   }),
 });
 
@@ -186,4 +198,5 @@ export const {
   useUpdateComponentMutation,
   useUpdateElementMutation,
   useUpdateFunctionMutation,
+  useGetFunctionsLogQuery
 } = docApiSlice;

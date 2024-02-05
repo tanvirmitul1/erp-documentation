@@ -18,7 +18,7 @@ import useZustandStore from "../../zustand/store";
 import { useUpdateComponentMutation } from "../../redux/api/docApiSlice";
 
 const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedComponent } = useZustandStore();
+  const { selectedComponent, setSelectedComponent } = useZustandStore();
 
   const [updateComponent, { isLoading }] = useUpdateComponentMutation();
   const toast = useToast();
@@ -38,7 +38,7 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
     directory_path: selectedComponent ? selectedComponent.directory_path : "",
     description: selectedComponent ? selectedComponent.description : "",
   });
-  console.log("form data from component", formData);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -62,6 +62,11 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
     try {
       const payload = await updateComponent(formData).unwrap();
       if (payload.status === 200) {
+        setSelectedComponent((prevSelectedComponent) => ({
+          ...prevSelectedComponent,
+          ...payload.data,
+        }));
+
         toast({
           position: "top-right",
           title: "Component Added.",

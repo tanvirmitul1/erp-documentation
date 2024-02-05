@@ -50,7 +50,7 @@ const ElementModal = ({ isOpen, onRequestClose }) => {
     }));
   }, [selectedComponent]);
 
-  console.log("form data from element modal", formData);
+ 
 
   const handleChange = (e) => {
     const { name, value } = e.target;

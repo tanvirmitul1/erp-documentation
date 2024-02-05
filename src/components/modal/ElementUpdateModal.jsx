@@ -17,7 +17,7 @@ import { useUpdateElementMutation } from "../../redux/api/docApiSlice"; // Adjus
 import useZustandStore from "../../zustand/store";
 
 const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedElement } = useZustandStore(); // Assuming useZustandStore has a selectedElement
+  const { selectedElement, setSelectedElement } = useZustandStore(); // Assuming useZustandStore has a selectedElement
 
   const [updateElement, { isLoading }] = useUpdateElementMutation(); // Adjust according to your actual mutation hook
   const toast = useToast();
@@ -39,8 +39,6 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
     description: selectedElement ? selectedElement.description : "",
   });
 
-  console.log("form data from element", formData);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -52,6 +50,11 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
     try {
       const payload = await updateElement(formData).unwrap();
       if (payload.status === 200) {
+        // setSelectedElement((prevSelectedElement) => ({
+        //   ...prevSelectedElement,
+        //   ...payload.data,
+        // }));
+
         toast({
           position: "top-right",
           title: "Element Updated.",
