@@ -6,7 +6,7 @@
 import { Stack } from "@chakra-ui/react";
 
 import SearchBar from "../reusable/SearchBar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddButton from "../reusable/AddButton";
 import { useGetModuleQuery } from "../../redux/api/docApiSlice";
 import ModuleModal from "../modal/ModuleModal";
@@ -19,7 +19,12 @@ function Sidebar() {
   const { boxShadowColor } = useColorModeColors();
   const [moduleName, setModuleName] = useState("");
   const { data, error, isLoading } = useGetModuleQuery();
-  const modules = data?.data;
+  const [modules, setModules] = useState(data?.data || []);
+  useEffect(() => {
+    if (data) {
+      setModules(data.data || []);
+    }
+  }, [data]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -30,16 +35,18 @@ function Sidebar() {
     setIsModalOpen(false);
   };
 
-  if (error) return <div>Error: {error.message}</div>;
+  if (error)
+    return <div>Data Loading Error or No Data Available: {error.message}</div>;
 
   const handleChange = (e) => {
     setModuleName(e.target.value);
   };
 
   const filteredModules = modules?.filter((module) =>
-    module.name.toLowerCase().includes(moduleName.toLowerCase())
+    module?.name.toLowerCase().includes(moduleName.toLowerCase())
   );
 
+  console.log("modules in sidebar", modules);
   return (
     <Stack
       w="100%"
@@ -69,7 +76,11 @@ function Sidebar() {
         ))
       )}
 
-      <ModuleModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
+      <ModuleModal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        setModules={setModules}
+      />
     </Stack>
   );
 }

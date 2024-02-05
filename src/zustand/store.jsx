@@ -101,6 +101,13 @@ const useZustandStore = create((set) => ({
 
   showLeftBar: false,
   toggleLeftBar: () => set((state) => ({ showLeftBar: !state.showLeftBar })),
+
+  //sidebar component
+  components: [],
+
+  setComponents: (newData) => {
+    set({ components: newData });
+  },
 }));
 
 export default useZustandStore;

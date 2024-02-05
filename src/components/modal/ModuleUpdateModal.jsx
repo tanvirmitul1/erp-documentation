@@ -18,7 +18,12 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import { useUpdateModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
 import useZustandStore from "../../zustand/store";
 
-const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
+const ModuleUpdateModal = ({
+  isOpen,
+  onRequestClose,
+  module,
+  setSelectedModule,
+}) => {
   const [updateModule, { isLoading }] = useUpdateModuleMutation();
   const toast = useToast();
   const {
@@ -48,10 +53,13 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
 
     try {
       const payload = await updateModule(formData).unwrap();
+
+      setSelectedModule(payload?.data);
+
       if (payload.status === 200) {
         toast({
           position: "top-right",
-          title: "Module Added.",
+          title: "Module Updated.",
           description: "Your module has been added successfully.",
           status: "success",
           duration: 5000,
@@ -62,7 +70,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
         toast({
           zIndex: 100000,
           position: "top-right",
-          title: "Adding Module failed.",
+          title: "Updating Module failed.",
 
           status: "error",
           duration: 5000,
@@ -73,7 +81,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
       toast({
         zIndex: 100000,
         position: "top-right",
-        title: "Adding Module failed.",
+        title: "Updating Module failed.",
         description: err.data?.message || "Could not add the module.",
         status: "error",
         duration: 5000,

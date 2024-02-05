@@ -24,7 +24,7 @@ const ComponentModal = ({
 
   module,
 }) => {
-  const { selectedModule } = useZustandStore();
+  const { selectedModule, setComponents } = useZustandStore();
 
   const [addComponent, { isLoading }] = useAddComponentMutation();
 
@@ -81,6 +81,12 @@ const ComponentModal = ({
         module_id: selectedModule.id,
       }).unwrap();
 
+      if (payload?.data) {
+        // Update state with the new module
+        setComponents((prevComponents) => [...prevComponents, payload.data]);
+      }
+
+      console.log("component  payload data", payload?.data);
       if (payload.status === 200) {
         toast({
           position: "top-right",

@@ -7,7 +7,7 @@ import AddButton from "../../reusable/AddButton";
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ComponentModal from "../../modal/ComponentModal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetSingleModuleQuery } from "../../../redux/api/docApiSlice";
 import SideSkeleton from "../../reusable/SideSkeleton";
@@ -16,10 +16,16 @@ import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
 const Header = () => {
   const { selectedModule: moduleFromClick } = useZustandStore();
 
+  const [selectedModule, setSelectedModule] = useState(null);
   const { data, isLoading, error } = useGetSingleModuleQuery(
     moduleFromClick.id
   );
-  const selectedModule = data?.data;
+
+  useEffect(() => {
+    if (data) {
+      setSelectedModule(data.data);
+    }
+  }, [data]);
 
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
@@ -141,7 +147,8 @@ const Header = () => {
           />
 
           <ModuleUpdateModal
-            module={selectedModule}
+            setSelectedModule={setSelectedModule}
+            module={data?.data}
             isOpen={isUpdateModalOpen}
             onRequestClose={handleCloseModal}
           />

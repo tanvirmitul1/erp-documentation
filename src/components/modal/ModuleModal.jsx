@@ -17,7 +17,7 @@ import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import { useAddModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
 
-const ModuleModal = ({ isOpen, onRequestClose }) => {
+const ModuleModal = ({ isOpen, onRequestClose, setModules }) => {
   const [addModule, { isLoading }] = useAddModuleMutation();
   const toast = useToast();
   const {
@@ -58,6 +58,11 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
 
     try {
       const payload = await addModule(formData).unwrap();
+
+      // Update state with the new module
+      setModules((prevModules) => [...prevModules, payload?.data]);
+
+      console.log("payload in add module", payload?.data);
       toast({
         position: "top-right",
         title: "Module Added.",
