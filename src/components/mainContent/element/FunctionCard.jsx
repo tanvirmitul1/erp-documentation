@@ -42,9 +42,7 @@ const FunctionCard = ({ fn }) => {
       >
         <VStack align="left" marginTop="auto">
           <Flex gap="4px" marginTop={4} flexDir={{ base: "column", md: "row" }}>
-            <Text h="10px" as="h4">
-              {fn.name}
-            </Text>
+            <Text as="h4">{fn.name}</Text>
             <Flex marginTop="6px" gap={2}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>

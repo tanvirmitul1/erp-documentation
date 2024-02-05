@@ -62,7 +62,7 @@ const Header = () => {
                   xl: "row",
                 }}
               >
-                <Text h="10px" as="h3">
+                <Text  as="h3">
                   {selectedModule?.name}
                 </Text>
                 <Flex marginTop="10px" gap={1}>

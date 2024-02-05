@@ -18,8 +18,8 @@ const Component = ({ component, module }) => {
     useZustandStore();
 
   const { data, isLoading, isError } = useGetElementQuery({
-    moduleId: selectedComponent.moduleId,
-    componentId: selectedComponent.id,
+    moduleId: component.moduleId,
+    componentId: component.id,
   });
 
   const elements = data?.data;

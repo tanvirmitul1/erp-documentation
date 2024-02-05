@@ -60,9 +60,7 @@ const Header = () => {
               xl: "row",
             }}
           >
-            <Text h="10px" as="h2">
-              {selectedFunction.name}
-            </Text>
+            <Text as="h2">{selectedFunction.name}</Text>
             <Flex marginTop="14px" gap={1}>
               <Text h="10px">Added By:</Text>
               <Text h="10px" color={modulePathColor}>

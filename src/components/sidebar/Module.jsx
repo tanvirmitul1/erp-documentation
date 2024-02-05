@@ -16,13 +16,14 @@ import SideSkeleton from "../reusable/SideSkeleton";
 import useZustandStore from "../../zustand/store";
 
 const Module = ({ module }) => {
-  const { toggleLeftBar, setSelectedModule } = useZustandStore();
+  const { toggleLeftBar, setSelectedModule, selectedModule } =
+    useZustandStore();
   const { data, error, isLoading } = useGetComponentQuery(module.id);
   const components = data?.data;
   const { moduleIconColor } = useColorModeColors();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleModuleClick = (moduleId) => {
+  const handleModuleClick = () => {
     setSelectedModule(module);
     setIsOpen(!isOpen);
     toggleLeftBar();
@@ -33,8 +34,6 @@ const Module = ({ module }) => {
       marginLeft={isOpen ? "16px" : "0"}
       transition="margin-left 0.3s ease"
     >
-      {/* to={`/module/${module.id}`} */}
-
       <HStack>
         <Link to={`/module/${module.id}`}>
           <Flex
@@ -43,7 +42,7 @@ const Module = ({ module }) => {
             justifyContent="left"
             gap="5px"
             cursor="pointer"
-            onClick={() => handleModuleClick(module.id)}
+            onClick={() => handleModuleClick()}
           >
             <SiElementor size={20} color={moduleIconColor} />
             <Text paddingTop="12px" fontSize={12} fontWeight="bold">

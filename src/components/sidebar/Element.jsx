@@ -43,9 +43,9 @@ const Element = ({
     toggleLeftBar();
   };
   const { data, error, isLoading } = useGetFunctionQuery({
-    moduleId: selectedElement.moduleId,
-    componentId: selectedElement.componentId,
-    elementId: selectedElement.id,
+    moduleId: element.moduleId,
+    componentId: element.componentId,
+    elementId: element.id,
   });
   const functions = data?.data;
 

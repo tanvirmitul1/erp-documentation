@@ -42,9 +42,7 @@ const ComponentCard = ({ component }) => {
       >
         <VStack align="left" marginTop="auto">
           <Flex gap="6px" marginTop={4} flexDir={{ base: "column", md: "row" }}>
-            <Text h="20px" as="h4">
-              {component.name}
-            </Text>
+            <Text as="h4">{component.name}</Text>
             <Flex marginTop="6px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>

@@ -19,7 +19,6 @@ const BreadCrumb = () => {
 
   return (
     <Breadcrumb
-      h="20px"
       separator={<MdOutlineChevronRight />}
       fontSize={{ base: "10px", lg: "16px" }}
     >

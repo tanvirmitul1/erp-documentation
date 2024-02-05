@@ -64,9 +64,7 @@ const Header = () => {
               xl: "row",
             }}
           >
-            <Text h="20px" as="h3">
-              {selectedElement.name}
-            </Text>
+            <Text as="h3">{selectedElement.name}</Text>
             <Flex marginTop="10px" gap={2}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>

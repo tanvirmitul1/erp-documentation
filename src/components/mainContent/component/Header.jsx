@@ -40,7 +40,6 @@ const Header = () => {
     useColorModeColors();
   const { selectedComponent } = useModuleStore();
 
- 
   return (
     <Box
       borderBottom="1px solid rgb(197, 184, 184)"
@@ -62,9 +61,7 @@ const Header = () => {
               xl: "row",
             }}
           >
-            <Text h={{ base: "4px", md: "20px" }} as="h3">
-              {selectedComponent.name}
-            </Text>
+            <Text as="h3">{selectedComponent.name}</Text>
             <Flex marginTop="10px" gap={1}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
