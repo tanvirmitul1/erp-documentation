@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 // AllComponents.jsx
-
 import React, { useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
@@ -17,7 +16,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
-
 import ComponentCard from "./ComponentCard";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import { useGetComponentQuery } from "../../../redux/api/docApiSlice";
@@ -31,27 +29,27 @@ const AllComponents = () => {
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
     useColorModeColors();
 
-  // pagination start
   const components = data?.data;
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2;
 
-  const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
-  const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
-  const currentComponents = components?.slice(
-    indexOfFirstComponent,
-    indexOfLastComponent
-  );
-
-  //pagination end
-
   const handleChange = (e) => {
     setComponentName(e.target.value);
+    setCurrentPage(0); // Reset to first page when search term changes
   };
 
   const filteredComponents = components?.filter((component) =>
     component.name.toLowerCase().includes(componentName.toLowerCase())
+  );
+
+  const pageCount = Math.ceil(filteredComponents?.length / itemsPerPage);
+
+  const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
+  const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
+  const currentComponents = filteredComponents?.slice(
+    indexOfFirstComponent,
+    indexOfLastComponent
   );
 
   const handlePageClick = (selectedItem) => {
@@ -74,7 +72,7 @@ const AllComponents = () => {
             <Searchbar placeholder="Search Component" onChange={handleChange} />
           </Box>
           <Box width="100%">
-            {filteredComponents?.map((component) => (
+            {currentComponents?.map((component) => (
               <ComponentCard component={component} key={component.id} />
             ))}
           </Box>
@@ -91,7 +89,7 @@ const AllComponents = () => {
               </IconContext.Provider>
             }
             breakLabel={"..."}
-            pageCount={Math.ceil(components?.length / itemsPerPage)}
+            pageCount={pageCount}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={handlePageClick}

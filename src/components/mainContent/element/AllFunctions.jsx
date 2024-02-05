@@ -1,32 +1,17 @@
 /* eslint-disable no-unused-vars */
-import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 
-import {
-  Text,
-  Box,
-  Flex,
-  VStack,
-  HStack,
-  Stack,
-  useColorMode,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
-import useModuleStore from "../../../zustand/store";
-
-import useColorModeColors from "../../../hooks/useColorModeColors";
 
 import FunctionCard from "./FunctionCard";
 import useZustandStore from "../../../zustand/store";
 import { useGetFunctionQuery } from "../../../redux/api/docApiSlice";
 
 const AllFunctions = () => {
-  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
-    useColorModeColors();
-  // pagination start
   const [functionName, setFunctionName] = useState("");
   const { selectedElement } = useZustandStore();
 
@@ -38,23 +23,26 @@ const AllFunctions = () => {
 
   const functions = data?.data;
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 1;
-
-  const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
-  const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
-  const currentFunctions = functions?.slice(
-    indexOfFirstComponent,
-    indexOfLastComponent
-  );
-  //pagination end
   const handleChange = (e) => {
     setFunctionName(e.target.value);
+    setCurrentPage(0); // Reset to first page when search term changes
   };
 
   const filteredFunctions = functions?.filter((fn) =>
-    fn.name?.toLowerCase().includes(functionName?.toLowerCase())
+    fn.name.toLowerCase().includes(functionName.toLowerCase())
   );
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 1;
+  const pageCount = Math.ceil(filteredFunctions?.length / itemsPerPage);
+
+  const indexOfLastFunction = (currentPage + 1) * itemsPerPage;
+  const indexOfFirstFunction = indexOfLastFunction - itemsPerPage;
+  const currentFunctions = filteredFunctions?.slice(
+    indexOfFirstFunction,
+    indexOfLastFunction
+  );
+
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
@@ -71,7 +59,7 @@ const AllFunctions = () => {
         <Searchbar placeholder="Search Function" onChange={handleChange} />
       </Box>
       <Box width="100%">
-        {filteredFunctions?.map((fn) => (
+        {currentFunctions?.map((fn) => (
           <FunctionCard fn={fn} key={fn.id} />
         ))}
       </Box>
@@ -88,7 +76,7 @@ const AllFunctions = () => {
           </IconContext.Provider>
         }
         breakLabel={"..."}
-        pageCount={Math.ceil(functions?.length / itemsPerPage)}
+        pageCount={pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}

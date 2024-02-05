@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 
@@ -21,23 +21,24 @@ const AllElements = () => {
 
   const elements = data?.data;
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 1;
-
-  const indexOfLastComponent = (currentPage + 1) * itemsPerPage;
-  const indexOfFirstComponent = indexOfLastComponent - itemsPerPage;
-  const currentElements = elements?.slice(
-    indexOfFirstComponent,
-    indexOfLastComponent
-  );
-  //pagination end
-
   const handleChange = (e) => {
     setElementName(e.target.value);
+    setCurrentPage(0); // Reset to first page when search term changes
   };
 
   const filteredElements = elements?.filter((element) =>
     element.name.toLowerCase().includes(elementName.toLowerCase())
+  );
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 1;
+  const pageCount = Math.ceil(filteredElements?.length / itemsPerPage);
+
+  const indexOfLastElement = (currentPage + 1) * itemsPerPage;
+  const indexOfFirstElement = indexOfLastElement - itemsPerPage;
+  const currentElements = filteredElements?.slice(
+    indexOfFirstElement,
+    indexOfLastElement
   );
 
   const handlePageClick = (selectedItem) => {
@@ -60,7 +61,7 @@ const AllElements = () => {
         />
       </Box>
       <Box width="100%">
-        {filteredElements?.map((element) => (
+        {currentElements?.map((element) => (
           <ElementCard element={element} key={element.id} />
         ))}
       </Box>
@@ -71,14 +72,13 @@ const AllElements = () => {
             <AiFillLeftCircle />
           </IconContext.Provider>
         }
-        P
         nextLabel={
           <IconContext.Provider value={{ size: "36px" }}>
             <AiFillRightCircle />
           </IconContext.Provider>
         }
         breakLabel={"..."}
-        pageCount={Math.ceil(elements?.length / itemsPerPage)}
+        pageCount={pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
