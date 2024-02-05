@@ -10,6 +10,7 @@ import Searchbar from "../../reusable/SearchBar";
 import ElementCard from "./ElementCard";
 import useZustandStore from "../../../zustand/store";
 import { useGetElementQuery } from "../../../redux/api/docApiSlice";
+import SubElementUpdateModal from "../../modal/subElementUpdateModal";
 
 const AllElements = () => {
   const [elementName, setElementName] = useState("");
@@ -86,6 +87,8 @@ const AllElements = () => {
         activeClassName={"active"}
         pageClassName={"page-item"}
       />
+
+     
     </Flex>
   );
 };

@@ -62,9 +62,7 @@ const Header = () => {
                   xl: "row",
                 }}
               >
-                <Text  as="h3">
-                  {selectedModule?.name}
-                </Text>
+                <Text as="h3">{selectedModule?.name}</Text>
                 <Flex marginTop="10px" gap={1}>
                   <Text h="10px">Added By:</Text>
                   <Text h="10px" color={modulePathColor}>
@@ -143,6 +141,7 @@ const Header = () => {
           />
 
           <ModuleUpdateModal
+            module={selectedModule}
             isOpen={isUpdateModalOpen}
             onRequestClose={handleCloseModal}
           />

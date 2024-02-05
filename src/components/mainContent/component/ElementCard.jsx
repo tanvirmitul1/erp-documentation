@@ -21,6 +21,7 @@ import AddButton from "../../reusable/AddButton";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ViewButton from "../../reusable/Viewbutton";
 import { Link } from "react-router-dom";
+import SubElementUpdateModal from "../../modal/subElementUpdateModal";
 
 const ElementCard = ({ element }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -30,6 +31,16 @@ const ElementCard = ({ element }) => {
   const { moduleId, componentId } = useParams();
   const handleViewClick = () => {
     setSelectedElement(element);
+  };
+
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+
+  const handleUpdateMOdalButtonClick = () => {
+    setIsUpdateModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsUpdateModalOpen(false);
   };
   return (
     <Box
@@ -92,6 +103,7 @@ const ElementCard = ({ element }) => {
           <UpdateButton
             text={`Update ${element.name}`}
             textColor={moduleTextColor}
+            onClick={handleUpdateMOdalButtonClick}
           />
         </Flex>
       </Flex>
@@ -105,6 +117,12 @@ const ElementCard = ({ element }) => {
       >
         <ViewButton text={`View ${element.name}`} textColor={moduleTextColor} />
       </Link>
+
+      <SubElementUpdateModal
+        element={element}
+        isOpen={isUpdateModalOpen}
+        onRequestClose={handleCloseModal}
+      />
     </Box>
   );
 };

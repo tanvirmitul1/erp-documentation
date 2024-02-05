@@ -44,6 +44,8 @@ const Header = () => {
   const handleCloseModal = () => {
     setIsUpdateModalOpen(false);
   };
+
+  console.log("selected function", selectedFunction);
   return (
     <Box paddingBottom="30px" marginX="20px">
       <Flex

@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import {
   Flex,
   FormControl,
@@ -8,18 +8,16 @@ import {
   FormLabel,
   Textarea,
   useToast,
-  CircularProgress,
-  CircularProgressLabel,
 } from "@chakra-ui/react";
 import ReactModal from "react-modal";
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import { useUpdateModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
+import { useUpdateElementMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
 import useZustandStore from "../../zustand/store";
 
-const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
-  const [updateModule, { isLoading }] = useUpdateModuleMutation();
+const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
+  const [updateElement, { isLoading }] = useUpdateElementMutation(); // Adjust according to your actual mutation hook
   const toast = useToast();
   const {
     modalBgColor,
@@ -31,13 +29,16 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    module_id: module ? module.id : "",
-    name: module ? module.name : "",
-    directory_path: module ? module.directory_path : "",
-    description: module ? module.description : "",
+    element_id: element ? element.id : "",
+    component_id: element ? element.componentId : "",
+    module_id: element ? element.moduleId : "",
+    name: element ? element.name : "",
+    directory_path: element ? element.directory_path : "",
+    description: element ? element.description : "",
   });
 
-  console.log("form selected module", module);
+  console.log("form data from element", formData);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -47,12 +48,12 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
     e.preventDefault();
 
     try {
-      const payload = await updateModule(formData).unwrap();
+      const payload = await updateElement(formData).unwrap();
       if (payload.status === 200) {
         toast({
           position: "top-right",
-          title: "Module Added.",
-          description: "Your module has been added successfully.",
+          title: "Element Updated.",
+          description: "Your element has been updated successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -62,8 +63,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
         toast({
           zIndex: 100000,
           position: "top-right",
-          title: "Adding Module failed.",
-
+          title: "Updating Element failed.",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -73,8 +73,8 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
       toast({
         zIndex: 100000,
         position: "top-right",
-        title: "Adding Module failed.",
-        description: err.data?.message || "Could not add the module.",
+        title: "Updating Element failed.",
+        description: err.data?.message || "Could not update the element.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -106,13 +106,13 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
         <Flex flexDirection="column">
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Module Name
+              Element Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="Select Module"
+              placeholder="Enter Element Name"
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
@@ -125,7 +125,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
           </FormControl>
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Module Directory path
+              Element Directory Path
             </FormLabel>
             <Input
               fontSize="16px"
@@ -171,7 +171,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
               text="Submit"
-            ></SubmitButton>
+            />
           </Flex>
         </Flex>
       </form>
@@ -179,4 +179,4 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose, module }) => {
   );
 };
 
-export default ModuleUpdateModal;
+export default SubElementUpdateModal;
