@@ -54,6 +54,7 @@ const ComponentModal = ({
   }, [selectedModule]);
 
   console.log(formData);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -62,10 +63,23 @@ const ComponentModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedFormData = { ...formData, module_id: module.id };
+    if (!formData.name || !formData.directory_path || !formData.description) {
+      toast({
+        position: "top-right",
+        title: "Error",
+        description: "All fields are required.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return; // Prevent the form submission
+    }
 
     try {
-      const payload = await addComponent(updatedFormData).unwrap();
+      const payload = await addComponent({
+        ...formData,
+        module_id: selectedModule.id,
+      }).unwrap();
 
       if (payload.status === 200) {
         toast({

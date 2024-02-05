@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Flex,
   FormControl,
@@ -39,7 +39,16 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
     description: selectedModule ? selectedModule.description : "",
   });
 
-  console.log("form data in update module", formData);
+  useEffect(() => {
+    setFormData({
+      module_id: selectedModule ? selectedModule.id : "",
+      name: selectedModule ? selectedModule.name : "",
+      directory_path: selectedModule ? selectedModule.directory_path : "",
+      description: selectedModule ? selectedModule.description : "",
+    });
+  }, [selectedModule]);
+
+  console.log("form selected module", selectedModule);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));

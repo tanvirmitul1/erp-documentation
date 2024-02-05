@@ -63,6 +63,23 @@ const FunctionModal = ({ isOpen, onRequestClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      !formData.name ||
+      !formData.directory_path ||
+      !formData.description ||
+      !formData.function_code
+    ) {
+      toast({
+        position: "top-right",
+        title: "Error",
+        description: "All fields are required.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return; // Prevent the form submission
+    }
+
     try {
       const payload = await addFunction(formData).unwrap();
 

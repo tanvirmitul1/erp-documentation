@@ -23,7 +23,7 @@ const Module = ({ module }) => {
   const { moduleIconColor } = useColorModeColors();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleModuleClick = () => {
+  const handleModuleClick = (module) => {
     setSelectedModule(module);
     setIsOpen(!isOpen);
     toggleLeftBar();
@@ -42,7 +42,7 @@ const Module = ({ module }) => {
             justifyContent="left"
             gap="5px"
             cursor="pointer"
-            onClick={() => handleModuleClick()}
+            onClick={() => handleModuleClick(module)}
           >
             <SiElementor size={20} color={moduleIconColor} />
             <Text paddingTop="12px" fontSize={12} fontWeight="bold">

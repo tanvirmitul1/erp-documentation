@@ -46,6 +46,18 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if any of the required fields are empty
+    if (!formData.name || !formData.directory_path || !formData.description) {
+      toast({
+        position: "top-right",
+        title: "Error",
+        description: "All fields are required.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return; // Prevent the form submission
+    }
 
     try {
       const payload = await updateComponent(formData).unwrap();
