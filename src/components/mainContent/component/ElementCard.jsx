@@ -57,13 +57,22 @@ const ElementCard = ({ element }) => {
           <Flex
             flexDirection={{ base: "column", md: "row" }}
             gap="5px"
-            backgroundColor={modulePathBgColor}
-            paddingX="40px"
-            paddingTop="10px"
-            paddingBottom={2}
+            backgroundColor={{ base: "", md: "", lg: modulePathBgColor }}
+            padding={{ base: "", md: "", lg: "10px" }}
+            paddingX={{ base: "", md: "", lg: "20px" }}
+            paddingTop={{ base: "", md: "", lg: "16px" }}
+            // paddingBottom={2}
             rounded="50px"
           >
-            <Text h="10px" fontWeight="bold">
+            <Text
+              display={{
+                base: "none",
+                md: "none",
+                lg: "none",
+                xl: "block",
+              }}
+              fontWeight="bold"
+            >
               Element Directory Path:
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>

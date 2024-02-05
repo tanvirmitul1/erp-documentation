@@ -59,7 +59,7 @@ const AllElements = () => {
           onChange={handleChange}
         />
       </Box>
-      <Box>
+      <Box width="100%">
         {filteredElements?.map((element) => (
           <ElementCard element={element} key={element.id} />
         ))}

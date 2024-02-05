@@ -70,7 +70,7 @@ const AllFunctions = () => {
       <Box marginRight={{ base: "150px", md: "0" }}>
         <Searchbar placeholder="Search Function" onChange={handleChange} />
       </Box>
-      <Box>
+      <Box width="100%">
         {filteredFunctions?.map((fn) => (
           <FunctionCard fn={fn} key={fn.id} />
         ))}

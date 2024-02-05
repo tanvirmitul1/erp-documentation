@@ -73,7 +73,7 @@ const AllComponents = () => {
           <Box marginRight={{ base: "150px", md: "0" }}>
             <Searchbar placeholder="Search Component" onChange={handleChange} />
           </Box>
-          <Box>
+          <Box width="100%">
             {filteredComponents?.map((component) => (
               <ComponentCard component={component} key={component.id} />
             ))}

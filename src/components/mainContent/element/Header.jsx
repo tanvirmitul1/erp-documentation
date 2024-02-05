@@ -47,7 +47,15 @@ const Header = () => {
         justifyContent="space-between"
       >
         <VStack align="left" marginTop="auto">
-          <Flex gap="4px" flexDir={{ base: "column", md: "row" }} h="auto">
+          <Flex
+            gap="8px"
+            flexDir={{
+              base: "column",
+              md: "column",
+              lg: "column",
+              xl: "row",
+            }}
+          >
             <Text h="20px" as="h3">
               {selectedElement.name}
             </Text>
@@ -63,14 +71,23 @@ const Header = () => {
           <Flex
             flexDirection={{ base: "column", md: "row" }}
             gap="5px"
-            backgroundColor={modulePathBgColor}
-            paddingX="40px"
-            paddingTop="10px"
-            paddingBottom={2}
+            backgroundColor={{ base: "", md: "", lg: modulePathBgColor }}
+            padding={{ base: "", md: "", lg: "10px" }}
+            paddingX={{ base: "", md: "", lg: "20px" }}
+            paddingTop={{ base: "", md: "", lg: "16px" }}
+            // paddingBottom={2}
             rounded="50px"
           >
-            <Text h="10px" fontWeight="bold">
-              Module Directory Path:
+            <Text
+              display={{
+                base: "none",
+                md: "none",
+                lg: "none",
+                xl: "block",
+              }}
+              fontWeight="bold"
+            >
+              Element Directory Path:
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>
               {" "}
