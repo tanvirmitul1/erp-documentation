@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   Box,
@@ -17,8 +17,13 @@ import useColorModeColors from "../../../hooks/useColorModeColors";
 import CodeBlock from "./CodeBlock";
 import identifyLanguage from "../../../utils/LanguageIdentifier";
 import formatCodeString from "../../../utils/FormatCode";
+import FullscreenLogModal from "../../modal/FullscreenLogModal";
 
-const LogCard = ({ fnLog ,openFullscreenModal }) => {
+const LogCard = ({ fnLog }) => {
+  const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
+
+  const openFullscreenModal = () => setIsFullscreenModalOpen(true);
+  const closeFullscreenModal = () => setIsFullscreenModalOpen(false);
   const { modulePathColor, modulePathBgColor } = useColorModeColors();
   const language = identifyLanguage(fnLog.function_code);
   const formattedCode = formatCodeString(fnLog.function_code, language);
@@ -70,8 +75,19 @@ const LogCard = ({ fnLog ,openFullscreenModal }) => {
       <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={fnLog.description} />
         <Box as="h5"> Function Code</Box>
-        <CodeBlock code={formattedCode} language="jsx" />
+        <CodeBlock
+          code={formattedCode}
+          language="jsx"
+          openFullscreenModal={openFullscreenModal}
+        />
       </Box>
+      <FullscreenLogModal
+        code={formattedCode}
+        language="jsx"
+        openFullscreenModal={openFullscreenModal}
+        isOpen={isFullscreenModalOpen}
+        onRequestClose={closeFullscreenModal}
+      />
     </Box>
   );
 };
