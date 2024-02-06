@@ -66,7 +66,7 @@ const Home = () => {
     setCurrentPage(0);
   };
 
-  return (
+  return !isLoading ? (
     <Box>
       <Container
         rounded="10px"
@@ -176,6 +176,8 @@ const Home = () => {
         />
       </Flex>
     </Box>
+  ) : (
+    <HomeSkeleton />
   );
 };
 

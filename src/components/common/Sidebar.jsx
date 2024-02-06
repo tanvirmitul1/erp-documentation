@@ -3,7 +3,7 @@
 // src/components/navigation/Sidebar.js
 /* eslint-disable react/jsx-key */
 // src/components/navigation/Sidebar.js
-import { Stack } from "@chakra-ui/react";
+import { Stack, Box } from "@chakra-ui/react";
 
 import SearchBar from "../reusable/SearchBar";
 import React, { useState, useEffect } from "react";
@@ -25,7 +25,7 @@ function Sidebar() {
       setModules(data.data || []);
     }
   }, [data]);
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -47,7 +47,7 @@ function Sidebar() {
     module?.name.toLowerCase().includes(moduleName.toLowerCase())
   );
 
-  return (
+  return !isLoading ? (
     <Stack
       w="100%"
       h="100vh"
@@ -68,13 +68,9 @@ function Sidebar() {
         width="200px"
       />
 
-      {isLoading ? (
-        <SideSkeleton Count={20} width={200} />
-      ) : (
-        filteredModules.map((module) => (
-          <Module key={module.id} module={module} />
-        ))
-      )}
+      {filteredModules.map((module) => (
+        <Module key={module.id} module={module} />
+      ))}
 
       <ModuleModal
         isOpen={isModalOpen}
@@ -82,6 +78,10 @@ function Sidebar() {
         setModules={setModules}
       />
     </Stack>
+  ) : (
+    <Box marginLeft={4} marginTop={4}>
+      <SideSkeleton Count={20} width={200} />
+    </Box>
   );
 }
 
