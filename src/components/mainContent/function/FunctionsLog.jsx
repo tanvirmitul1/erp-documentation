@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-unused-vars */
@@ -28,14 +29,9 @@ const FunctionsLog = () => {
   const { addButtonBgColor, addButtonTextColor } = useColorModeColors();
   const functionLog = data?.data || [];
 
-  const indexOfLastLog = (currentPage + 1) * itemsPerPage;
-  const indexOfFirstLog = indexOfLastLog - itemsPerPage;
-
   const filteredLogs = functionLog.filter(
-    (fnLog) => fnLog.function_id === selectedFunction.id
+    (fnLog) => fnLog.function_id == selectedFunction.id
   );
-
-  const currentLogs = filteredLogs.slice(indexOfFirstLog, indexOfLastLog);
 
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
@@ -68,9 +64,9 @@ const FunctionsLog = () => {
 
       {viewLog && (
         <>
-          {currentLogs.map((fnLog) => (
+          {filteredLogs?.map((fnLog) => (
             <Box key={fnLog.id}>
-              <LogCard fnLog={fnLog} />
+              <LogCard fnLog={fnLog}  />
             </Box>
           ))}
 

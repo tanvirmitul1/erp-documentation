@@ -20,8 +20,9 @@ import useColorModeColors from "../../../hooks/useColorModeColors";
 import ViewButton from "../../reusable/Viewbutton";
 import { Link } from "react-router-dom";
 import useModuleStore from "../../../zustand/store";
-
+FormatDate;
 import SubComponentUpdateModal from "../../modal/subComponentUpdateModal";
+import FormatDate from "../../../utils/FormatDate";
 
 const ComponentCard = ({ component }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -91,11 +92,11 @@ const ComponentCard = ({ component }) => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{component.created_at}</Text>
+            <Text>{FormatDate(component.created_at)}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{component.last_updated_at}</Text>
+            <Text>{FormatDate(component.last_updated_at)}</Text>
           </Flex>
 
           <UpdateButton

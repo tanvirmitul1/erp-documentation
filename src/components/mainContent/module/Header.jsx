@@ -13,6 +13,7 @@ import { useGetSingleModuleQuery } from "../../../redux/api/docApiSlice";
 import SideSkeleton from "../../reusable/SideSkeleton";
 import useZustandStore from "../../../zustand/store";
 import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
+import FormatDate from "../../../utils/FormatDate";
 const Header = () => {
   const { selectedModule: moduleFromClick } = useZustandStore();
 
@@ -109,11 +110,11 @@ const Header = () => {
             <Flex flexDir="column" textAlign="center">
               <Flex h="25px" gap={2}>
                 <Text>Created At:</Text>
-                <Text>{selectedModule?.created_at}</Text>
+                <Text>{FormatDate(selectedModule?.created_at)}</Text>
               </Flex>
               <Flex h="25px" gap={2}>
                 <Text>Last Updated At:</Text>
-                <Text>{selectedModule?.last_updated_at}</Text>
+                <Text>{FormatDate(selectedModule?.last_updated_at)}</Text>
               </Flex>
               <Flex h="30px" gap={2}>
                 <Text>last Updated By:</Text>

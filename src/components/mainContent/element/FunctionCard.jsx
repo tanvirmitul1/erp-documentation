@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 // FnCard.jsx
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 import useModuleStore from "../../../zustand/store";
 import {
   Text,
@@ -20,6 +20,7 @@ import AddButton from "../../reusable/AddButton";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ViewButton from "../../reusable/Viewbutton";
 import { Link } from "react-router-dom";
+import FormatDate from "../../../utils/FormatDate";
 
 const FunctionCard = ({ fn }) => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -79,11 +80,11 @@ const FunctionCard = ({ fn }) => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{fn.createdAt}</Text>
+            <Text>{FormatDate(fn.createdAt)}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{fn.lastUpdateAt}</Text>
+            <Text>{FormatDate(fn.lastUpdateAt)}</Text>
           </Flex>
 
           <UpdateButton

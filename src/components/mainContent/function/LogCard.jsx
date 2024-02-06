@@ -18,7 +18,7 @@ import CodeBlock from "./CodeBlock";
 import identifyLanguage from "../../../utils/LanguageIdentifier";
 import formatCodeString from "../../../utils/FormatCode";
 
-const LogCard = ({ fnLog }) => {
+const LogCard = ({ fnLog ,openFullscreenModal }) => {
   const { modulePathColor, modulePathBgColor } = useColorModeColors();
   const language = identifyLanguage(fnLog.function_code);
   const formattedCode = formatCodeString(fnLog.function_code, language);
@@ -47,7 +47,7 @@ const LogCard = ({ fnLog }) => {
             </Text>{" "}
             <Text h="10px" color={modulePathColor}>
               {" "}
-              {fnLog.functionDirectoryPath}
+              {fnLog.directory_path}
             </Text>
           </Flex>
         </Flex>
@@ -58,11 +58,11 @@ const LogCard = ({ fnLog }) => {
         >
           <Flex h="25px" gap="5px">
             <Text>Updated At: </Text>
-            <Text>{fnLog.updatedAt}</Text>
+            <Text>{fnLog.updated_at}</Text>
           </Flex>
           <Flex h="30px" gap="5px">
             <Text>Updated By: </Text>
-            <Text color={modulePathColor}>{fnLog.updateBy}</Text>
+            <Text color={modulePathColor}>{fnLog.update_by_name}</Text>
           </Flex>
         </Flex>
       </Flex>

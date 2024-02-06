@@ -20,6 +20,7 @@ import React from "react";
 import useZustandStore from "../../../zustand/store";
 import ComponentUpdateModal from "../../modal/ComponentUpdateModal";
 import ElementUpdateModal from "../../modal/ElementUpdateModal";
+import FormatDate from "../../../utils/FormatDate";
 
 const Header = () => {
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
@@ -101,16 +102,16 @@ const Header = () => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{selectedElement.created_at}</Text>
+            <Text>{FormatDate(selectedElement.created_at)}</Text>
           </Flex>
           <Flex h="25px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{selectedElement.las_update_at}</Text>
+            <Text>{FormatDate(selectedElement.las_update_at)}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>
-              {selectedElement.last_update_by}
+              {selectedElement.last_update_by_name}
             </Text>
           </Flex>
 

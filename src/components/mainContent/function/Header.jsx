@@ -13,7 +13,8 @@ import {
 
 import UpdateButton from "../../reusable/UpdateButton";
 import AddButton from "../../reusable/AddButton";
-
+import { IconButton } from "@chakra-ui/react";
+import { FaExpand } from "react-icons/fa";
 import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import CodeBlock from "./CodeBlock";
@@ -21,10 +22,15 @@ import CodeBlock from "./CodeBlock";
 import formatCodeString from "../../../utils/FormatCode";
 import identifyLanguage from "../../../utils/LanguageIdentifier";
 import useZustandStore from "../../../zustand/store";
-import React from "react";
+import React, { useState } from "react";
 import FunctionUpdateModal from "../../modal/FunctionUpdateModal";
+import FullscreenModal from "../../modal/FullScreenCodeModal";
 
 const Header = () => {
+  const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
+
+  const openFullscreenModal = () => setIsFullscreenModalOpen(true);
+  const closeFullscreenModal = () => setIsFullscreenModalOpen(false);
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
   const { selectedFunction } = useZustandStore();
@@ -126,12 +132,21 @@ const Header = () => {
       <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={selectedFunction?.description} />
         <Box as="h5"> Function Code</Box>
-        <CodeBlock code={formattedCode} language="jsx" />
+       
+
+        <CodeBlock openFullscreenModal={openFullscreenModal} code={formattedCode} language="jsx" />
       </Box>
 
       <FunctionUpdateModal
         isOpen={isUpdateModalOpen}
         onRequestClose={handleCloseModal}
+      />
+      <FullscreenModal
+      
+        code={formattedCode}
+        language="jsx"
+        isOpen={isFullscreenModalOpen}
+        onRequestClose={closeFullscreenModal}
       />
     </Box>
   );

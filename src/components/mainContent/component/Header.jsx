@@ -21,6 +21,7 @@ import React from "react";
 import ElementModal from "../../modal/ElementModal";
 import ComponentUpdateModal from "../../modal/ComponentUpdateModal";
 import useZustandStore from "../../../zustand/store";
+import FormatDate from "../../../utils/FormatDate";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -103,16 +104,16 @@ const Header = () => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{selectedComponent.created_at}</Text>
+            <Text>{FormatDate(selectedComponent.created_at)}</Text>
           </Flex>
           <Flex h="25px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{selectedComponent.last_updated_at}</Text>
+            <Text>{FormatDate(selectedComponent.last_updated_at)}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>last Updated By:</Text>
             <Text color={modulePathColor}>
-              {selectedComponent.last_updated_by}
+              {selectedComponent.last_updated_by_name}
             </Text>
           </Flex>
 

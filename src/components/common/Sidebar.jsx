@@ -25,6 +25,7 @@ function Sidebar() {
       setModules(data.data || []);
     }
   }, [data]);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
