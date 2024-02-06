@@ -41,9 +41,9 @@ function Sidebar() {
     }
   }, [data, error]);
 
-  if (error) {
-    return <div>Data Loading Error or No Data Available: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Data Loading Error or No Data Available: {error.message}</div>;
+  // }
 
   const handleChange = (e) => {
     setModuleName(e.target.value);
