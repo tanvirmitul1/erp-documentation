@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 // src/components/navigation/Sidebar.js
@@ -16,12 +15,17 @@ import Module from "../sidebar/Module";
 import SideSkeleton from "../reusable/SideSkeleton";
 import useColorModeColors from "../../hooks/useColorModeColors";
 
+
 function Sidebar() {
   const { boxShadowColor } = useColorModeColors();
   const [moduleName, setModuleName] = useState("");
   const { data, error, isLoading } = useGetModuleQuery();
   const [modules, setModules] = useState(data?.data || []);
-
+  useEffect(() => {
+    if (data) {
+      setModules(data.data || []);
+    }
+  }, [data]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -31,19 +35,6 @@ function Sidebar() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    console.log("data:", data);
-    console.log("error:", error);
-
-    if (data) {
-      setModules(data.data || []);
-    }
-  }, [data, error]);
-
-  // if (error) {
-  //   return <div>Data Loading Error or No Data Available: {error.message}</div>;
-  // }
 
   const handleChange = (e) => {
     setModuleName(e.target.value);
@@ -74,14 +65,14 @@ function Sidebar() {
         width="200px"
       />
 
-      {filteredModules.length > 0 ? (
+      {error ? (
+        <Box marginTop={4} marginLeft={4}>
+          
+        </Box>
+      ) : (
         filteredModules.map((module) => (
           <Module key={module.id} module={module} />
         ))
-      ) : (
-        <Box marginLeft={4} marginTop={4}>
-          <SideSkeleton Count={20} width={200} />
-        </Box>
       )}
 
       <ModuleModal
@@ -91,8 +82,8 @@ function Sidebar() {
       />
     </Stack>
   ) : (
-    <Box marginLeft={4} marginTop={4}>
-      <SideSkeleton Count={20} width={200} />
+    <Box marginTop={4} marginLeft={4}>
+      <SideSkeleton Count={20} width={200}  />
     </Box>
   );
 }

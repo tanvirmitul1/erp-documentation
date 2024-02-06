@@ -23,6 +23,7 @@ import { RiSoundModuleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import HomeSkeleton from "../reusable/HomeSkeleton";
 import useZustandStore from "../../zustand/store";
+import ErrorComponent from "../reusable/ErrorComponent";
 useGetModuleQuery;
 
 const Home = () => {
@@ -114,8 +115,8 @@ const Home = () => {
           gap: 1,
         }}
       >
-        {isLoading ? (
-          <HomeSkeleton />
+        {error ? (
+          <ErrorComponent error={error}/>
         ) : (
           currentModules?.map((module, index) => (
             <Card
@@ -153,7 +154,8 @@ const Home = () => {
         )}
       </Flex>
 
-      <Flex justifyContent="center" mt={10}>
+    {!error && (
+        <Flex justifyContent="center" mt={10}>
         <ReactPaginate
           previousLabel={
             <IconContext.Provider value={{ size: "36px" }}>
@@ -175,6 +177,7 @@ const Home = () => {
           pageClassName={"page-item"}
         />
       </Flex>
+    )}
     </Box>
   ) : (
     <HomeSkeleton />
