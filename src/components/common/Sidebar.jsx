@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 // src/components/navigation/Sidebar.js
@@ -47,6 +48,12 @@ function Sidebar() {
     module?.name.toLowerCase().includes(moduleName.toLowerCase())
   );
 
+  useEffect(() => {
+    if (data) {
+      setModules(data.data || []);
+    }
+  }, [data, error, isLoading]);
+
   return !isLoading ? (
     <Stack
       w="100%"
@@ -68,9 +75,15 @@ function Sidebar() {
         width="200px"
       />
 
-      {filteredModules.map((module) => (
-        <Module key={module.id} module={module} />
-      ))}
+      {filteredModules.length > 0 ? (
+        filteredModules.map((module) => (
+          <Module key={module.id} module={module} />
+        ))
+      ) : (
+        <Box marginLeft={4} marginTop={4}>
+          <SideSkeleton Count={20} width={200} />
+        </Box>
+      )}
 
       <ModuleModal
         isOpen={isModalOpen}
