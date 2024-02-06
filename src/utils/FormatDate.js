@@ -9,7 +9,7 @@ function FormatDate(isoDate) {
     const minute = dateObject.getMinutes();
     const second = dateObject.getSeconds();
 
-    const formattedDate = `${month} ${day}, ${year} - ${hour}:${minute}:${second} `;
+    const formattedDate = `${month} ${day}, ${year} , ${hour}:${minute}:${second} `;
 
     return formattedDate;
   } else {

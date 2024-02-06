@@ -25,7 +25,7 @@ import useZustandStore from "../../../zustand/store";
 import React, { useState } from "react";
 import FunctionUpdateModal from "../../modal/FunctionUpdateModal";
 import FullscreenModal from "../../modal/FullScreenCodeModal";
-
+import FormatDate from "../../../utils/FormatDate.js";
 const Header = () => {
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
 
@@ -107,11 +107,11 @@ const Header = () => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={1}>
             <Text>Created At:</Text>
-            <Text>{selectedFunction?.created_at}</Text>
+            <Text>{FormatDate(selectedFunction?.created_at)}</Text>
           </Flex>
           <Flex h="25px">
             <Text>Last Updated At:</Text>
-            <Text>{selectedFunction?.last_update_at}</Text>
+            <Text>{FormatDate(selectedFunction?.last_update_at)}</Text>
           </Flex>
           <Flex h="30px">
             <Text>last Updated By:</Text>
@@ -132,9 +132,12 @@ const Header = () => {
       <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={selectedFunction?.description} />
         <Box as="h5"> Function Code</Box>
-       
 
-        <CodeBlock openFullscreenModal={openFullscreenModal} code={formattedCode} language="jsx" />
+        <CodeBlock
+          openFullscreenModal={openFullscreenModal}
+          code={formattedCode}
+          language="jsx"
+        />
       </Box>
 
       <FunctionUpdateModal
@@ -142,7 +145,6 @@ const Header = () => {
         onRequestClose={handleCloseModal}
       />
       <FullscreenModal
-      
         code={formattedCode}
         language="jsx"
         isOpen={isFullscreenModalOpen}
