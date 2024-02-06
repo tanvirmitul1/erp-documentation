@@ -21,11 +21,6 @@ function Sidebar() {
   const [moduleName, setModuleName] = useState("");
   const { data, error, isLoading } = useGetModuleQuery();
   const [modules, setModules] = useState(data?.data || []);
-  useEffect(() => {
-    if (data) {
-      setModules(data.data || []);
-    }
-  }, [data]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,8 +32,18 @@ function Sidebar() {
     setIsModalOpen(false);
   };
 
-  if (error)
+  useEffect(() => {
+    console.log("data:", data);
+    console.log("error:", error);
+
+    if (data) {
+      setModules(data.data || []);
+    }
+  }, [data, error]);
+
+  if (error) {
     return <div>Data Loading Error or No Data Available: {error.message}</div>;
+  }
 
   const handleChange = (e) => {
     setModuleName(e.target.value);
@@ -47,12 +52,6 @@ function Sidebar() {
   const filteredModules = modules?.filter((module) =>
     module?.name.toLowerCase().includes(moduleName.toLowerCase())
   );
-
-  useEffect(() => {
-    if (data) {
-      setModules(data.data || []);
-    }
-  }, [data, error, isLoading]);
 
   return !isLoading ? (
     <Stack
