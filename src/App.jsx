@@ -32,11 +32,11 @@ function App() {
   );
 }
 const PrivateRouteForRole = ({ children, role }) => {
-  // Check if "loginData" exists in localStorage and has a token
+  // Check if "loginData" exists in sessionStorage and has a token
   let token = "";
 
-  if (localStorage.getItem("loginData")) {
-    token = Object.keys(JSON.parse(localStorage.getItem("loginData")))[1];
+  if (sessionStorage.getItem("loginData")) {
+    token = Object.keys(JSON.parse(sessionStorage.getItem("loginData")))[1];
   } else {
     token = "";
   }

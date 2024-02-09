@@ -116,7 +116,7 @@ const Home = () => {
         }}
       >
         {error ? (
-          <ErrorComponent error={error}/>
+          <ErrorComponent error={error} isLoading={isLoading} />
         ) : (
           currentModules?.map((module, index) => (
             <Card
@@ -154,30 +154,30 @@ const Home = () => {
         )}
       </Flex>
 
-    {!error && (
+      {!error && (
         <Flex justifyContent="center" mt={10}>
-        <ReactPaginate
-          previousLabel={
-            <IconContext.Provider value={{ size: "36px" }}>
-              <AiFillLeftCircle />
-            </IconContext.Provider>
-          }
-          nextLabel={
-            <IconContext.Provider value={{ size: "36px" }}>
-              <AiFillRightCircle />
-            </IconContext.Provider>
-          }
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-          pageClassName={"page-item"}
-        />
-      </Flex>
-    )}
+          <ReactPaginate
+            previousLabel={
+              <IconContext.Provider value={{ size: "36px" }}>
+                <AiFillLeftCircle />
+              </IconContext.Provider>
+            }
+            nextLabel={
+              <IconContext.Provider value={{ size: "36px" }}>
+                <AiFillRightCircle />
+              </IconContext.Provider>
+            }
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            pageClassName={"page-item"}
+          />
+        </Flex>
+      )}
     </Box>
   ) : (
     <HomeSkeleton />

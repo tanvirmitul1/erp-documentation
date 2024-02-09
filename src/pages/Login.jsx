@@ -42,8 +42,8 @@ function Login() {
   useEffect(() => {
     let token = "";
 
-    if (localStorage.getItem("loginData")) {
-      token = Object.keys(JSON.parse(localStorage.getItem("loginData")))[1];
+    if (sessionStorage.getItem("loginData")) {
+      token = Object.keys(JSON.parse(sessionStorage.getItem("loginData")))[1];
     } else {
       token = "";
     }
@@ -62,7 +62,7 @@ function Login() {
     e.preventDefault();
     try {
       const payload = await submitData(formData).unwrap();
-      localStorage.setItem("loginData", JSON.stringify(payload));
+      sessionStorage.setItem("loginData", JSON.stringify(payload));
 
       if (payload.status === 422) {
         toast({

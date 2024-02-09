@@ -58,25 +58,29 @@ const AllComponents = () => {
 
   return (
     <>
-      {isLoading ? (
-        <SideSkeleton count={40} width={1300} />
-      ) : (
-        <Flex
-          flexWrap="wrap"
-          flexDir="column"
-          alignItems="center"
-          justifyContent={{ base: "left", md: "center" }}
-          marginTop="20px"
-        >
-          <Box marginRight={{ base: "150px", md: "0" }}>
+      <Flex
+        flexWrap="wrap"
+        flexDir="column"
+        alignItems="center"
+        justifyContent={{ base: "left", md: "center" }}
+        marginTop="20px"
+      >
+        <Box marginRight={{ base: "150px", md: "0" }}>
+          {currentComponents && (
             <Searchbar placeholder="Search Component" onChange={handleChange} />
-          </Box>
-          <Box width="100%">
-            {currentComponents?.map((component) => (
+          )}
+        </Box>
+        <Box width="100%">
+          {!currentComponents ? (
+            <SideSkeleton Count={6} height="150px" width="100%" />
+          ) : (
+            currentComponents.map((component) => (
               <ComponentCard component={component} key={component.id} />
-            ))}
-          </Box>
+            ))
+          )}
+        </Box>
 
+        {currentComponents && (
           <ReactPaginate
             previousLabel={
               <IconContext.Provider value={{ size: "36px" }}>
@@ -97,8 +101,8 @@ const AllComponents = () => {
             activeClassName={"active"}
             pageClassName={"page-item"}
           />
-        </Flex>
-      )}
+        )}
+      </Flex>
     </>
   );
 };

@@ -10,6 +10,7 @@ import Searchbar from "../../reusable/SearchBar";
 import FunctionCard from "./FunctionCard";
 import useZustandStore from "../../../zustand/store";
 import { useGetFunctionQuery } from "../../../redux/api/docApiSlice";
+import SideSkeleton from "../../reusable/SideSkeleton";
 
 const AllFunctions = () => {
   const [functionName, setFunctionName] = useState("");
@@ -56,34 +57,40 @@ const AllFunctions = () => {
       marginTop="20px"
     >
       <Box marginRight={{ base: "150px", md: "0" }}>
-        <Searchbar placeholder="Search Function" onChange={handleChange} />
+        {currentFunctions && (
+          <Searchbar placeholder="Search Function" onChange={handleChange} />
+        )}
       </Box>
       <Box width="100%">
-        {currentFunctions?.map((fn) => (
-          <FunctionCard fn={fn} key={fn.id} />
-        ))}
+        {!currentFunctions ? (
+          <SideSkeleton Count={6} height="150px" width="100%" />
+        ) : (
+          currentFunctions?.map((fn) => <FunctionCard fn={fn} key={fn.id} />)
+        )}
       </Box>
 
-      <ReactPaginate
-        previousLabel={
-          <IconContext.Provider value={{ size: "36px" }}>
-            <AiFillLeftCircle />
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ size: "36px" }}>
-            <AiFillRightCircle />
-          </IconContext.Provider>
-        }
-        breakLabel={"..."}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-      />
+      {currentFunctions && (
+        <ReactPaginate
+          previousLabel={
+            <IconContext.Provider value={{ size: "36px" }}>
+              <AiFillLeftCircle />
+            </IconContext.Provider>
+          }
+          nextLabel={
+            <IconContext.Provider value={{ size: "36px" }}>
+              <AiFillRightCircle />
+            </IconContext.Provider>
+          }
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+          pageClassName={"page-item"}
+        />
+      )}
     </Flex>
   );
 };

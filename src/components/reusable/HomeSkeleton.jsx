@@ -6,7 +6,7 @@ const SkeletonCard = () => {
   return (
     <Box
       cursor="pointer"
-      W={{ base: "10%", lg: "400px" }}
+      // W={{ base: "100%", lg: "400px" }}
       m={{ base: 2, lg: 4 }}
       _hover={{
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",

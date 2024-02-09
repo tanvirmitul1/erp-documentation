@@ -48,7 +48,7 @@ const Header = () => {
   return (
     <>
       {isLoading ? (
-        <SideSkeleton width={1300} />
+        <SideSkeleton Count={1} height="200px" width="100%" />
       ) : (
         <Box
           borderBottom="1px solid rgb(197, 184, 184)"

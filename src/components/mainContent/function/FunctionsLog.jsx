@@ -14,9 +14,15 @@ import useModuleStore from "../../../zustand/store";
 import LogCard from "./LogCard";
 import { useGetFunctionsLogQuery } from "../../../redux/api/docApiSlice";
 import useZustandStore from "../../../zustand/store";
+import SideSkeleton from "../../reusable/SideSkeleton";
 const FunctionsLog = () => {
-  const { data, isLoading } = useGetFunctionsLogQuery();
   const { selectedFunction } = useZustandStore();
+  const { data, isLoading } = useGetFunctionsLogQuery({
+    moduleId: selectedFunction.moduleId,
+    componentId: selectedFunction.componentId,
+    elementId: selectedFunction.elementId,
+    functionId: selectedFunction.id,
+  });
 
   const [viewLog, setViewLog] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,13 +39,10 @@ const FunctionsLog = () => {
     (fnLog) => fnLog.function_id == selectedFunction.id
   );
 
+  const pageCount = Math.ceil(filteredLogs?.length / itemsPerPage);
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Box>
@@ -64,11 +67,20 @@ const FunctionsLog = () => {
 
       {viewLog && (
         <>
-          {filteredLogs?.map((fnLog) => (
-            <Box key={fnLog.id}>
-              <LogCard fnLog={fnLog}  />
-            </Box>
-          ))}
+          {!filteredLogs ? (
+            <SideSkeleton Count={4} height="300px" width="100%" />
+          ) : (
+            filteredLogs
+              .slice(
+                currentPage * itemsPerPage,
+                (currentPage + 1) * itemsPerPage
+              )
+              .map((fnLog) => (
+                <Box key={fnLog.id}>
+                  <LogCard fnLog={fnLog} />
+                </Box>
+              ))
+          )}
 
           <Box marginLeft="45%" marginTop="20px">
             <ReactPaginate
@@ -83,7 +95,7 @@ const FunctionsLog = () => {
                 </IconContext.Provider>
               }
               breakLabel={"..."}
-              pageCount={Math.ceil(filteredLogs.length / itemsPerPage)}
+              pageCount={pageCount}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}

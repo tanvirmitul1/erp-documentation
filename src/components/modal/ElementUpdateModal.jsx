@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Flex,
   FormControl,
@@ -8,13 +8,14 @@ import {
   FormLabel,
   Textarea,
   useToast,
-} from "@chakra-ui/react";
-import ReactModal from "react-modal";
-import SubmitButton from "../reusable/SubmitButton";
-import CancelButton from "../reusable/CancelButton";
-import useColorModeColors from "../../hooks/useColorModeColors";
-import { useUpdateElementMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
-import useZustandStore from "../../zustand/store";
+} from '@chakra-ui/react';
+import ReactModal from 'react-modal';
+import SubmitButton from '../reusable/SubmitButton';
+import CancelButton from '../reusable/CancelButton';
+import useColorModeColors from '../../hooks/useColorModeColors';
+import { useUpdateElementMutation } from '../../redux/api/docApiSlice'; // Adjust the hook name if necessary
+import useZustandStore from '../../zustand/store';
+import FormatDate from '../../utils/FormatDate';
 
 const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
   const { selectedElement, setSelectedElement } = useZustandStore(); // Assuming useZustandStore has a selectedElement
@@ -31,12 +32,12 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    element_id: selectedElement ? selectedElement.id : "",
-    component_id: selectedElement ? selectedElement.componentId : "",
-    module_id: selectedElement ? selectedElement.moduleId : "",
-    name: selectedElement ? selectedElement.name : "",
-    directory_path: selectedElement ? selectedElement.directory_path : "",
-    description: selectedElement ? selectedElement.description : "",
+    element_id: selectedElement ? selectedElement.id : '',
+    component_id: selectedElement ? selectedElement.componentId : '',
+    module_id: selectedElement ? selectedElement.moduleId : '',
+    name: selectedElement ? selectedElement.name : '',
+    directory_path: selectedElement ? selectedElement.directory_path : '',
+    description: selectedElement ? selectedElement.description : '',
   });
 
   const handleChange = (e) => {
@@ -50,16 +51,29 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
     try {
       const payload = await updateElement(formData).unwrap();
       if (payload.status === 200) {
-        // setSelectedElement((prevSelectedElement) => ({
-        //   ...prevSelectedElement,
-        //   ...payload.data,
-        // }));
+        const loginData = JSON.parse(sessionStorage.getItem('loginData'));
+        const userName = loginData.data.name;
 
+        if (userName) {
+          const updatedModule = {
+            moduleId: formData.module_id,
+            componentId: formData.component_id,
+            id: formData.element_id,
+            created_at: FormatDate(new Date()),
+            last_updated_at: FormatDate(new Date()),
+            last_updated_by_name: userName,
+            added_by_name: userName,
+            directory_path: formData.directory_path,
+            name: formData.name,
+          };
+
+          setSelectedElement(updatedModule);
+        }
         toast({
-          position: "top-right",
-          title: "Element Updated.",
-          description: "Your element has been updated successfully.",
-          status: "success",
+          position: 'top-right',
+          title: 'Element Updated.',
+          description: 'Your element has been updated successfully.',
+          status: 'success',
           duration: 5000,
           isClosable: true,
         });
@@ -67,9 +81,9 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
       } else {
         toast({
           zIndex: 100000,
-          position: "top-right",
-          title: "Updating Element failed.",
-          status: "error",
+          position: 'top-right',
+          title: 'Updating Element failed.',
+          status: 'error',
           duration: 5000,
           isClosable: true,
         });
@@ -77,10 +91,10 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
     } catch (err) {
       toast({
         zIndex: 100000,
-        position: "top-right",
-        title: "Updating Element failed.",
-        description: err.data?.message || "Could not update the element.",
-        status: "error",
+        position: 'top-right',
+        title: 'Updating Element failed.',
+        description: err.data?.message || 'Could not update the element.',
+        status: 'error',
         duration: 5000,
         isClosable: true,
       });
@@ -91,91 +105,91 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
     <ReactModal
       style={{
         overlay: {
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
-          margin: "auto auto",
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          margin: 'auto auto',
           zIndex: 1000,
         },
         content: {
-          borderRadius: "20px",
+          borderRadius: '20px',
           backgroundColor: modalBgColor,
-          maxWidth: "550px",
-          height: "600px",
-          margin: "auto auto",
-          border: "none",
+          maxWidth: '550px',
+          height: '600px',
+          margin: 'auto auto',
+          border: 'none',
         },
       }}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
       <form>
-        <Flex flexDirection="column">
+        <Flex flexDirection='column'>
           <FormControl isRequired>
-            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
               Element Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="Enter Element Name"
+              placeholder='Enter Element Name'
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
-                fontSize: "16px",
+                fontSize: '16px',
               }}
-              name="name"
+              name='name'
               value={formData.name}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
               Element Directory Path
             </FormLabel>
             <Input
-              fontSize="16px"
+              fontSize='16px'
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="localhost/phpadmin/index.php"
+              placeholder='localhost/phpadmin/index.php'
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
-                fontSize: "16px",
+                fontSize: '16px',
               }}
-              name="directory_path"
+              name='directory_path'
               value={formData.directory_path}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
               Description
             </FormLabel>
             <Textarea
-              fontSize="16px"
-              overflowX="hidden"
-              overflowY="auto"
-              height="200px"
+              fontSize='16px'
+              overflowX='hidden'
+              overflowY='auto'
+              height='200px'
               padding={4}
               rounded={30}
               backgroundColor={modalInputBgColor}
-              name="description"
+              name='description'
               value={formData.description}
               onChange={handleChange}
             />
           </FormControl>
-          <Flex justifyContent="center" marginTop={10} gap={10}>
+          <Flex justifyContent='center' marginTop={10} gap={10}>
             <CancelButton
               onClick={onRequestClose}
               textColor={modalCancelButtonTextColor}
-              text="Cancel"
+              text='Cancel'
             />
             <SubmitButton
               onClick={handleSubmit}
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
-              text="Submit"
+              text='Submit'
             />
           </Flex>
         </Flex>

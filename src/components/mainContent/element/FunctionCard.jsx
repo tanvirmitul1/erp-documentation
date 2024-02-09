@@ -47,7 +47,7 @@ const FunctionCard = ({ fn }) => {
             <Flex marginTop="6px" gap={2}>
               <Text h="20px">Added By:</Text>
               <Text h="20px" color={modulePathColor}>
-                {fn.addedBy}
+                {fn.added_by_name}
               </Text>
             </Flex>
           </Flex>
@@ -80,11 +80,11 @@ const FunctionCard = ({ fn }) => {
         <Flex flexDir="column" textAlign="center">
           <Flex h="25px" gap={2}>
             <Text>Created At:</Text>
-            <Text>{FormatDate(fn.createdAt)}</Text>
+            <Text>{FormatDate(fn.created_at)}</Text>
           </Flex>
           <Flex h="30px" gap={2}>
             <Text>Last Updated At:</Text>
-            <Text>{FormatDate(fn.lastUpdateAt)}</Text>
+            <Text>{FormatDate(fn.last_updated_at)}</Text>
           </Flex>
 
           <UpdateButton

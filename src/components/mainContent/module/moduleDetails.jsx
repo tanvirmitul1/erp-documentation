@@ -10,7 +10,7 @@ const ModuleDetails = () => {
 
   // Check for existing token on component mount
   useEffect(() => {
-    const storedData = localStorage.getItem("loginData");
+    const storedData = sessionStorage.getItem("loginData");
 
     if (!storedData) {
       navigate("/");

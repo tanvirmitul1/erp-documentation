@@ -9,7 +9,7 @@ const Logout = () => {
   const toast = useToast();
 
   const handleLogout = () => {
-    localStorage.removeItem("loginData");
+    sessionStorage.removeItem("loginData");
 
     navigate("/login");
 

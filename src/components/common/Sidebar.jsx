@@ -14,13 +14,14 @@ import ModuleModal from "../modal/ModuleModal";
 import Module from "../sidebar/Module";
 import SideSkeleton from "../reusable/SideSkeleton";
 import useColorModeColors from "../../hooks/useColorModeColors";
-
+import useZustandStore from "../../zustand/store";
 
 function Sidebar() {
+  const { modules, setModules } = useZustandStore();
   const { boxShadowColor } = useColorModeColors();
   const [moduleName, setModuleName] = useState("");
   const { data, error, isLoading } = useGetModuleQuery();
-  const [modules, setModules] = useState(data?.data || []);
+
   useEffect(() => {
     if (data) {
       setModules(data.data || []);
@@ -66,9 +67,7 @@ function Sidebar() {
       />
 
       {error ? (
-        <Box marginTop={4} marginLeft={4}>
-          
-        </Box>
+        <Box marginTop={4} marginLeft={4}></Box>
       ) : (
         filteredModules.map((module) => (
           <Module key={module.id} module={module} />
@@ -83,7 +82,7 @@ function Sidebar() {
     </Stack>
   ) : (
     <Box marginTop={4} marginLeft={4}>
-      <SideSkeleton Count={20} width={200}  />
+      <SideSkeleton Count={50} width={200} />
     </Box>
   );
 }

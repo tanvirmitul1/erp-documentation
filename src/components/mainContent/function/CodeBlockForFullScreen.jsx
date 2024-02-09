@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 // CodeBlock.jsx
 import { FaCopy } from "react-icons/fa";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, useToast } from "@chakra-ui/react";
 import React from "react";
 import { Highlight } from "prism-react-renderer";
 import copy from "copy-to-clipboard";
@@ -11,11 +11,17 @@ import useColorModeColors from "../../../hooks/useColorModeColors";
 
 const CodeBlockForFullscreen = ({ code, language }) => {
   const { copyIconColor, moduleTextColor } = useColorModeColors();
-
+  const toast = useToast();
   const handleCopy = () => {
     copy(code);
 
-    alert("Copied to clipboard!");
+    toast({
+      position: "top-right",
+      title: "Copied to clipboard!",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   return (

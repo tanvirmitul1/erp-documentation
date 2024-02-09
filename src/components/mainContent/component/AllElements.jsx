@@ -11,6 +11,7 @@ import ElementCard from "./ElementCard";
 import useZustandStore from "../../../zustand/store";
 import { useGetElementQuery } from "../../../redux/api/docApiSlice";
 import SubElementUpdateModal from "../../modal/subElementUpdateModal";
+import SideSkeleton from "../../reusable/SideSkeleton";
 
 const AllElements = () => {
   const [elementName, setElementName] = useState("");
@@ -55,40 +56,46 @@ const AllElements = () => {
       marginTop="20px"
     >
       <Box marginRight={{ base: "150px", md: "0" }}>
-        <Searchbar
-          width="250px"
-          placeholder="Search Element"
-          onChange={handleChange}
-        />
+        {currentElements && (
+          <Searchbar
+            width="250px"
+            placeholder="Search Element"
+            onChange={handleChange}
+          />
+        )}
       </Box>
       <Box width="100%">
-        {currentElements?.map((element) => (
-          <ElementCard element={element} key={element.id} />
-        ))}
+        {!currentElements ? (
+          <SideSkeleton Count={6} height="150px" width="100%" />
+        ) : (
+          currentElements?.map((element) => (
+            <ElementCard element={element} key={element.id} />
+          ))
+        )}
       </Box>
 
-      <ReactPaginate
-        previousLabel={
-          <IconContext.Provider value={{ size: "36px" }}>
-            <AiFillLeftCircle />
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ size: "36px" }}>
-            <AiFillRightCircle />
-          </IconContext.Provider>
-        }
-        breakLabel={"..."}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-      />
-
-     
+      {currentElements && (
+        <ReactPaginate
+          previousLabel={
+            <IconContext.Provider value={{ size: "36px" }}>
+              <AiFillLeftCircle />
+            </IconContext.Provider>
+          }
+          nextLabel={
+            <IconContext.Provider value={{ size: "36px" }}>
+              <AiFillRightCircle />
+            </IconContext.Provider>
+          }
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+          pageClassName={"page-item"}
+        />
+      )}
     </Flex>
   );
 };

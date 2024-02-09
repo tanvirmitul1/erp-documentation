@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Flex,
   FormControl,
@@ -8,14 +8,15 @@ import {
   FormLabel,
   Textarea,
   useToast,
-} from "@chakra-ui/react";
-import ReactModal from "react-modal";
-import SubmitButton from "../reusable/SubmitButton";
-import CancelButton from "../reusable/CancelButton";
-import useColorModeColors from "../../hooks/useColorModeColors";
-useUpdateComponentMutation; // Make sure this path is correct
-import useZustandStore from "../../zustand/store";
-import { useUpdateComponentMutation } from "../../redux/api/docApiSlice";
+} from '@chakra-ui/react';
+import ReactModal from 'react-modal';
+import SubmitButton from '../reusable/SubmitButton';
+import CancelButton from '../reusable/CancelButton';
+import useColorModeColors from '../../hooks/useColorModeColors';
+
+import useZustandStore from '../../zustand/store';
+import { useUpdateComponentMutation } from '../../redux/api/docApiSlice';
+import FormatDate from '../../utils/FormatDate';
 
 const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
   const { selectedComponent, setSelectedComponent } = useZustandStore();
@@ -32,11 +33,11 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    component_id: selectedComponent ? selectedComponent.id : "",
-    module_id: selectedComponent ? selectedComponent.moduleId : "",
-    name: selectedComponent ? selectedComponent.name : "",
-    directory_path: selectedComponent ? selectedComponent.directory_path : "",
-    description: selectedComponent ? selectedComponent.description : "",
+    component_id: selectedComponent ? selectedComponent.id : '',
+    module_id: selectedComponent ? selectedComponent.moduleId : '',
+    name: selectedComponent ? selectedComponent.name : '',
+    directory_path: selectedComponent ? selectedComponent.directory_path : '',
+    description: selectedComponent ? selectedComponent.description : '',
   });
 
   const handleChange = (e) => {
@@ -49,10 +50,10 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
     // Check if any of the required fields are empty
     if (!formData.name || !formData.directory_path || !formData.description) {
       toast({
-        position: "top-right",
-        title: "Error",
-        description: "All fields are required.",
-        status: "error",
+        position: 'top-right',
+        title: 'Error',
+        description: 'All fields are required.',
+        status: 'error',
         duration: 5000,
         isClosable: true,
       });
@@ -61,17 +62,30 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
 
     try {
       const payload = await updateComponent(formData).unwrap();
+
       if (payload.status === 200) {
-        setSelectedComponent((prevSelectedComponent) => ({
-          ...prevSelectedComponent,
-          ...payload.data,
-        }));
+        const loginData = JSON.parse(sessionStorage.getItem('loginData'));
+        const userName = loginData.data.name;
+
+        if (userName) {
+          const updatedModule = {
+            moduleId: formData.module_id,
+            id: formData.component_id,
+            created_at: FormatDate(new Date()),
+            last_updated_at: FormatDate(new Date()),
+            last_updated_by_name: userName,
+            added_by_name: userName,
+            directory_path: formData.directory_path,
+            name: formData.name,
+          };
+          setSelectedComponent(updatedModule);
+        }
 
         toast({
-          position: "top-right",
-          title: "Component Added.",
-          description: "Your component has been added successfully.",
-          status: "success",
+          position: 'top-right',
+          title: 'Component Added.',
+          description: 'Your component has been added successfully.',
+          status: 'success',
           duration: 5000,
           isClosable: true,
         });
@@ -79,9 +93,9 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
       } else {
         toast({
           zIndex: 100000,
-          position: "top-right",
-          title: "Adding Component failed.",
-          status: "error",
+          position: 'top-right',
+          title: 'Adding Component failed.',
+          status: 'error',
           duration: 5000,
           isClosable: true,
         });
@@ -89,10 +103,10 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
     } catch (err) {
       toast({
         zIndex: 100000,
-        position: "top-right",
-        title: "Adding Component failed.",
-        description: err.data?.message || "Could not add the component.",
-        status: "error",
+        position: 'top-right',
+        title: 'Adding Component failed.',
+        description: err.data?.message || 'Could not add the component.',
+        status: 'error',
         duration: 5000,
         isClosable: true,
       });
@@ -103,91 +117,91 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
     <ReactModal
       style={{
         overlay: {
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
-          margin: "auto auto",
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          margin: 'auto auto',
           zIndex: 1000,
         },
         content: {
-          borderRadius: "20px",
+          borderRadius: '20px',
           backgroundColor: modalBgColor,
-          maxWidth: "550px",
-          height: "600px", // Adjust height as needed
-          margin: "auto auto",
-          border: "none",
+          maxWidth: '550px',
+          height: '600px', // Adjust height as needed
+          margin: 'auto auto',
+          border: 'none',
         },
       }}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
       <form>
-        <Flex flexDirection="column">
+        <Flex flexDirection='column'>
           <FormControl isRequired>
-            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
               Component Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="Enter Component Name"
+              placeholder='Enter Component Name'
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
-                fontSize: "16px",
+                fontSize: '16px',
               }}
-              name="name"
+              name='name'
               value={formData.name}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
               Component Directory path
             </FormLabel>
             <Input
-              fontSize="16px"
+              fontSize='16px'
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="localhost/phpadmin/index.php"
+              placeholder='localhost/phpadmin/index.php'
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
-                fontSize: "16px",
+                fontSize: '16px',
               }}
-              name="directory_path"
+              name='directory_path'
               value={formData.directory_path}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
               Description
             </FormLabel>
             <Textarea
-              fontSize="16px"
-              overflowX="hidden"
-              overflowY="auto"
-              height="200px"
+              fontSize='16px'
+              overflowX='hidden'
+              overflowY='auto'
+              height='200px'
               padding={4}
               rounded={30}
               backgroundColor={modalInputBgColor}
-              name="description"
+              name='description'
               value={formData.description}
               onChange={handleChange}
             />
           </FormControl>
-          <Flex justifyContent="center" marginTop={10} gap={10}>
+          <Flex justifyContent='center' marginTop={10} gap={10}>
             <CancelButton
               onClick={onRequestClose}
               textColor={modalCancelButtonTextColor}
-              text="Cancel"
+              text='Cancel'
             />
             <SubmitButton
               onClick={handleSubmit}
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
-              text="Submit"
+              text='Submit'
             />
           </Flex>
         </Flex>

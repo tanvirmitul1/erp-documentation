@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import Logout from "../../pages/Logout";
 
 const NavBar = () => {
-  const loginData = JSON.parse(localStorage.getItem("loginData"));
+  const loginData = JSON.parse(sessionStorage.getItem("loginData"));
 
   // Access the name property from loginData.data
   const userName = loginData?.data?.name || "Guest"; // Use a default value if not found
