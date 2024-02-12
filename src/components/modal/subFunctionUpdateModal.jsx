@@ -13,10 +13,14 @@ import ReactModal from "react-modal";
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import { useUpdateElementMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
+import { useUpdateFunctionMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
+import useZustandStore from "../../zustand/store";
+import FormatDate from "../../utils/FormatDate";
 
-const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
-  const [updateElement, { isLoading }] = useUpdateElementMutation(); // Adjust according to your actual mutation hook
+const SubFunctionUpdateModal = ({ isOpen, onRequestClose }) => {
+  const { selectedFunction, setSelectedFunction } = useZustandStore();
+
+  const [updateFunction, { isLoading }] = useUpdateFunctionMutation();
   const toast = useToast();
   const {
     modalBgColor,
@@ -28,12 +32,14 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    element_id: element ? element.id : "",
-    component_id: element ? element.componentId : "",
-    module_id: element ? element.moduleId : "",
-    name: element ? element.name : "",
-    directory_path: element ? element.directory_path : "",
-    description: element ? element.description : "",
+    function_id: selectedFunction ? selectedFunction.id : "",
+    element_id: selectedFunction ? selectedFunction.elementId : "",
+    component_id: selectedFunction ? selectedFunction.componentId : "",
+    module_id: selectedFunction ? selectedFunction.moduleId : "",
+    name: selectedFunction ? selectedFunction.name : "",
+    function_code: selectedFunction ? selectedFunction.function_code : "",
+    directory_path: selectedFunction ? selectedFunction.directory_path : "",
+    description: selectedFunction ? selectedFunction.description : "",
   });
 
   const handleChange = (e) => {
@@ -44,13 +50,49 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      !formData.name ||
+      !formData.directory_path ||
+      !formData.description ||
+      !formData.function_code
+    ) {
+      toast({
+        position: "top-right",
+        title: "Error",
+        description: "All fields are required.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return; // Prevent the form submission
+    }
     try {
-      const payload = await updateElement(formData).unwrap();
+      const payload = await updateFunction(formData).unwrap();
       if (payload.status === 200) {
+        const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+        const userName = loginData.data.name;
+
+        if (userName) {
+          const updatedModule = {
+            moduleId: formData.module_id,
+            componentId: formData.component_id,
+            elementId: formData.element_id,
+            id: formData.function_id,
+            created_at: FormatDate(new Date()),
+            last_updated_at: FormatDate(new Date()),
+            last_updated_by_name: userName,
+            added_by_name: userName,
+            directory_path: formData.directory_path,
+            name: formData.name,
+          };
+
+          setSelectedFunction(updatedModule);
+        }
+
         toast({
           position: "top-right",
-          title: "Element Updated.",
-          description: "Your element has been updated successfully.",
+          title: "Function Updated.",
+          description: "Your function has been updated successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -60,7 +102,7 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
         toast({
           zIndex: 100000,
           position: "top-right",
-          title: "Updating Element failed.",
+          title: "Updating Function failed.",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -70,8 +112,8 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
       toast({
         zIndex: 100000,
         position: "top-right",
-        title: "Updating Element failed.",
-        description: err.data?.message || "Could not update the element.",
+        title: "Updating Function failed.",
+        description: err.data?.message || "Could not update the function.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -91,7 +133,7 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
           borderRadius: "20px",
           backgroundColor: modalBgColor,
           maxWidth: "550px",
-          height: "600px",
+          height: "auto", // Adjust to auto for content size
           margin: "auto auto",
           border: "none",
         },
@@ -99,17 +141,17 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <Flex flexDirection="column">
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Element Name
+              Function Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder="Enter Element Name"
+              placeholder="Enter Function Name"
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
@@ -122,7 +164,24 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
           </FormControl>
           <FormControl isRequired>
             <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
-              Element Directory Path
+              Function Code
+            </FormLabel>
+            <Textarea
+              fontSize="16px"
+              overflowX="hidden"
+              overflowY="auto"
+              height="200px"
+              padding={4}
+              rounded={30}
+              backgroundColor={modalInputBgColor}
+              name="function_code"
+              value={formData.function_code}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
+              Function Directory Path
             </FormLabel>
             <Input
               fontSize="16px"
@@ -176,4 +235,4 @@ const SubElementUpdateModal = ({ isOpen, onRequestClose, element }) => {
   );
 };
 
-export default SubElementUpdateModal;
+export default SubFunctionUpdateModal;

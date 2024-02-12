@@ -16,21 +16,34 @@ import {
 } from "@chakra-ui/react";
 import UpdateButton from "../../reusable/UpdateButton";
 import CustomDescription from "../../reusable/Description";
-import AddButton from "../../reusable/AddButton";
+
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ViewButton from "../../reusable/Viewbutton";
 import { Link } from "react-router-dom";
 import FormatDate from "../../../utils/FormatDate";
+import SubFunctionUpdateModal from "../../modal/subFunctionUpdateModal";
 
 const FunctionCard = ({ fn }) => {
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+
+  const handleCloseModal = () => {
+    setIsUpdateModalOpen(false);
+  };
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
 
-  const { setSelectedFunction } = useModuleStore();
+  const { selectedFunction, setSelectedFunction } = useModuleStore();
   const { moduleId, componentId, elementId } = useParams();
   const handleViewClick = () => {
     setSelectedFunction(fn);
   };
+
+  const updateFunctionHandle = (fn) => {
+    setSelectedFunction(fn);
+    setIsUpdateModalOpen(true);
+  };
+
+  console.log("selected functiobn", selectedFunction);
   return (
     <Box
       borderBottom="1px solid rgb(197, 184, 184)"
@@ -90,6 +103,7 @@ const FunctionCard = ({ fn }) => {
           <UpdateButton
             text={`Update ${fn.name}`}
             textColor={moduleTextColor}
+            onClick={() => updateFunctionHandle(fn)}
           />
         </Flex>
       </Flex>
@@ -103,6 +117,11 @@ const FunctionCard = ({ fn }) => {
       >
         <ViewButton text={`View ${fn.name}`} textColor={moduleTextColor} />
       </Link>
+
+      <SubFunctionUpdateModal
+        isOpen={isUpdateModalOpen}
+        onRequestClose={handleCloseModal}
+      />
     </Box>
   );
 };
