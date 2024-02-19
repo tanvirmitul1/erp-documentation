@@ -14,6 +14,7 @@ import SideSkeleton from "../../reusable/SideSkeleton";
 import useZustandStore from "../../../zustand/store";
 import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
 import FormatDate from "../../../utils/FormatDate";
+import ModuleLogModal from "../../modal/ModuleLogModal";
 const Header = () => {
   const { selectedModule, setSelectedModule } = useZustandStore();
 
@@ -32,6 +33,7 @@ const Header = () => {
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+  const [isLogModalOpen, setIsLogModalOpen] = React.useState(false);
 
   const handleCreateComponentButtonClick = () => {
     setIsModalOpen(true);
@@ -43,6 +45,10 @@ const Header = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsUpdateModalOpen(false);
+    setIsLogModalOpen(false);
+  };
+  const handleModuleLog = () => {
+    setIsLogModalOpen(true);
   };
   return (
     <>
@@ -136,10 +142,17 @@ const Header = () => {
               word={500}
             />
           </Text>
-          <AddButton
-            text="Add New Component"
-            onClick={handleCreateComponentButtonClick}
-          />
+          <HStack>
+            <AddButton
+              text="Add New Component"
+              onClick={handleCreateComponentButtonClick}
+            />
+            <AddButton
+              text="Module Update Log"
+              iconSize="0px"
+              onClick={handleModuleLog}
+            />
+          </HStack>
           <ComponentModal
             isOpen={isModalOpen}
             onRequestClose={handleCloseModal}
@@ -148,6 +161,11 @@ const Header = () => {
           <ModuleUpdateModal
             module={data?.data}
             isOpen={isUpdateModalOpen}
+            onRequestClose={handleCloseModal}
+          />
+
+          <ModuleLogModal
+            isOpen={isLogModalOpen}
             onRequestClose={handleCloseModal}
           />
         </Box>
