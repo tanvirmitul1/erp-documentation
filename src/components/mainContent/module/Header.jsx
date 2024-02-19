@@ -15,11 +15,10 @@ import useZustandStore from "../../../zustand/store";
 import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
 import FormatDate from "../../../utils/FormatDate";
 const Header = () => {
-  const { selectedModule: moduleFromClick } = useZustandStore();
+  const { selectedModule, setSelectedModule } = useZustandStore();
 
-  const [selectedModule, setSelectedModule] = useState(null);
   const { data, isLoading, error } = useGetSingleModuleQuery(
-    moduleFromClick.id
+    selectedModule?.id
   );
 
   useEffect(() => {
@@ -142,13 +141,11 @@ const Header = () => {
             onClick={handleCreateComponentButtonClick}
           />
           <ComponentModal
-            module={selectedModule}
             isOpen={isModalOpen}
             onRequestClose={handleCloseModal}
           />
 
           <ModuleUpdateModal
-            setSelectedModule={setSelectedModule}
             module={data?.data}
             isOpen={isUpdateModalOpen}
             onRequestClose={handleCloseModal}

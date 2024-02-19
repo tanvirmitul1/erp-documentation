@@ -36,7 +36,7 @@ const AllComponents = () => {
 
   const handleChange = (e) => {
     setComponentName(e.target.value);
-    setCurrentPage(0); // Reset to first page when search term changes
+    setCurrentPage(0);
   };
 
   const filteredComponents = components?.filter((component) =>

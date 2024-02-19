@@ -9,6 +9,7 @@ import { Box } from "@chakra-ui/react";
 import MainComponent from "./components/common/MainComponent";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Sidebar from "./demo";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route path="demo" element={<Sidebar />} />
 
           <Route
             path="/*"

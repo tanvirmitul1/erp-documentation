@@ -45,7 +45,7 @@ function Sidebar() {
     module?.name.toLowerCase().includes(moduleName.toLowerCase())
   );
 
-  return !isLoading ? (
+  return (
     <Stack
       w="100%"
       h="100vh"
@@ -66,8 +66,10 @@ function Sidebar() {
         width="200px"
       />
 
-      {error ? (
-        <Box marginTop={4} marginLeft={4}></Box>
+      {isLoading ? (
+        <Box marginTop={4} marginLeft={2}>
+          <SideSkeleton Count={50} width={200} />
+        </Box>
       ) : (
         filteredModules.map((module) => (
           <Module key={module.id} module={module} />
@@ -80,10 +82,6 @@ function Sidebar() {
         setModules={setModules}
       />
     </Stack>
-  ) : (
-    <Box marginTop={4} marginLeft={4}>
-      <SideSkeleton Count={50} width={200} />
-    </Box>
   );
 }
 

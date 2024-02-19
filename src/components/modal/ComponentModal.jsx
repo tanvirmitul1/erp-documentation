@@ -18,12 +18,7 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import useZustandStore from "../../zustand/store";
 import { useAddComponentMutation } from "../../redux/api/docApiSlice";
 
-const ComponentModal = ({
-  isOpen,
-  onRequestClose,
-
-  module,
-}) => {
+const ComponentModal = ({ isOpen, onRequestClose }) => {
   const { selectedModule, setComponents } = useZustandStore();
 
   const [addComponent, { isLoading }] = useAddComponentMutation();
@@ -39,17 +34,16 @@ const ComponentModal = ({
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    module_id: selectedModule.id,
+    module_id: selectedModule?.id,
     name: "",
     directory_path: "",
     description: "",
   });
 
-  // update formData when selectedModule changes
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      module_id: selectedModule.id,
+      module_id: selectedModule?.id,
     }));
   }, [selectedModule]);
 
@@ -70,17 +64,16 @@ const ComponentModal = ({
         duration: 5000,
         isClosable: true,
       });
-      return; // Prevent the form submission
+      return;
     }
 
     try {
       const payload = await addComponent({
         ...formData,
-        module_id: selectedModule.id,
+        module_id: selectedModule?.id,
       }).unwrap();
 
       if (payload?.data) {
-        // Update state with the new module
         setComponents((prevComponents) => [...prevComponents, payload.data]);
       }
 
@@ -154,7 +147,7 @@ const ComponentModal = ({
               rounded={50}
               backgroundColor={modalInputBgColor}
             >
-              {module ? module.name : ""}
+              {selectedModule ? selectedModule.name : ""}
             </Box>
           </FormControl>
           <FormControl isRequired>

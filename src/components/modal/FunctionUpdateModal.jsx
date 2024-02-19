@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Flex,
   FormControl,
@@ -8,14 +8,14 @@ import {
   FormLabel,
   Textarea,
   useToast,
-} from '@chakra-ui/react';
-import ReactModal from 'react-modal';
-import SubmitButton from '../reusable/SubmitButton';
-import CancelButton from '../reusable/CancelButton';
-import useColorModeColors from '../../hooks/useColorModeColors';
-import { useUpdateFunctionMutation } from '../../redux/api/docApiSlice'; // Adjust the hook name if necessary
-import useZustandStore from '../../zustand/store';
-import FormatDate from '../../utils/FormatDate';
+} from "@chakra-ui/react";
+import ReactModal from "react-modal";
+import SubmitButton from "../reusable/SubmitButton";
+import CancelButton from "../reusable/CancelButton";
+import useColorModeColors from "../../hooks/useColorModeColors";
+import { useUpdateFunctionMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
+import useZustandStore from "../../zustand/store";
+import FormatDate from "../../utils/FormatDate";
 
 const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
   const { selectedFunction, setSelectedFunction } = useZustandStore(); // Assuming useZustandStore has a selectedFunction
@@ -32,15 +32,28 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
   } = useColorModeColors();
 
   const [formData, setFormData] = useState({
-    function_id: selectedFunction ? selectedFunction.id : '',
-    element_id: selectedFunction ? selectedFunction.elementId : '',
-    component_id: selectedFunction ? selectedFunction.componentId : '',
-    module_id: selectedFunction ? selectedFunction.moduleId : '',
-    name: selectedFunction ? selectedFunction.name : '',
-    function_code: selectedFunction ? selectedFunction.function_code : '',
-    directory_path: selectedFunction ? selectedFunction.directory_path : '',
-    description: selectedFunction ? selectedFunction.description : '',
+    function_id: selectedFunction ? selectedFunction.id : "",
+    element_id: selectedFunction ? selectedFunction.elementId : "",
+    component_id: selectedFunction ? selectedFunction.componentId : "",
+    module_id: selectedFunction ? selectedFunction.moduleId : "",
+    name: selectedFunction ? selectedFunction.name : "",
+    function_code: selectedFunction ? selectedFunction.function_code : "",
+    directory_path: selectedFunction ? selectedFunction.directory_path : "",
+    description: selectedFunction ? selectedFunction.description : "",
   });
+
+  useEffect(() => {
+    setFormData({
+      function_id: selectedFunction ? selectedFunction.id : "",
+      element_id: selectedFunction ? selectedFunction.elementId : "",
+      component_id: selectedFunction ? selectedFunction.componentId : "",
+      module_id: selectedFunction ? selectedFunction.moduleId : "",
+      name: selectedFunction ? selectedFunction.name : "",
+      function_code: selectedFunction ? selectedFunction.function_code : "",
+      directory_path: selectedFunction ? selectedFunction.directory_path : "",
+      description: selectedFunction ? selectedFunction.description : "",
+    });
+  }, [selectedFunction]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,10 +70,10 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
       !formData.function_code
     ) {
       toast({
-        position: 'top-right',
-        title: 'Error',
-        description: 'All fields are required.',
-        status: 'error',
+        position: "top-right",
+        title: "Error",
+        description: "All fields are required.",
+        status: "error",
         duration: 5000,
         isClosable: true,
       });
@@ -69,31 +82,15 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
     try {
       const payload = await updateFunction(formData).unwrap();
       if (payload.status === 200) {
-        const loginData = JSON.parse(sessionStorage.getItem('loginData'));
-        const userName = loginData.data.name;
-
-        if (userName) {
-          const updatedModule = {
-            moduleId: formData.module_id,
-            componentId: formData.component_id,
-            elementId: formData.element_id,
-            id: formData.function_id,
-            created_at: FormatDate(new Date()),
-            last_updated_at: FormatDate(new Date()),
-            last_updated_by_name: userName,
-            added_by_name: userName,
-            directory_path: formData.directory_path,
-            name: formData.name,
-          };
-
-          setSelectedFunction(updatedModule);
-        }
-
+        setSelectedFunction({
+          ...payload.data,
+          last_updated_by_name: payload.data.updated_by_name,
+        });
         toast({
-          position: 'top-right',
-          title: 'Function Updated.',
-          description: 'Your function has been updated successfully.',
-          status: 'success',
+          position: "top-right",
+          title: "Function Updated.",
+          description: "Your function has been updated successfully.",
+          status: "success",
           duration: 5000,
           isClosable: true,
         });
@@ -101,9 +98,9 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
       } else {
         toast({
           zIndex: 100000,
-          position: 'top-right',
-          title: 'Updating Function failed.',
-          status: 'error',
+          position: "top-right",
+          title: "Updating Function failed.",
+          status: "error",
           duration: 5000,
           isClosable: true,
         });
@@ -111,10 +108,10 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
     } catch (err) {
       toast({
         zIndex: 100000,
-        position: 'top-right',
-        title: 'Updating Function failed.',
-        description: err.data?.message || 'Could not update the function.',
-        status: 'error',
+        position: "top-right",
+        title: "Updating Function failed.",
+        description: err.data?.message || "Could not update the function.",
+        status: "error",
         duration: 5000,
         isClosable: true,
       });
@@ -125,108 +122,108 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
     <ReactModal
       style={{
         overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          margin: 'auto auto',
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          margin: "auto auto",
           zIndex: 1000,
         },
         content: {
-          borderRadius: '20px',
+          borderRadius: "20px",
           backgroundColor: modalBgColor,
-          maxWidth: '550px',
-          height: 'auto', // Adjust to auto for content size
-          margin: 'auto auto',
-          border: 'none',
+          maxWidth: "550px",
+          height: "auto", // Adjust to auto for content size
+          margin: "auto auto",
+          border: "none",
         },
       }}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
       <form onSubmit={handleSubmit}>
-        <Flex flexDirection='column'>
+        <Flex flexDirection="column">
           <FormControl isRequired>
-            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
               Function Name
             </FormLabel>
             <Input
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder='Enter Function Name'
+              placeholder="Enter Function Name"
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
-                fontSize: '16px',
+                fontSize: "16px",
               }}
-              name='name'
+              name="name"
               value={formData.name}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
               Function Code
             </FormLabel>
             <Textarea
-              fontSize='16px'
-              overflowX='hidden'
-              overflowY='auto'
-              height='200px'
+              fontSize="16px"
+              overflowX="hidden"
+              overflowY="auto"
+              height="200px"
               padding={4}
               rounded={30}
               backgroundColor={modalInputBgColor}
-              name='function_code'
+              name="function_code"
               value={formData.function_code}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
               Function Directory Path
             </FormLabel>
             <Input
-              fontSize='16px'
+              fontSize="16px"
               paddingX={6}
               rounded={50}
               backgroundColor={modalInputBgColor}
-              placeholder='localhost/phpadmin/index.php'
+              placeholder="localhost/phpadmin/index.php"
               _placeholder={{
                 opacity: 1,
                 color: `${modalPlaceholderColor}`,
-                fontSize: '16px',
+                fontSize: "16px",
               }}
-              name='directory_path'
+              name="directory_path"
               value={formData.directory_path}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize='16px' color={modalTextColor} marginY={4}>
+            <FormLabel fontSize="16px" color={modalTextColor} marginY={4}>
               Description
             </FormLabel>
             <Textarea
-              fontSize='16px'
-              overflowX='hidden'
-              overflowY='auto'
-              height='200px'
+              fontSize="16px"
+              overflowX="hidden"
+              overflowY="auto"
+              height="200px"
               padding={4}
               rounded={30}
               backgroundColor={modalInputBgColor}
-              name='description'
+              name="description"
               value={formData.description}
               onChange={handleChange}
             />
           </FormControl>
-          <Flex justifyContent='center' marginTop={10} gap={10}>
+          <Flex justifyContent="center" marginTop={10} gap={10}>
             <CancelButton
               onClick={onRequestClose}
               textColor={modalCancelButtonTextColor}
-              text='Cancel'
+              text="Cancel"
             />
             <SubmitButton
               onClick={handleSubmit}
               isLoading={isLoading}
               textColor={modalSubmitButtonTextColor}
-              text='Submit'
+              text="Submit"
             />
           </Flex>
         </Flex>
