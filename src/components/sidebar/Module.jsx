@@ -12,9 +12,18 @@ import SideSkeleton from "../reusable/SideSkeleton";
 import useZustandStore from "../../zustand/store";
 
 const Module = ({ module }) => {
+  const setRefetchComponent = useZustandStore((state) => state.setRefetchComponent);
+
   const { toggleLeftBar, setSelectedModule, selectedModule } =
     useZustandStore();
-  const { data, error, isLoading } = useGetComponentQuery(module.id);
+  const { data, error, isLoading ,refetch } = useGetComponentQuery(module.id);
+  
+    // Set the refetch function
+    useEffect(() => {
+      setRefetchComponent(refetch);
+    }, [refetch, setRefetchComponent]);
+  
+  
   const components = data?.data;
   const { moduleIconColor, componentBorderColor } = useColorModeColors();
   const [isOpen, setIsOpen] = useState(() => {

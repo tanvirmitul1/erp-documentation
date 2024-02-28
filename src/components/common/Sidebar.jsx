@@ -17,16 +17,18 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import useZustandStore from "../../zustand/store";
 
 function Sidebar() {
-  const { modules, setModules } = useZustandStore();
+  const setRefetchModule = useZustandStore((state) => state.setRefetchModule);
+
   const { boxShadowColor } = useColorModeColors();
   const [moduleName, setModuleName] = useState("");
-  const { data, error, isLoading } = useGetModuleQuery();
+  const { data, error, isLoading, refetch } = useGetModuleQuery();
 
+  // Set the refetch function
   useEffect(() => {
-    if (data) {
-      setModules(data.data || []);
-    }
-  }, [data]);
+    setRefetchModule(refetch);
+  }, [refetch, setRefetchModule]);
+
+  const modules = data?.data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -71,16 +73,12 @@ function Sidebar() {
           <SideSkeleton Count={50} width={200} />
         </Box>
       ) : (
-        filteredModules.map((module) => (
+        filteredModules?.map((module) => (
           <Module key={module.id} module={module} />
         ))
       )}
 
-      <ModuleModal
-        isOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
-        setModules={setModules}
-      />
+      <ModuleModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
     </Stack>
   );
 }

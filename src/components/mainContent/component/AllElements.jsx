@@ -10,30 +10,29 @@ import Searchbar from "../../reusable/SearchBar";
 import ElementCard from "./ElementCard";
 import useZustandStore from "../../../zustand/store";
 import { useGetElementQuery } from "../../../redux/api/docApiSlice";
-import SubElementUpdateModal from "../../modal/subElementUpdateModal";
 import SideSkeleton from "../../reusable/SideSkeleton";
 
 const AllElements = () => {
   const [elementName, setElementName] = useState("");
   const { selectedComponent } = useZustandStore();
-  const { data, isLoading, isError } = useGetElementQuery({
+  const { data, error, isLoading } = useGetElementQuery({
     moduleId: selectedComponent.moduleId,
     componentId: selectedComponent.id,
   });
 
   const elements = data?.data;
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 1;
 
   const handleChange = (e) => {
     setElementName(e.target.value);
-    setCurrentPage(0); // Reset to first page when search term changes
+    setCurrentPage(0);
   };
 
   const filteredElements = elements?.filter((element) =>
     element.name.toLowerCase().includes(elementName.toLowerCase())
   );
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 1;
   const pageCount = Math.ceil(filteredElements?.length / itemsPerPage);
 
   const indexOfLastElement = (currentPage + 1) * itemsPerPage;

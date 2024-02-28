@@ -16,8 +16,10 @@ import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import { useAddModuleMutation } from "../../redux/api/docApiSlice"; // Make sure this path is correct
+import useZustandStore from "../../zustand/store";
 
-const ModuleModal = ({ isOpen, onRequestClose, setModules }) => {
+const ModuleModal = ({ isOpen, onRequestClose }) => {
+  const refetchModule = useZustandStore((state) => state.refetchModule);
   const [addModule, { isLoading }] = useAddModuleMutation();
   const toast = useToast();
   const {
@@ -59,9 +61,6 @@ const ModuleModal = ({ isOpen, onRequestClose, setModules }) => {
     try {
       const payload = await addModule(formData).unwrap();
 
-      // Update state with the new module
-      setModules((prevModules) => [...prevModules, payload?.data]);
-
       console.log("payload in add module", payload?.data);
       toast({
         position: "top-right",
@@ -72,6 +71,7 @@ const ModuleModal = ({ isOpen, onRequestClose, setModules }) => {
         isClosable: true,
       });
       onRequestClose();
+      refetchModule();
     } catch (err) {
       toast({
         zIndex: 100000,

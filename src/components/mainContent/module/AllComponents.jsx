@@ -6,18 +6,13 @@ import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import ReactPaginate from "react-paginate";
 import {
-  Text,
+ 
   Box,
   Flex,
-  VStack,
-  HStack,
-  Stack,
-  useColorMode,
-  Button,
+  
 } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
 import ComponentCard from "./ComponentCard";
-import useColorModeColors from "../../../hooks/useColorModeColors";
 import { useGetComponentQuery } from "../../../redux/api/docApiSlice";
 import useZustandStore from "../../../zustand/store";
 import SideSkeleton from "../../reusable/SideSkeleton";
@@ -25,9 +20,9 @@ import SideSkeleton from "../../reusable/SideSkeleton";
 const AllComponents = () => {
   const [componentName, setComponentName] = useState("");
   const { selectedModule } = useZustandStore();
+  
   const { data, error, isLoading } = useGetComponentQuery(selectedModule.id);
-  const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
-    useColorModeColors();
+
 
   const components = data?.data;
 

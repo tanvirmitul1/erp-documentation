@@ -21,6 +21,7 @@ import FormatDate from "../../utils/FormatDate";
 
 const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
   const { setSelectedModule, selectedModule } = useZustandStore();
+  const refetchModule = useZustandStore((state) => state.refetchModule);
   const [updateModule, { isLoading }] = useUpdateModuleMutation();
   const toast = useToast();
   const {
@@ -71,6 +72,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
           isClosable: true,
         });
         onRequestClose();
+        refetchModule();
       } else {
         toast({
           zIndex: 100000,

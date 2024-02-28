@@ -20,6 +20,8 @@ import FormatDate from "../../utils/FormatDate";
 
 const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
   const { selectedComponent, setSelectedComponent } = useZustandStore();
+  const refetchComponent = useZustandStore((state) => state.refetchComponent);
+  const refetchModule = useZustandStore((state) => state.refetchModule);
 
   const [updateComponent, { isLoading }] = useUpdateComponentMutation();
   const toast = useToast();
@@ -88,6 +90,8 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
           isClosable: true,
         });
         onRequestClose();
+        refetchComponent();
+        refetchModule();
       } else {
         toast({
           zIndex: 100000,

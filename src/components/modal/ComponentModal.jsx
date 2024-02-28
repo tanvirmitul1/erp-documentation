@@ -20,6 +20,8 @@ import { useAddComponentMutation } from "../../redux/api/docApiSlice";
 
 const ComponentModal = ({ isOpen, onRequestClose }) => {
   const { selectedModule, setComponents } = useZustandStore();
+  const refetchComponent = useZustandStore((state) => state.refetchComponent);
+  const refetchModule = useZustandStore((state) => state.refetchModule);
 
   const [addComponent, { isLoading }] = useAddComponentMutation();
 
@@ -73,31 +75,18 @@ const ComponentModal = ({ isOpen, onRequestClose }) => {
         module_id: selectedModule?.id,
       }).unwrap();
 
-      if (payload?.data) {
-        setComponents((prevComponents) => [...prevComponents, payload.data]);
-      }
-
-      if (payload.status === 200) {
-        toast({
-          position: "top-right",
-          title: "Component Added.",
-          description: "Your component has been added successfully.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          zIndex: 100000,
-          position: "top-right",
-          title: "Adding Component failed.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
+      toast({
+        position: "top-right",
+        title: "Component Added.",
+        description: "Your component has been added successfully.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
 
       onRequestClose();
+      refetchComponent();
+      refetchModule();
     } catch (err) {
       toast({
         zIndex: 100000,
@@ -109,6 +98,8 @@ const ComponentModal = ({ isOpen, onRequestClose }) => {
         isClosable: true,
       });
     }
+    refetchComponent();
+    refetchModule();
   };
 
   return (
