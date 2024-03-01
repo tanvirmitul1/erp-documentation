@@ -15,8 +15,10 @@ import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
 
 import { useUpdateComponentMutation } from "../../redux/api/docApiSlice";
+import useZustandStore from "../../zustand/store";
 
 const SubComponentUpdateModal = ({ isOpen, onRequestClose, component }) => {
+  const { setRefetchComponent } = useZustandStore();
   const [updateComponent, { isLoading }] = useUpdateComponentMutation();
   const toast = useToast();
   const {
@@ -68,6 +70,7 @@ const SubComponentUpdateModal = ({ isOpen, onRequestClose, component }) => {
           isClosable: true,
         });
         onRequestClose();
+        setRefetchComponent();
       } else {
         toast({
           zIndex: 100000,

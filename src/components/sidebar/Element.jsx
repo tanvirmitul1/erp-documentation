@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
@@ -24,6 +25,8 @@ const Element = ({
     selectedFunction,
     setSelectedFunction,
     toggleLeftBar,
+    refetchFunction,
+    setRefetchFunction,
   } = useZustandStore();
 
   const [elementId, setElementId] = useState("");
@@ -44,11 +47,22 @@ const Element = ({
     setSelectedFunction(fn);
     toggleLeftBar();
   };
-  const { data, isLoading } = useGetFunctionQuery({
+  const { data, isLoading, refetch } = useGetFunctionQuery({
     moduleId: element.moduleId,
     componentId: element.componentId,
     elementId: element.id,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [
+    element.moduleId,
+    element.componentId,
+    element.id,
+    refetchFunction,
+    setRefetchFunction,
+  ]);
+
   const functions = data?.data;
 
   useEffect(() => {

@@ -19,7 +19,7 @@ import useZustandStore from "../../zustand/store";
 import { useAddElementMutation } from "../../redux/api/docApiSlice";
 
 const ElementModal = ({ isOpen, onRequestClose }) => {
-  const { selectedComponent } = useZustandStore();
+  const { selectedComponent, setRefetchElement } = useZustandStore();
 
   const [addElement, { isLoading }] = useAddElementMutation();
 
@@ -49,8 +49,6 @@ const ElementModal = ({ isOpen, onRequestClose }) => {
       component_id: selectedComponent.id,
     }));
   }, [selectedComponent]);
-
- 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -84,6 +82,7 @@ const ElementModal = ({ isOpen, onRequestClose }) => {
       }
 
       onRequestClose();
+      setRefetchElement();
     } catch (err) {
       toast({
         zIndex: 100000,

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
@@ -12,12 +13,17 @@ import SideSkeleton from "../reusable/SideSkeleton";
 import useZustandStore from "../../zustand/store";
 
 const Component = ({ component, module }) => {
-  const { setSelectedComponent } = useZustandStore();
+  const { setSelectedComponent, refetchElement, setRefetchElement } =
+    useZustandStore();
 
-  const { data, isLoading, isError } = useGetElementQuery({
+  const { data, isLoading, isError, refetch } = useGetElementQuery({
     moduleId: component.moduleId,
     componentId: component.id,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [component.moduleId, component.id, refetchElement, setRefetchElement]);
 
   const elements = data?.data;
 

@@ -22,9 +22,11 @@ const useZustandStore = create((set) => {
       ? JSON.parse(initialSelectedFunction)
       : null,
     showLeftBar: initialShowLeftBar ? JSON.parse(initialShowLeftBar) : false,
-    modules: [], // Initialize modules as an empty array
+    modules: [],
     refetchModule: null,
-    refetchComponents: null, // Stores refetch functions by module ID
+    refetchComponent: 0,
+    refetchElement: 0,
+    refetchFunction: 0,
   };
 
   return {
@@ -65,9 +67,24 @@ const useZustandStore = create((set) => {
     },
     setRefetchModule: (refetchFunction) =>
       set({ refetchModule: refetchFunction }),
-
-    setRefetchComponent: (refetchFunction) =>
-      set({ refetchComponent: refetchFunction }),
+    setRefetchComponent: () => {
+      set((state) => {
+        const newState = state.refetchComponent + 1;
+        return { refetchComponent: newState };
+      });
+    },
+    setRefetchElement: () => {
+      set((state) => {
+        const newState = state.refetchElement + 1;
+        return { refetchElement: newState };
+      });
+    },
+    setRefetchFunction: () => {
+      set((state) => {
+        const newState = state.refetchFunction + 1;
+        return { refetchFunction: newState };
+      });
+    },
   };
 });
 

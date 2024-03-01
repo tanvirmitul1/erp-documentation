@@ -19,7 +19,8 @@ import { useUpdateComponentMutation } from "../../redux/api/docApiSlice";
 import FormatDate from "../../utils/FormatDate";
 
 const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedComponent, setSelectedComponent } = useZustandStore();
+  const { selectedComponent, setSelectedComponent, setRefetchComponent } =
+    useZustandStore();
   const refetchComponent = useZustandStore((state) => state.refetchComponent);
   const refetchModule = useZustandStore((state) => state.refetchModule);
 
@@ -69,7 +70,7 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
         duration: 5000,
         isClosable: true,
       });
-      
+
       return; // Prevent the form submission
     }
 
@@ -90,7 +91,7 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
         isClosable: true,
       });
       onRequestClose();
-      refetchComponent();
+      setRefetchComponent();
       refetchModule();
     } else {
       toast({

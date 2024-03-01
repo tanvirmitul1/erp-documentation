@@ -19,7 +19,7 @@ import useZustandStore from "../../zustand/store";
 import { useAddFunctionMutation } from "../../redux/api/docApiSlice";
 
 const FunctionModal = ({ isOpen, onRequestClose }) => {
-  const { selectedElement } = useZustandStore();
+  const { selectedElement, setRefetchFunction } = useZustandStore();
 
   const [addFunction, { isLoading }] = useAddFunctionMutation();
 
@@ -90,6 +90,7 @@ const FunctionModal = ({ isOpen, onRequestClose }) => {
           duration: 5000,
           isClosable: true,
         });
+        setRefetchFunction();
       } else {
         toast({
           zIndex: 100000,

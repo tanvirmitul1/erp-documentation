@@ -18,7 +18,8 @@ import useZustandStore from "../../zustand/store";
 import FormatDate from "../../utils/FormatDate";
 
 const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedFunction, setSelectedFunction } = useZustandStore(); // Assuming useZustandStore has a selectedFunction
+  const { selectedFunction, setSelectedFunction, setRefetchFunction } =
+    useZustandStore(); // Assuming useZustandStore has a selectedFunction
 
   const [updateFunction, { isLoading }] = useUpdateFunctionMutation(); // Adjust according to your actual mutation hook
   const toast = useToast();
@@ -95,6 +96,7 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
           isClosable: true,
         });
         onRequestClose();
+        setRefetchFunction();
       } else {
         toast({
           zIndex: 100000,

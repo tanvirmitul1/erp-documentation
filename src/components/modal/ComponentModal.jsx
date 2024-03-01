@@ -19,9 +19,15 @@ import useZustandStore from "../../zustand/store";
 import { useAddComponentMutation } from "../../redux/api/docApiSlice";
 
 const ComponentModal = ({ isOpen, onRequestClose }) => {
-  const { selectedModule, setComponents } = useZustandStore();
-  const refetchComponent = useZustandStore((state) => state.refetchComponent);
-  const refetchModule = useZustandStore((state) => state.refetchModule);
+  // const { selectedModule, setComponents } = useZustandStore();
+  // const refetchComponent = useZustandStore((state) => state.refetchComponent);
+  // const refetchModule = useZustandStore((state) => state.refetchModule);
+  const {
+    selectedModule,
+    refetchComponent,
+    refetchModule,
+    setRefetchComponent,
+  } = useZustandStore();
 
   const [addComponent, { isLoading }] = useAddComponentMutation();
 
@@ -85,8 +91,8 @@ const ComponentModal = ({ isOpen, onRequestClose }) => {
       });
 
       onRequestClose();
-      refetchComponent();
-      refetchModule();
+
+      setRefetchComponent();
     } else {
       toast({
         zIndex: 100000,

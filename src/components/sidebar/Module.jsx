@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
@@ -12,17 +13,17 @@ import SideSkeleton from "../reusable/SideSkeleton";
 import useZustandStore from "../../zustand/store";
 
 const Module = ({ module }) => {
-  const setRefetchComponent = useZustandStore(
-    (state) => state.setRefetchComponent
-  );
-
-  const { toggleLeftBar, setSelectedModule, selectedModule } =
-    useZustandStore();
+  const {
+    toggleLeftBar,
+    setSelectedModule,
+    refetchComponent,
+    setRefetchComponent,
+  } = useZustandStore();
   const { data, error, isLoading, refetch } = useGetComponentQuery(module.id);
 
   useEffect(() => {
-    setRefetchComponent(module.id, refetch);
-  }, [module.id, refetch, setRefetchComponent]);
+    refetch();
+  }, [module.id, refetchComponent, setRefetchComponent]);
 
   const components = data?.data;
 
@@ -34,7 +35,6 @@ const Module = ({ module }) => {
   });
 
   useEffect(() => {
-    // Save isOpen state to sessionStorage whenever it changes
     sessionStorage.setItem("moduleIsOpen" + module.id, isOpen);
   }, [isOpen, module.id]);
 

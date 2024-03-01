@@ -18,7 +18,8 @@ import useZustandStore from "../../zustand/store";
 import FormatDate from "../../utils/FormatDate";
 
 const SubFunctionUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedFunction, setSelectedFunction } = useZustandStore();
+  const { selectedFunction, setSelectedFunction, setRefetchFunction } =
+    useZustandStore();
 
   const [updateFunction, { isLoading }] = useUpdateFunctionMutation();
   const toast = useToast();
@@ -98,6 +99,7 @@ const SubFunctionUpdateModal = ({ isOpen, onRequestClose }) => {
           isClosable: true,
         });
         onRequestClose();
+        setRefetchFunction();
       } else {
         toast({
           zIndex: 100000,

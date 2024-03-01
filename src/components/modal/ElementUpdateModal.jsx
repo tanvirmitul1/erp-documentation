@@ -15,10 +15,10 @@ import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
 import { useUpdateElementMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
 import useZustandStore from "../../zustand/store";
-import FormatDate from "../../utils/FormatDate";
 
 const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
-  const { selectedElement, setSelectedElement } = useZustandStore(); // Assuming useZustandStore has a selectedElement
+  const { selectedElement, setSelectedElement, setRefetchElement } =
+    useZustandStore(); // Assuming useZustandStore has a selectedElement
 
   const [updateElement, { isLoading }] = useUpdateElementMutation(); // Adjust according to your actual mutation hook
   const toast = useToast();
@@ -75,6 +75,7 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
           isClosable: true,
         });
         onRequestClose();
+        setRefetchElement();
       } else {
         toast({
           zIndex: 100000,
