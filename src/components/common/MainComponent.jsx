@@ -2,7 +2,7 @@
 // MainComponent.jsx
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaCircleChevronLeft } from "react-icons/fa6";
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import ComponentDetails from "../mainContent/component/ComponentDetails";
@@ -12,11 +12,11 @@ import ModuleDetails from "../mainContent/module/moduleDetails";
 import NavBar from "./Navbar";
 import Sidebar from "./Sidebar";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import useModuleStore from "../../zustand/store";
 
 import Home from "./Home";
+import useZustandStore from "../../zustand/store";
 const MainComponent = () => {
-  const { showLeftBar, toggleLeftBar } = useModuleStore();
+  const { showLeftBar, toggleLeftBar } = useZustandStore();
 
   const { sidebarBgColor, addButtonBgColor } = useColorModeColors();
   const user = true;
@@ -33,8 +33,6 @@ const MainComponent = () => {
     >
       <GridItem area="nav">{user && <NavBar />}</GridItem>
       <GridItem area="sidebar">{user && <Sidebar />}</GridItem>
-
-      {/* start absolute view of sidebar */}
 
       <Box
         color={addButtonBgColor}

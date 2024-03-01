@@ -24,7 +24,7 @@ const useZustandStore = create((set) => {
     showLeftBar: initialShowLeftBar ? JSON.parse(initialShowLeftBar) : false,
     modules: [], // Initialize modules as an empty array
     refetchModule: null,
-    refetchComponent: null,
+    refetchComponents: null, // Stores refetch functions by module ID
   };
 
   return {
@@ -65,6 +65,7 @@ const useZustandStore = create((set) => {
     },
     setRefetchModule: (refetchFunction) =>
       set({ refetchModule: refetchFunction }),
+
     setRefetchComponent: (refetchFunction) =>
       set({ refetchComponent: refetchFunction }),
   };

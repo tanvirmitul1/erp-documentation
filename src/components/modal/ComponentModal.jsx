@@ -69,12 +69,12 @@ const ComponentModal = ({ isOpen, onRequestClose }) => {
       return;
     }
 
-    try {
-      const payload = await addComponent({
-        ...formData,
-        module_id: selectedModule?.id,
-      }).unwrap();
+    const payload = await addComponent({
+      ...formData,
+      module_id: selectedModule?.id,
+    }).unwrap();
 
+    if (payload.status === 200) {
       toast({
         position: "top-right",
         title: "Component Added.",
@@ -87,19 +87,17 @@ const ComponentModal = ({ isOpen, onRequestClose }) => {
       onRequestClose();
       refetchComponent();
       refetchModule();
-    } catch (err) {
+    } else {
       toast({
         zIndex: 100000,
         position: "top-right",
         title: "Adding Component failed.",
-        description: err.data?.message || "Could not add the component.",
+        description: "Could not add the component.",
         status: "error",
         duration: 5000,
         isClosable: true,
       });
     }
-    refetchComponent();
-    refetchModule();
   };
 
   return (

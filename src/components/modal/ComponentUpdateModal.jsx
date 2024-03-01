@@ -69,45 +69,34 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
         duration: 5000,
         isClosable: true,
       });
+      
       return; // Prevent the form submission
     }
 
-    try {
-      const payload = await updateComponent(formData).unwrap();
+    const payload = await updateComponent(formData).unwrap();
 
-      if (payload.status === 200) {
-        setSelectedComponent({
-          ...payload.data,
-          last_updated_by_name: payload.data.updated_by_name,
-        });
+    if (payload.status === 200) {
+      setSelectedComponent({
+        ...payload.data,
+        last_updated_by_name: payload.data.updated_by_name,
+      });
 
-        toast({
-          position: "top-right",
-          title: "Component Added.",
-          description: "Your component has been added successfully.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        onRequestClose();
-        refetchComponent();
-        refetchModule();
-      } else {
-        toast({
-          zIndex: 100000,
-          position: "top-right",
-          title: "Adding Component failed.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
-    } catch (err) {
+      toast({
+        position: "top-right",
+        title: "Component Added.",
+        description: "Your component has been added successfully.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      onRequestClose();
+      refetchComponent();
+      refetchModule();
+    } else {
       toast({
         zIndex: 100000,
         position: "top-right",
         title: "Adding Component failed.",
-        description: err.data?.message || "Could not add the component.",
         status: "error",
         duration: 5000,
         isClosable: true,
