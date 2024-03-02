@@ -80,7 +80,10 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
       setSelectedComponent({
         ...payload.data,
         last_updated_by_name: payload.data.updated_by_name,
+        moduleId: payload.data.module_id,
       });
+
+      console.log("payload data in component", payload.data);
 
       toast({
         position: "top-right",

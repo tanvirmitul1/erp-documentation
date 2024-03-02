@@ -13,13 +13,12 @@ import ReactModal from "react-modal";
 import SubmitButton from "../reusable/SubmitButton";
 import CancelButton from "../reusable/CancelButton";
 import useColorModeColors from "../../hooks/useColorModeColors";
-import { useUpdateFunctionMutation } from "../../redux/api/docApiSlice"; // Adjust the hook name if necessary
+import { useUpdateFunctionMutation } from "../../redux/api/docApiSlice";
 import useZustandStore from "../../zustand/store";
-import FormatDate from "../../utils/FormatDate";
 
 const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
   const { selectedFunction, setSelectedFunction, setRefetchFunction } =
-    useZustandStore(); // Assuming useZustandStore has a selectedFunction
+    useZustandStore();
 
   const [updateFunction, { isLoading }] = useUpdateFunctionMutation(); // Adjust according to your actual mutation hook
   const toast = useToast();
@@ -78,7 +77,7 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
         duration: 5000,
         isClosable: true,
       });
-      return; // Prevent the form submission
+      return;
     }
     try {
       const payload = await updateFunction(formData).unwrap();
@@ -86,6 +85,9 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
         setSelectedFunction({
           ...payload.data,
           last_updated_by_name: payload.data.updated_by_name,
+          moduleId: payload.data.module_id,
+          componentId: payload.data.component_id,
+          elementId: payload.data.element_id,
         });
         toast({
           position: "top-right",
@@ -97,6 +99,8 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
         });
         onRequestClose();
         setRefetchFunction();
+
+        console.log(selectedFunction);
       } else {
         toast({
           zIndex: 100000,
