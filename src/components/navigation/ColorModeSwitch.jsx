@@ -1,7 +1,7 @@
 import { useColorMode, Box, Image } from "@chakra-ui/react";
 import DarkTheme from "../../assets/toggleLight.png";
 import LightTheme from "../../assets/toggleLight.svg";
-const ColorMOdeSwitch = () => {
+const ColorModeSwitch = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box cursor="pointer" onClick={toggleColorMode}>
@@ -14,4 +14,4 @@ const ColorMOdeSwitch = () => {
   );
 };
 
-export default ColorMOdeSwitch;
+export default ColorModeSwitch;

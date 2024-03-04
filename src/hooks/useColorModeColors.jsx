@@ -71,6 +71,9 @@ const useColorModeColors = () => {
   //login registration
   const authTextColor = useColorModeValue("black", "black");
 
+  //profile
+  const profileBgColor = useColorModeValue("#F6F8FC", "#212a41");
+
   return {
     addButtonTextColor,
     addButtonBgColor,
@@ -107,6 +110,7 @@ const useColorModeColors = () => {
     homeHeaderTextColor,
     cardIconColor,
     authTextColor,
+    profileBgColor,
   };
 };
 
