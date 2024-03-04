@@ -34,7 +34,7 @@ const AllFunctions = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
   const pageCount = Math.ceil(filteredFunctions?.length / itemsPerPage);
 
   const indexOfLastFunction = (currentPage + 1) * itemsPerPage;
@@ -55,6 +55,7 @@ const AllFunctions = () => {
       alignItems="center"
       justifyContent={{ base: "left", md: "center" }}
       marginTop="20px"
+      marginX={{ base: "0", md: "30px" }}
     >
       <Box marginRight={{ base: "150px", md: "0" }}>
         {currentFunctions && (

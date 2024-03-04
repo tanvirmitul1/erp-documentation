@@ -73,8 +73,8 @@ const Element = ({
   return (
     <Stack
       onClick={() => setSelectedElement(element)}
-      marginLeft={isOpen ? "16px" : "4px"} // Adjust the value based on your design
-      transition="margin-left 0.3s ease" // Add the transition property
+      marginLeft={isOpen ? "16px" : "4px"}
+      transition="margin-left 0.3s ease"
       paddingX={2}
       borderLeft={`2px solid ${elementBorderColor}`}
       position="relative"

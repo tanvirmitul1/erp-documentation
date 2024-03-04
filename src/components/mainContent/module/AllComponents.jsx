@@ -5,12 +5,7 @@ import React, { useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import ReactPaginate from "react-paginate";
-import {
- 
-  Box,
-  Flex,
-  
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
 import ComponentCard from "./ComponentCard";
 import { useGetComponentQuery } from "../../../redux/api/docApiSlice";
@@ -20,14 +15,13 @@ import SideSkeleton from "../../reusable/SideSkeleton";
 const AllComponents = () => {
   const [componentName, setComponentName] = useState("");
   const { selectedModule } = useZustandStore();
-  
-  const { data, error, isLoading } = useGetComponentQuery(selectedModule.id);
 
+  const { data, error, isLoading } = useGetComponentQuery(selectedModule.id);
 
   const components = data?.data;
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 2;
+  const itemsPerPage = 10;
 
   const handleChange = (e) => {
     setComponentName(e.target.value);
@@ -59,6 +53,7 @@ const AllComponents = () => {
         alignItems="center"
         justifyContent={{ base: "left", md: "center" }}
         marginTop="20px"
+        marginX={{ base: "0", md: "30px" }}
       >
         <Box marginRight={{ base: "150px", md: "0" }}>
           {currentComponents && (

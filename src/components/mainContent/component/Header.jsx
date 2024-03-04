@@ -22,12 +22,20 @@ import ElementModal from "../../modal/ElementModal";
 import ComponentUpdateModal from "../../modal/ComponentUpdateModal";
 import useZustandStore from "../../../zustand/store";
 import FormatDate from "../../../utils/FormatDate";
+import { useGetComponentsLogQuery } from "../../../redux/api/docApiSlice";
+import { LogModal } from "../../modal/LogModal";
 
 const Header = () => {
   const { selectedComponent, setSelectedComponent } = useZustandStore();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+  const [isLogModalOpen, setIsLogModalOpen] = React.useState(false);
+  const { data } = useGetComponentsLogQuery({
+    componentId: selectedComponent.id,
+    moduleId: selectedComponent.module_id,
+  });
 
+  const LogData = data?.data;
   const handleCreateElementButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -38,9 +46,14 @@ const Header = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsUpdateModalOpen(false);
+    setIsLogModalOpen(false);
   };
   const { modulePathColor, modulePathBgColor, moduleTextColor } =
     useColorModeColors();
+
+  const handleLog = () => {
+    setIsLogModalOpen(true);
+  };
 
   return (
     <Box
@@ -131,13 +144,27 @@ const Header = () => {
           word={500}
         />
       </Text>
-      <AddButton
-        text="Add New Element"
-        onClick={handleCreateElementButtonClick}
-      />
+      <HStack>
+        <AddButton
+          text="Add New Element"
+          onClick={handleCreateElementButtonClick}
+        />
+        <AddButton
+          text="Component Update Log"
+          iconSize="0px"
+          onClick={handleLog}
+        />
+      </HStack>
       <ElementModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
       <ComponentUpdateModal
         isOpen={isUpdateModalOpen}
+        onRequestClose={handleCloseModal}
+      />
+
+      <LogModal
+        name="Component"
+        data={LogData}
+        isOpen={isLogModalOpen}
         onRequestClose={handleCloseModal}
       />
     </Box>

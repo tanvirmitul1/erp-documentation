@@ -5,16 +5,21 @@ function FormatDate(isoDate) {
     const day = dateObject.getDate();
     const month = dateObject.toLocaleString("en-US", { month: "long" });
     const year = dateObject.getFullYear();
-    const hour = dateObject.getHours();
-    const minute = dateObject.getMinutes();
-    const second = dateObject.getSeconds();
+    const hour = addLeadingZero(dateObject.getHours());
+    const minute = addLeadingZero(dateObject.getMinutes());
+    const second = addLeadingZero(dateObject.getSeconds());
 
-    const formattedDate = `${month} ${day}, ${year} , ${hour}:${minute}:${second} `;
+    const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute}:${second}`;
 
     return formattedDate;
   } else {
     return null;
   }
 }
+
+// Function to add leading zeros
+const addLeadingZero = (value) => {
+  return value < 10 ? "0" + value : value;
+};
 
 export default FormatDate;

@@ -8,19 +8,26 @@ import CustomDescription from "../../reusable/Description";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import ComponentModal from "../../modal/ComponentModal";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useGetSingleModuleQuery } from "../../../redux/api/docApiSlice";
+
+import {
+  useGetSingleModuleQuery,
+  useGetModulesLogQuery,
+} from "../../../redux/api/docApiSlice";
 import SideSkeleton from "../../reusable/SideSkeleton";
 import useZustandStore from "../../../zustand/store";
 import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
 import FormatDate from "../../../utils/FormatDate";
-import ModuleLogModal from "../../modal/ModuleLogModal";
+import { LogModal } from "../../modal/LogModal";
+
 const Header = () => {
   const { selectedModule, setSelectedModule } = useZustandStore();
 
   const { data, isLoading, error } = useGetSingleModuleQuery(
     selectedModule?.id
   );
+  const { data: moduleLogData } = useGetModulesLogQuery(selectedModule?.id);
+
+  const LogData = moduleLogData?.data;
 
   useEffect(() => {
     if (data) {
@@ -164,7 +171,9 @@ const Header = () => {
             onRequestClose={handleCloseModal}
           />
 
-          <ModuleLogModal
+          <LogModal
+            name="Module"
+            data={LogData}
             isOpen={isLogModalOpen}
             onRequestClose={handleCloseModal}
           />

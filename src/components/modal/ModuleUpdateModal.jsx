@@ -61,8 +61,12 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
       const payload = await updateModule(formData).unwrap();
 
       if (payload.status === 200) {
-        // Update only relevant fields in selectedModule
-        setSelectedModule(payload.data);
+        console.log("payload data", payload.data);
+
+        setSelectedModule({
+          ...payload.data,
+          last_updated_by_name: payload.data.updated_by_name,
+        });
         toast({
           position: "top-right",
           title: "Module Updated.",

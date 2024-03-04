@@ -66,7 +66,7 @@ const docApiSlice = apiSlice.injectEndpoints({
           },
         };
       },
-      providesTags: ["GET_ELEMENT"],
+      providesTags: ["GET_FUNCTION"],
     }),
 
     //modal submission
@@ -93,6 +93,7 @@ const docApiSlice = apiSlice.injectEndpoints({
           Authorization: token ? `Bearer ${token}` : "",
         },
       }),
+      invalidatesTags: ["GET_MODULES_LOG"],
     }),
 
     //component modal
@@ -142,6 +143,7 @@ const docApiSlice = apiSlice.injectEndpoints({
           Authorization: token ? `Bearer ${token}` : "",
         },
       }),
+      // invalidatesTags: ["GET_ELEMENT"],
     }),
 
     //element modal
@@ -166,9 +168,54 @@ const docApiSlice = apiSlice.injectEndpoints({
           Authorization: token ? `Bearer ${token}` : "",
         },
       }),
+      invalidatesTags: ["GET_FUNCTIONS_LOG"],
     }),
 
-    ///function log
+    //LOG
+
+    //module log
+
+    getModulesLog: builder.query({
+      query: (moduleId) => {
+        return {
+          url: `/log-modules/${moduleId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_MODULES_LOG"],
+    }),
+
+    //components log
+
+    getComponentsLog: builder.query({
+      query: ({ moduleId, componentId }) => {
+        return {
+          url: `/log-components/${moduleId}/${componentId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_COMPONENTS_LOG"],
+    }),
+
+    //elements log
+
+    getElementsLog: builder.query({
+      query: ({ moduleId, componentId, elementId }) => {
+        return {
+          url: `/log-elements/${moduleId}/${componentId}/${elementId}`,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["GET_ELEMENTS_LOG"],
+    }),
+
+    //functions log
 
     getFunctionsLog: builder.query({
       query: ({ moduleId, componentId, elementId, functionId }) => {
@@ -198,5 +245,8 @@ export const {
   useUpdateComponentMutation,
   useUpdateElementMutation,
   useUpdateFunctionMutation,
+  useGetModulesLogQuery,
+  useGetComponentsLogQuery,
+  useGetElementsLogQuery,
   useGetFunctionsLogQuery,
 } = docApiSlice;

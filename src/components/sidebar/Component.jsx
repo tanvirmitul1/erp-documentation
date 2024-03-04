@@ -13,8 +13,7 @@ import SideSkeleton from "../reusable/SideSkeleton";
 import useZustandStore from "../../zustand/store";
 
 const Component = ({ component, module }) => {
-  const { setSelectedComponent, refetchElement, setRefetchElement } =
-    useZustandStore();
+  const { setSelectedComponent, refetchElement } = useZustandStore();
 
   const { data, isLoading, isError, refetch } = useGetElementQuery({
     moduleId: component.moduleId,
@@ -23,13 +22,12 @@ const Component = ({ component, module }) => {
 
   useEffect(() => {
     refetch();
-  }, [component.moduleId, component.id, refetchElement, setRefetchElement]);
+  }, [refetchElement]);
 
   const elements = data?.data;
 
   const { toggleLeftBar } = useModuleStore();
   const [isOpen, setIsOpen] = useState(() => {
-    // Load isOpen state from sessionStorage or default to false
     return sessionStorage.getItem("componentIsOpen" + component.id) === "true"
       ? true
       : false;
@@ -59,11 +57,9 @@ const Component = ({ component, module }) => {
         background={componentBorderColor}
         position="absolute"
         top="50%"
-        left="-14px" // Adjust this value based on your design
+        left="-14px"
         height="2px"
         width="12px"
-
-        // display={/* Add your logic here for when to display the pseudo-element */}
       />
       <HStack>
         <Link to={`/module/${module.id}/component/${component.id}`}>
@@ -104,7 +100,6 @@ const Component = ({ component, module }) => {
                 element={element}
               />
             );
-            // or any other placeholder if you want to skip rendering
           })
         ))}
     </Stack>

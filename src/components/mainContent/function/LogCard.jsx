@@ -20,7 +20,7 @@ import formatCodeString from "../../../utils/FormatCode";
 import FullscreenLogModal from "../../modal/FullscreenLogModal";
 import FormatDate from "../../../utils/FormatDate";
 
-const LogCard = ({ fnLog }) => {
+const LogCard = ({ fnLog, index }) => {
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
 
   const openFullscreenModal = () => setIsFullscreenModalOpen(true);
@@ -36,6 +36,27 @@ const LogCard = ({ fnLog }) => {
       paddingX="10px"
       borderBottom="2px solid rgba(25, 39, 59, 0.42)"
     >
+      <Flex
+        gap="8px"
+        flexDir={{
+          base: "column",
+          md: "column",
+          lg: "column",
+          xl: "row",
+        }}
+      >
+        <HStack marginBottom={6}>
+          <Text as="h4">{index + 1}.</Text>
+          <Text as="h4">{fnLog?.name}</Text>
+        </HStack>
+        <Flex marginTop="10px" gap={1}>
+          <Text h="10px">Added By:</Text>
+          <Text h="10px" color={modulePathColor}>
+            {" "}
+            {fnLog?.added_by_name}
+          </Text>
+        </Flex>
+      </Flex>
       <Flex flexDir="column" gap="10px">
         <Flex align="left" marginTop="auto">
           <Flex
@@ -68,11 +89,12 @@ const LogCard = ({ fnLog }) => {
           </Flex>
           <Flex h="30px" gap="5px">
             <Text>Updated By: </Text>
-            <Text color={modulePathColor}>{fnLog.update_by_name}</Text>
+            <Text color={modulePathColor}>{fnLog.last_up_by_name}</Text>
           </Flex>
         </Flex>
       </Flex>
 
+      {console.log(fnLog)}
       <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={fnLog.description} />
         <Box as="h5"> Function Code</Box>

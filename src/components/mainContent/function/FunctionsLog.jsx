@@ -35,11 +35,11 @@ const FunctionsLog = () => {
   const { addButtonBgColor, addButtonTextColor } = useColorModeColors();
   const functionLog = data?.data || [];
 
-  const filteredLogs = functionLog.filter(
-    (fnLog) => fnLog.function_id == selectedFunction.id
-  );
+  // const filteredLogs = functionLog.filter(
+  //   (fnLog) => fnLog.function_id == selectedFunction.id
+  // );
 
-  const pageCount = Math.ceil(filteredLogs?.length / itemsPerPage);
+  const pageCount = Math.ceil(functionLog?.length / itemsPerPage);
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
@@ -67,17 +67,17 @@ const FunctionsLog = () => {
 
       {viewLog && (
         <>
-          {!filteredLogs ? (
+          {!functionLog ? (
             <SideSkeleton Count={4} height="300px" width="100%" />
           ) : (
-            filteredLogs
+            functionLog
               .slice(
                 currentPage * itemsPerPage,
                 (currentPage + 1) * itemsPerPage
               )
-              .map((fnLog) => (
+              .map((fnLog, index) => (
                 <Box key={fnLog.id}>
-                  <LogCard fnLog={fnLog} />
+                  <LogCard fnLog={fnLog} index={index} />
                 </Box>
               ))
           )}

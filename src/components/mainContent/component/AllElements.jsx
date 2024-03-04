@@ -22,7 +22,7 @@ const AllElements = () => {
 
   const elements = data?.data;
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
 
   const handleChange = (e) => {
     setElementName(e.target.value);
@@ -53,6 +53,7 @@ const AllElements = () => {
       alignItems="center"
       justifyContent={{ base: "left", md: "center" }}
       marginTop="20px"
+      marginX={{ base: "0", md: "30px" }}
     >
       <Box marginRight={{ base: "150px", md: "0" }}>
         {currentElements && (

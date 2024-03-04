@@ -7,7 +7,14 @@ import { Button, Text } from "@chakra-ui/react";
 import { CiCirclePlus } from "react-icons/ci";
 import useColorModeColors from "../../hooks/useColorModeColors";
 
-const AddButton = ({ text, onClick, iconSize, buttonSize, width }) => {
+const AddButton = ({
+  text,
+  onClick,
+  iconSize,
+  buttonSize,
+  width,
+  children,
+}) => {
   const { addButtonBgColor, addButtonHoverColor, addButtonTextColor } =
     useColorModeColors();
 
@@ -21,6 +28,7 @@ const AddButton = ({ text, onClick, iconSize, buttonSize, width }) => {
       onClick={onClick}
       _hover={{ backgroundColor: `${addButtonHoverColor}` }}
     >
+      {children}
       <CiCirclePlus
         size={iconSize ? iconSize : 20}
         color={addButtonTextColor}

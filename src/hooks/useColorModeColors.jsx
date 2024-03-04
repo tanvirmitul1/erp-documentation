@@ -1,10 +1,20 @@
+/* eslint-disable no-unused-vars */
 import { useColorModeValue } from "@chakra-ui/react";
 
 const useColorModeColors = () => {
-  //add  and update button
+  //add  button
   const addButtonTextColor = useColorModeValue("white", "black");
   const addButtonBgColor = useColorModeValue("#199FD6", "#33bb73");
   const addButtonHoverColor = useColorModeValue("#090e11", "#51dd93");
+
+  //update button
+  const updateButtonTextColor = useColorModeValue("#1cbcfc", "#fdfffe");
+  const updateButtonBgColor = useColorModeValue("#ffffff", "#000000");
+  const updateButtonHoverColor = useColorModeValue("#020202", "#51dd93");
+  const updateButtonHoverBgColor = useColorModeValue("#000000", "#2c2a2a");
+  const updateButtonHoverTextColor = useColorModeValue("white", "#51dd93");
+  const updateButtonBorderColor = useColorModeValue("#199FD6", "#33bb73");
+  const updateButtonHoverBorderColor = useColorModeValue("black", "#33bb73");
 
   //cancel button
   const cancelButtonHoverColor = useColorModeValue("#ddecf0", "#251f1f");
@@ -64,10 +74,17 @@ const useColorModeColors = () => {
   return {
     addButtonTextColor,
     addButtonBgColor,
+    addButtonHoverColor,
+    updateButtonTextColor,
+    updateButtonBgColor,
+    updateButtonHoverColor,
+    updateButtonBorderColor,
+    updateButtonHoverTextColor,
+    updateButtonHoverBgColor,
+    updateButtonHoverBorderColor,
     cancelButtonHoverColor,
     cancelButtonBgColor,
     cancelButtonBorderColor,
-    addButtonHoverColor,
     searchBgColor,
     boxShadowColor,
     modalBgColor,
