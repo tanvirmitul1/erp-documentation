@@ -90,7 +90,7 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
                     }}
                   >
                     <HStack>
-                      <Text as="h4">{index + 1}.</Text>
+                      {/* <Text as="h4">{index + 1}.</Text> */}
                       <Text as="h4">{data?.name}</Text>
                     </HStack>
                     <Flex marginTop="10px" gap={1}>
