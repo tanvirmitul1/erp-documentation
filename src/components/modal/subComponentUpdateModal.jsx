@@ -75,7 +75,7 @@ const SubComponentUpdateModal = ({ isOpen, onRequestClose, component }) => {
         toast({
           zIndex: 100000,
           position: "top-right",
-          title: "Adding Component failed.",
+          title: "Updating Component failed.",
           status: "error",
           duration: 5000,
           isClosable: true,

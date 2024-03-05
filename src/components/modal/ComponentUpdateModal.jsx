@@ -16,12 +16,11 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 
 import useZustandStore from "../../zustand/store";
 import { useUpdateComponentMutation } from "../../redux/api/docApiSlice";
-import FormatDate from "../../utils/FormatDate";
 
 const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
   const { selectedComponent, setSelectedComponent, setRefetchComponent } =
     useZustandStore();
-  const refetchComponent = useZustandStore((state) => state.refetchComponent);
+
   const refetchModule = useZustandStore((state) => state.refetchModule);
 
   const [updateComponent, { isLoading }] = useUpdateComponentMutation();
@@ -88,9 +87,9 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
       toast({
         position: "top-right",
         title: "Component Added.",
-        description: "Your component has been added successfully.",
+        description: "Your component has been Updated successfully.",
         status: "success",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
       onRequestClose();
@@ -100,7 +99,7 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
       toast({
         zIndex: 100000,
         position: "top-right",
-        title: "Adding Component failed.",
+        title: "Updating Component failed.",
         status: "error",
         duration: 5000,
         isClosable: true,

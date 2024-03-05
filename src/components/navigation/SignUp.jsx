@@ -15,10 +15,11 @@ const SingUp = () => {
 
   return (
     <Flex
+      _disabled
       gap={2}
       backgroundColor={profileAuthBgColor}
-      onClick={handleSingUp}
-      cursor="pointer"
+      // onClick={handleSingUp}
+      cursor="not-allowed"
       alignItems={`center`}
       border={`1px solid grey`}
       padding={3}
@@ -32,9 +33,12 @@ const SingUp = () => {
         transition: `background-color .2s ease-in-out`,
       }}
     >
-      <LuPlus />
+      <LuPlus color="#1ce636" />
 
-      <Box fontSize={12}> Add Account </Box>
+      <Box fontSize={12} opacity={`.8`}>
+        {" "}
+        Add Account{" "}
+      </Box>
     </Flex>
   );
 };

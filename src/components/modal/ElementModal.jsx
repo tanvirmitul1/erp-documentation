@@ -67,7 +67,7 @@ const ElementModal = ({ isOpen, onRequestClose }) => {
           title: "Element Added.",
           description: "Your element has been added successfully.",
           status: "success",
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {

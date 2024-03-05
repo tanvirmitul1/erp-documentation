@@ -87,7 +87,7 @@ const FunctionModal = ({ isOpen, onRequestClose }) => {
           title: "Function Added.",
           description: "Your function has been added successfully.",
           status: "success",
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
         setRefetchFunction();

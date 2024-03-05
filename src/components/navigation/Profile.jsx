@@ -48,16 +48,18 @@ const Profile = ({ handleProfileClick }) => {
       >
         <RxCross2 />
       </Box>
-      <VStack>
+      <HStack>
         <Avatar size="lg" name={userName} src="https://bit.ly/kent-c-dodds" />
-        <Text fontSize={20} height="15px">
-          {userName}
-        </Text>
-        <Text fontSize={15} height="10px">
-          {userEmail}
-        </Text>
-      </VStack>
-      <Flex height="15px" marginTop={5}>
+        <Box>
+          <Text fontSize={20} height="15px">
+            {userName}
+          </Text>
+          <Text fontSize={12} height="10px" opacity=".5">
+            {userEmail}
+          </Text>
+        </Box>
+      </HStack>
+      <Flex height="15px">
         <Box width={100}>
           {colorMode === "light" ? "Dark Mode" : "Light Mode"}
         </Box>

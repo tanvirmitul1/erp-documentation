@@ -78,7 +78,7 @@ function Login() {
           title: "Login successful.",
           description: "Welcome back!",
           status: "success",
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -168,7 +168,7 @@ function Login() {
           </form>
 
           <Box mt={4} textAlign="center">
-            <Link to="/register">Don't have an account? Register here</Link>
+            Don't have an account? <Link to="/register">Register here</Link>
           </Box>
         </Box>
       </Flex>

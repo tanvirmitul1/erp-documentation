@@ -20,7 +20,6 @@ import {
   CircularProgressLabel,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
-
 import LogoWhite from "../../src/assets/logo.jpg";
 import { useRegisterUserMutation } from "../redux/api/authApiSlice";
 import useColorModeColors from "../hooks/useColorModeColors";
@@ -74,10 +73,10 @@ function Register() {
       const payload = await submitData(formData).unwrap();
       toast({
         position: "top-right",
-        title: "Registration successful.",
+
         description: "We've created your account for you.",
         status: "success",
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
 
@@ -182,7 +181,7 @@ function Register() {
 
           {/* Link to the login page */}
           <Box mt={4} textAlign="center">
-            <Link to="/login">Already registered? Login here</Link>
+            Already registered? <Link to="/login">Login here</Link>
           </Box>
         </Box>
       </Flex>

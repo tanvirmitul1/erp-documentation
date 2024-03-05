@@ -19,7 +19,7 @@ const Logout = () => {
       title: "Logout successful.",
       description: "You have been logged out.",
       status: "success",
-      duration: 9000,
+      duration: 2000,
       isClosable: true,
     });
   };
@@ -43,9 +43,12 @@ const Logout = () => {
       }}
       width={120}
     >
-      <LuLogOut />
+      <LuLogOut color="red" />
 
-      <Box fontSize={12}> Sign Out </Box>
+      <Box fontSize={12} opacity={`.8`}>
+        {" "}
+        Sign Out{" "}
+      </Box>
     </Flex>
   );
 };
