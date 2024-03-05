@@ -50,7 +50,7 @@ const LogCard = ({ fnLog, index }) => {
         }}
       >
         <HStack marginBottom={6}>
-          <Text as="h4">{index + 1}.</Text>
+          {/* <Text as="h4">{index + 1}.</Text> */}
           <Text as="h4">{fnLog?.name}</Text>
         </HStack>
         <Flex marginTop="10px" gap={1}>
