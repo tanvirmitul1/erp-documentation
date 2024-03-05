@@ -82,7 +82,7 @@ const ComponentUpdateModal = ({ isOpen, onRequestClose }) => {
         moduleId: payload.data.module_id,
       });
 
-      console.log("payload data in component", payload.data);
+      // console.log("payload data in component", payload.data);
 
       toast({
         position: "top-right",

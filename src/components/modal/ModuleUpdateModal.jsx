@@ -61,7 +61,7 @@ const ModuleUpdateModal = ({ isOpen, onRequestClose }) => {
       const payload = await updateModule(formData).unwrap();
 
       if (payload.status === 200) {
-        console.log("payload data", payload.data);
+        // console.log("payload data", payload.data);
 
         setSelectedModule({
           ...payload.data,

@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { IoClose } from "react-icons/io5";
 import React, { useState } from "react";
-import { Flex, Box, Text, VStack, HStack } from "@chakra-ui/react";
+import { Flex, Box, Text, VStack, HStack, Image } from "@chakra-ui/react";
 import ReactModal from "react-modal";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
@@ -10,7 +10,7 @@ import useColorModeColors from "../../hooks/useColorModeColors";
 import CustomDescription from "../reusable/Description";
 import ReactPaginate from "react-paginate";
 import FormatDate from "../../utils/FormatDate";
-
+import EmptyIcon from "../../assets/man.png";
 export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
   const { modalBgColor, modulePathColor, modulePathBgColor } =
     useColorModeColors();
@@ -49,10 +49,15 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
           }}
         >
           {`${name} Log`}
-          <div style={{ fontSize: "12px" }}>
-            {`( Updated ${totalUpdate ? totalUpdate : 0} times )`}
-          </div>
+          {totalUpdate < 1 ? (
+            <div style={{ fontSize: "12px" }}>(Not updated yet)</div>
+          ) : (
+            <div style={{ fontSize: "12px" }}>
+              {`( Updated ${totalUpdate ? totalUpdate : 0} ${totalUpdate === 1 ? "time" : "times"} )`}
+            </div>
+          )}
         </h6>
+
         <button
           onClick={onRequestClose}
           className="d-flex justify-content-center align-items-center rounded-circle"
@@ -67,7 +72,20 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
           <IoClose />
         </button>
       </div>
-      {data?.length === 0 && <Box>No data found</Box>}
+      <Box position="relative">
+        {data?.length === 0 && (
+          <Box
+            position="absolute"
+            top="200px"
+            left={{ base: "12px", md: "30%", lg: "40%" }}
+            color={`red`}
+            fontSize={30}
+          >
+            <Image marginLeft={20} src={EmptyIcon} width={200} />
+            <Box> Update data not Available</Box>
+          </Box>
+        )}
+      </Box>
       {data &&
         data
           .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
@@ -154,26 +172,28 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
           ))}
 
       <Box marginLeft="45%" marginTop="20px">
-        <ReactPaginate
-          previousLabel={
-            <IconContext.Provider value={{ size: "36px" }}>
-              <AiFillLeftCircle />
-            </IconContext.Provider>
-          }
-          nextLabel={
-            <IconContext.Provider value={{ size: "36px" }}>
-              <AiFillRightCircle />
-            </IconContext.Provider>
-          }
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-          pageClassName={"page-item"}
-        />
+        {data?.length > 0 && (
+          <ReactPaginate
+            previousLabel={
+              <IconContext.Provider value={{ size: "36px" }}>
+                <AiFillLeftCircle />
+              </IconContext.Provider>
+            }
+            nextLabel={
+              <IconContext.Provider value={{ size: "36px" }}>
+                <AiFillRightCircle />
+              </IconContext.Provider>
+            }
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            pageClassName={"page-item"}
+          />
+        )}
       </Box>
     </ReactModal>
   );

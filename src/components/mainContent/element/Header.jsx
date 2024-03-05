@@ -35,7 +35,7 @@ const Header = () => {
     moduleId: selectedElement.module_id,
   });
   const LogData = data?.data;
-  console.log("elem log", LogData);
+  // console.log("elem log", LogData);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
   const [isLogModalOpen, setIsLogModalOpen] = React.useState(false);

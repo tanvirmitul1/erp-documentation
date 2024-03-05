@@ -43,7 +43,7 @@ const FunctionCard = ({ fn }) => {
     setIsUpdateModalOpen(true);
   };
 
-  console.log("selected functiobn", selectedFunction);
+  // console.log("selected functiobn", selectedFunction);
   return (
     <Box
       borderBottom="1px solid rgb(197, 184, 184)"

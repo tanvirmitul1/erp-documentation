@@ -100,7 +100,7 @@ const FunctionUpdateModal = ({ isOpen, onRequestClose }) => {
         onRequestClose();
         setRefetchFunction();
 
-        console.log(selectedFunction);
+        // console.log(selectedFunction);
       } else {
         toast({
           zIndex: 100000,

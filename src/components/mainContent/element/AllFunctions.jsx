@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
-
-import { Box, Flex } from "@chakra-ui/react";
+import EmptyIcon from "../../../assets/man.png";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
 
 import FunctionCard from "./FunctionCard";
@@ -49,50 +49,70 @@ const AllFunctions = () => {
   };
 
   return (
-    <Flex
-      flexWrap="wrap"
-      flexDir="column"
-      alignItems="center"
-      justifyContent={{ base: "left", md: "center" }}
-      marginTop="20px"
-      marginX={{ base: "0", md: "30px" }}
-    >
-      <Box marginRight={{ base: "150px", md: "0" }}>
-        {currentFunctions && (
-          <Searchbar placeholder="Search Function" onChange={handleChange} />
-        )}
-      </Box>
-      <Box width="100%">
-        {!currentFunctions ? (
-          <SideSkeleton Count={6} height="150px" width="100%" />
-        ) : (
-          currentFunctions?.map((fn) => <FunctionCard fn={fn} key={fn.id} />)
-        )}
-      </Box>
+    <>
+      {filteredFunctions?.length > 0 ? (
+        <Flex
+          flexWrap="wrap"
+          flexDir="column"
+          alignItems="center"
+          justifyContent={{ base: "left", md: "center" }}
+          marginTop="20px"
+          marginX={{ base: "0", md: "30px" }}
+        >
+          <Box marginRight={{ base: "150px", md: "0" }}>
+            {currentFunctions && (
+              <Searchbar
+                placeholder="Search Function"
+                onChange={handleChange}
+              />
+            )}
+          </Box>
+          <Box width="100%">
+            {!currentFunctions ? (
+              <SideSkeleton Count={6} height="150px" width="100%" />
+            ) : (
+              currentFunctions?.map((fn) => (
+                <FunctionCard fn={fn} key={fn.id} />
+              ))
+            )}
+          </Box>
 
-      {currentFunctions && (
-        <ReactPaginate
-          previousLabel={
-            <IconContext.Provider value={{ size: "36px" }}>
-              <AiFillLeftCircle />
-            </IconContext.Provider>
-          }
-          nextLabel={
-            <IconContext.Provider value={{ size: "36px" }}>
-              <AiFillRightCircle />
-            </IconContext.Provider>
-          }
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-          pageClassName={"page-item"}
-        />
+          {currentFunctions && (
+            <ReactPaginate
+              previousLabel={
+                <IconContext.Provider value={{ size: "36px" }}>
+                  <AiFillLeftCircle />
+                </IconContext.Provider>
+              }
+              nextLabel={
+                <IconContext.Provider value={{ size: "36px" }}>
+                  <AiFillRightCircle />
+                </IconContext.Provider>
+              }
+              breakLabel={"..."}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              pageClassName={"page-item"}
+            />
+          )}
+        </Flex>
+      ) : (
+        <Box
+          position="absolute"
+          top={{ base: "40%", lg: "50%" }}
+          left={{ base: "12%", lg: "45%" }}
+          color={`red`}
+          fontSize={30}
+        >
+          <Image marginLeft={16} src={EmptyIcon} width={200} />
+          <Box> No Function Available</Box>
+        </Box>
       )}
-    </Flex>
+    </>
   );
 };
 

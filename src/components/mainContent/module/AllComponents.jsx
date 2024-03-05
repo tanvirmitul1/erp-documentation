@@ -5,13 +5,13 @@ import React, { useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import ReactPaginate from "react-paginate";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import Searchbar from "../../reusable/SearchBar";
 import ComponentCard from "./ComponentCard";
 import { useGetComponentQuery } from "../../../redux/api/docApiSlice";
 import useZustandStore from "../../../zustand/store";
 import SideSkeleton from "../../reusable/SideSkeleton";
-
+import EmptyIcon from "../../../assets/man.png";
 const AllComponents = () => {
   const [componentName, setComponentName] = useState("");
   const { selectedModule } = useZustandStore();
@@ -47,52 +47,68 @@ const AllComponents = () => {
 
   return (
     <>
-      <Flex
-        flexWrap="wrap"
-        flexDir="column"
-        alignItems="center"
-        justifyContent={{ base: "left", md: "center" }}
-        marginTop="20px"
-        marginX={{ base: "0", md: "30px" }}
-      >
-        <Box marginRight={{ base: "150px", md: "0" }}>
-          {currentComponents && (
-            <Searchbar placeholder="Search Component" onChange={handleChange} />
-          )}
-        </Box>
-        <Box width="100%">
-          {!currentComponents ? (
-            <SideSkeleton Count={6} height="150px" width="100%" />
-          ) : (
-            currentComponents.map((component) => (
-              <ComponentCard component={component} key={component.id} />
-            ))
-          )}
-        </Box>
+      {filteredComponents?.length > 0 ? (
+        <Flex
+          flexWrap="wrap"
+          flexDir="column"
+          alignItems="center"
+          justifyContent={{ base: "left", md: "center" }}
+          marginTop="20px"
+          marginX={{ base: "0", md: "30px" }}
+        >
+          <Box marginRight={{ base: "150px", md: "0" }}>
+            {currentComponents && (
+              <Searchbar
+                placeholder="Search Component"
+                onChange={handleChange}
+              />
+            )}
+          </Box>
+          <Box width="100%">
+            {!currentComponents ? (
+              <SideSkeleton Count={6} height="150px" width="100%" />
+            ) : (
+              currentComponents.map((component) => (
+                <ComponentCard component={component} key={component.id} />
+              ))
+            )}
+          </Box>
 
-        {currentComponents && (
-          <ReactPaginate
-            previousLabel={
-              <IconContext.Provider value={{ size: "36px" }}>
-                <AiFillLeftCircle />
-              </IconContext.Provider>
-            }
-            nextLabel={
-              <IconContext.Provider value={{ size: "36px" }}>
-                <AiFillRightCircle />
-              </IconContext.Provider>
-            }
-            breakLabel={"..."}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-            pageClassName={"page-item"}
-          />
-        )}
-      </Flex>
+          {currentComponents && (
+            <ReactPaginate
+              previousLabel={
+                <IconContext.Provider value={{ size: "36px" }}>
+                  <AiFillLeftCircle />
+                </IconContext.Provider>
+              }
+              nextLabel={
+                <IconContext.Provider value={{ size: "36px" }}>
+                  <AiFillRightCircle />
+                </IconContext.Provider>
+              }
+              breakLabel={"..."}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              pageClassName={"page-item"}
+            />
+          )}
+        </Flex>
+      ) : (
+        <Box
+          position="absolute"
+          top={{ base: "40%", lg: "50%" }}
+          left={{ base: "12%", lg: "45%" }}
+          color={`red`}
+          fontSize={30}
+        >
+          <Image marginLeft={16} src={EmptyIcon} width={200} />
+          <Box> No Component Available</Box>
+        </Box>
+      )}
     </>
   );
 };

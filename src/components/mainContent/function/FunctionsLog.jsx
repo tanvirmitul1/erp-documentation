@@ -26,7 +26,7 @@ const FunctionsLog = () => {
 
   const [viewLog, setViewLog] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 2;
+  const itemsPerPage = 10;
 
   const handleViewLogClick = () => {
     setViewLog(!viewLog);
@@ -36,15 +36,13 @@ const FunctionsLog = () => {
     useColorModeColors();
   const functionLog = data?.data || [];
 
-  // const filteredLogs = functionLog.filter(
-  //   (fnLog) => fnLog.function_id == selectedFunction.id
-  // );
-
   const pageCount = Math.ceil(functionLog?.length / itemsPerPage);
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
+  const totalUpdate = functionLog?.length;
 
+  console.log(totalUpdate);
   return (
     <Box>
       <Flex
@@ -63,6 +61,13 @@ const FunctionsLog = () => {
         <HStack paddingBottom={4}>
           <GoStack color={moduleTextColor} size={26} />
           <Box>View Change Logs</Box>
+          {totalUpdate < 1 ? (
+            <Box fontSize={{ base: "10px", lg: "16px" }}>(Not updated yet)</Box>
+          ) : (
+            <Box fontSize={{ base: "10px", lg: "16px" }}>
+              {`( Updated ${totalUpdate ? totalUpdate : 0} ${totalUpdate === 1 ? "time" : "times"} )`}
+            </Box>
+          )}
         </HStack>
         <Box top="10px">
           {viewLog ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
@@ -81,32 +86,38 @@ const FunctionsLog = () => {
               )
               .map((fnLog, index) => (
                 <Box key={fnLog.id}>
-                  <LogCard fnLog={fnLog} index={index} />
+                  <LogCard
+                    fnLog={fnLog}
+                    index={index}
+                    totalUpdate={totalUpdate}
+                  />
                 </Box>
               ))
           )}
 
           <Box marginLeft="45%" marginTop="20px">
-            <ReactPaginate
-              previousLabel={
-                <IconContext.Provider value={{ size: "36px" }}>
-                  <AiFillLeftCircle />
-                </IconContext.Provider>
-              }
-              nextLabel={
-                <IconContext.Provider value={{ size: "36px" }}>
-                  <AiFillRightCircle />
-                </IconContext.Provider>
-              }
-              breakLabel={"..."}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              activeClassName={"active"}
-              pageClassName={"page-item"}
-            />
+            {totalUpdate > 0 && (
+              <ReactPaginate
+                previousLabel={
+                  <IconContext.Provider value={{ size: "36px" }}>
+                    <AiFillLeftCircle />
+                  </IconContext.Provider>
+                }
+                nextLabel={
+                  <IconContext.Provider value={{ size: "36px" }}>
+                    <AiFillRightCircle />
+                  </IconContext.Provider>
+                }
+                breakLabel={"..."}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+                pageClassName={"page-item"}
+              />
+            )}
           </Box>
         </>
       )}

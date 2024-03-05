@@ -61,7 +61,7 @@ const ModuleModal = ({ isOpen, onRequestClose }) => {
     try {
       const payload = await addModule(formData).unwrap();
 
-      console.log("payload in add module", payload?.data);
+      // console.log("payload in add module", payload?.data);
       toast({
         position: "top-right",
         title: "Module Added.",

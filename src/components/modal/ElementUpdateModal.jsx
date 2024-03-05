@@ -69,7 +69,7 @@ const ElementUpdateModal = ({ isOpen, onRequestClose }) => {
           componentId: payload.data.component_id,
         });
 
-        console.log(payload.data);
+        // console.log(payload.data);
         toast({
           position: "top-right",
           title: "Element Updated.",
