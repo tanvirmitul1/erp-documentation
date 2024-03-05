@@ -37,7 +37,7 @@ function Register() {
     password_confirmation: "",
   });
 
-  console.log(submitData, isLoading);
+  // console.log(submitData, isLoading);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +46,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     if (formData.password.length < 8) {
       return toast({
         position: "top-right",
@@ -80,7 +80,7 @@ function Register() {
         isClosable: true,
       });
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       setTimeout(() => navigate("/login"), 500);
     } catch (err) {

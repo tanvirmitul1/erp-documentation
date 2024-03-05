@@ -20,7 +20,8 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected);
   };
-
+  const totalUpdate = data?.length;
+  // console.log("total update", totalUpdate);
   return (
     <ReactModal
       style={{
@@ -47,7 +48,10 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
             marginBottom: "0",
           }}
         >
-          {name} Log
+          {`${name} Log`}
+          <div style={{ fontSize: "12px" }}>
+            {`( Updated ${totalUpdate ? totalUpdate : 0} times )`}
+          </div>
         </h6>
         <button
           onClick={onRequestClose}
@@ -142,7 +146,7 @@ export const LogModal = ({ isOpen, onRequestClose, data, name }) => {
                   </Flex>
                 </Flex>
               </Flex>
-              {console.log(data)}
+
               <Text marginTop="12px">
                 <CustomDescription description={data?.description} word={500} />
               </Text>
