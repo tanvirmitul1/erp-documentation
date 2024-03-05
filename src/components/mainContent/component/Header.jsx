@@ -24,7 +24,7 @@ import useZustandStore from "../../../zustand/store";
 import FormatDate from "../../../utils/FormatDate";
 import { useGetComponentsLogQuery } from "../../../redux/api/docApiSlice";
 import { LogModal } from "../../modal/LogModal";
-
+import { GoStack } from "react-icons/go";
 const Header = () => {
   const { selectedComponent, setSelectedComponent } = useZustandStore();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -153,7 +153,10 @@ const Header = () => {
           text="Component Update Log"
           iconSize="0px"
           onClick={handleLog}
-        />
+        >
+          {" "}
+          <GoStack color={moduleTextColor} size={20} />
+        </AddButton>
       </HStack>
       <ElementModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
       <ComponentUpdateModal

@@ -18,7 +18,7 @@ import useZustandStore from "../../../zustand/store";
 import ModuleUpdateModal from "../../modal/ModuleUpdateModal";
 import FormatDate from "../../../utils/FormatDate";
 import { LogModal } from "../../modal/LogModal";
-
+import { GoStack } from "react-icons/go";
 const Header = () => {
   const { selectedModule, setSelectedModule } = useZustandStore();
 
@@ -158,7 +158,10 @@ const Header = () => {
               text="Module Update Log"
               iconSize="0px"
               onClick={handleModuleLog}
-            />
+            >
+              {" "}
+              <GoStack color={moduleTextColor} size={20} />
+            </AddButton>
           </HStack>
           <ComponentModal
             isOpen={isModalOpen}

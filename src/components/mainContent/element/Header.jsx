@@ -10,7 +10,7 @@ import {
   useColorMode,
   Button,
 } from "@chakra-ui/react";
-
+import { GoStack } from "react-icons/go";
 import UpdateButton from "../../reusable/UpdateButton";
 import AddButton from "../../reusable/AddButton";
 import FunctionModal from "../../modal/FunctionModal";
@@ -147,11 +147,10 @@ const Header = () => {
           text="Add New Function"
           onClick={handleCreateFunctionButtonClick}
         />
-        <AddButton
-          text="Element Update Log"
-          iconSize="0px"
-          onClick={handleLog}
-        ></AddButton>
+        <AddButton text="Element Update Log" iconSize="0px" onClick={handleLog}>
+          {" "}
+          <GoStack color={moduleTextColor} size={20} />
+        </AddButton>
       </HStack>
       <FunctionModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
       <ElementUpdateModal

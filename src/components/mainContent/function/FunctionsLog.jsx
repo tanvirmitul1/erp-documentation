@@ -3,12 +3,12 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import ReactPaginate from "react-paginate";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
-
+import { GoStack } from "react-icons/go";
 import useColorModeColors from "../../../hooks/useColorModeColors";
 import useModuleStore from "../../../zustand/store";
 import LogCard from "./LogCard";
@@ -32,7 +32,8 @@ const FunctionsLog = () => {
     setViewLog(!viewLog);
   };
 
-  const { addButtonBgColor, addButtonTextColor } = useColorModeColors();
+  const { addButtonBgColor, addButtonTextColor, moduleTextColor } =
+    useColorModeColors();
   const functionLog = data?.data || [];
 
   // const filteredLogs = functionLog.filter(
@@ -59,7 +60,10 @@ const FunctionsLog = () => {
         paddingTop="15px"
         rounded="50px"
       >
-        <Box>View Change Logs</Box>
+        <HStack paddingBottom={4}>
+          <GoStack color={moduleTextColor} size={26} />
+          <Box>View Change Logs</Box>
+        </HStack>
         <Box top="10px">
           {viewLog ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
         </Box>
