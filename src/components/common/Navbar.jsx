@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import { HStack, Image, Box, useColorMode } from "@chakra-ui/react";
+import { HStack, Image, Box, useColorMode, Avatar } from "@chakra-ui/react";
 import Logo from "../../assets/logo.jpg";
 import LogoWhite from "../../assets/logoWhite.png";
-import Avatar from "../../assets/avatar.svg";
+// import Avatar from "../../assets/avatar.svg";
 
 import { Link } from "react-router-dom";
 
@@ -43,22 +43,23 @@ const NavBar = () => {
         <HStack gap={10}>
           <HStack cursor="pointer" onClick={handleProfileClick}>
             <Box>{userName}</Box>
-            <Image src={Avatar} width={8} />
+            {/* <Image src={Avatar} width={8} /> */}
+            <Avatar size="sm" name={userName} />
           </HStack>
-          {showProfile && (
+          {
             <Box
               position="absolute"
-              top="50px"
-              right={showProfile ? "10px" : "-100px"}
+              top="45px"
+              right={showProfile ? "12px" : "-230px"}
               backgroundColor={profileBgColor}
-              transition="left 0.3s ease-out"
+              transition="right 0.4s ease-out"
               zIndex={1000000}
               rounded="lg"
-              boxShadow="0px 0px 10px rgba(0, 0, 0, 0.5)"
+              boxShadow="-10px 10px 10px rgba(0, 0, 0, 0.5)"
             >
-              <Profile />
+              <Profile handleProfileClick={handleProfileClick} />
             </Box>
-          )}
+          }
         </HStack>
       </HStack>
     </Box>

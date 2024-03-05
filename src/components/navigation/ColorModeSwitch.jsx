@@ -4,7 +4,7 @@ import LightTheme from "../../assets/toggleLight.svg";
 const ColorModeSwitch = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Box cursor="pointer" onClick={toggleColorMode}>
+    <Box cursor="pointer" onClick={toggleColorMode} width={50}>
       {colorMode === "light" ? (
         <Image width={14} src={DarkTheme} />
       ) : (

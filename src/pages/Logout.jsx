@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { IconButton, useToast } from "@chakra-ui/react";
-import { AiOutlineLogout } from "react-icons/ai";
+import { IconButton, useToast, Flex, Text } from "@chakra-ui/react";
+import { LuLogOut } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
@@ -24,14 +24,10 @@ const Logout = () => {
   };
 
   return (
-    <IconButton
-      w={1}
-      h={7}
-      icon={<AiOutlineLogout />}
-      colorScheme="red"
-      aria-label="Logout"
-      onClick={handleLogout}
-    />
+    <Flex gap={2} onClick={handleLogout} cursor="pointer">
+      <IconButton w={1} h={7} icon={<LuLogOut />} aria-label="Logout" />
+      <Text> Log out </Text>
+    </Flex>
   );
 };
 
