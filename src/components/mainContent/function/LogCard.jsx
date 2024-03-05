@@ -29,6 +29,10 @@ const LogCard = ({ fnLog, index }) => {
   const language = identifyLanguage(fnLog.function_code);
   const formattedCode = formatCodeString(fnLog.function_code, language);
 
+  console.log("fnLog", fnLog);
+  if (!fnLog) {
+    return <Box>No Log Found</Box>;
+  }
   return (
     <Box
       maxW="90%"
@@ -94,7 +98,6 @@ const LogCard = ({ fnLog, index }) => {
         </Flex>
       </Flex>
 
-      {console.log(fnLog)}
       <Box marginTop="12px" paddingBottom="20px" maxWidth="95vw">
         <CustomDescription description={fnLog.description} />
         <Box as="h5"> Function Code</Box>

@@ -73,10 +73,11 @@ const useColorModeColors = () => {
 
   //profile
   const profileBgColor = useColorModeValue("#F6F8FC", "#212a41");
+  const profileAuthBgColor = useColorModeValue("#ffffff", "#181f33");
 
   //exit button bg
 
-  const exitHoverBgColor = useColorModeValue("#dfe1e6", "grey");
+  const exitHoverBgColor = useColorModeValue("#dfe1e6", "#000000");
 
   return {
     addButtonTextColor,
@@ -116,6 +117,7 @@ const useColorModeColors = () => {
     authTextColor,
     profileBgColor,
     exitHoverBgColor,
+    profileAuthBgColor,
   };
 };
 

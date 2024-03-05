@@ -49,15 +49,15 @@ const MainComponent = () => {
       {showLeftBar && (
         <Box
           color={addButtonBgColor}
-          left="260px"
-          top="30px"
+          left="215px"
+          top="65px"
           zIndex={200}
           cursor="pointer"
           position="absolute"
           display={{ base: "block", lg: "none" }}
           onClick={toggleLeftBar}
         >
-          <FaCircleChevronLeft size={30} />
+          <FaCircleChevronLeft size={24} />
         </Box>
       )}
       <Box

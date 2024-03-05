@@ -50,9 +50,9 @@ const NavBar = () => {
             <Box
               position="absolute"
               top="45px"
-              right={showProfile ? "12px" : "-230px"}
+              right={showProfile ? "12px" : "-370px"}
               backgroundColor={profileBgColor}
-              transition="right 0.4s ease-out"
+              transition="right 0.5s ease-out"
               zIndex={1000000}
               rounded="lg"
               boxShadow="-10px 10px 10px rgba(0, 0, 0, 0.5)"

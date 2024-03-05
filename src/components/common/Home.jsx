@@ -101,6 +101,7 @@ const Home = () => {
 
       <Flex
         marginX={{ base: "10px", md: "40px", lg: "100px" }}
+        paddingTop={5}
         direction="row"
         wrap="wrap"
         justify="center"

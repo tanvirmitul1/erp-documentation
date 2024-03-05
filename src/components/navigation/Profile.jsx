@@ -13,9 +13,10 @@ import {
 } from "@chakra-ui/react";
 Logout;
 
-import Logout from "../../pages/Logout";
+import Logout from "./Logout";
 import ColorModeSwitch from "./ColorModeSwitch";
 import useColorModeColors from "../../hooks/useColorModeColors";
+import SingUp from "./SignUp";
 const Profile = ({ handleProfileClick }) => {
   const { colorMode } = useColorMode();
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
@@ -25,7 +26,6 @@ const Profile = ({ handleProfileClick }) => {
 
   return (
     <Flex
-      width={220}
       flexDirection="column"
       padding={5}
       gap={5}
@@ -37,8 +37,8 @@ const Profile = ({ handleProfileClick }) => {
         cursor="pointer"
         position="absolute"
         zIndex={100000000}
-        top={3}
-        right={3}
+        top={1}
+        right={1}
         rounded={`3xl`}
         padding={1}
         _hover={{
@@ -65,9 +65,11 @@ const Profile = ({ handleProfileClick }) => {
           <ColorModeSwitch />
         </Box>
       </Flex>
-      <Box marginTop={2} height="20px">
+      <Flex marginTop={2} gap={4}>
+        <SingUp />
+
         <Logout />
-      </Box>
+      </Flex>
     </Flex>
   );
 };
