@@ -72,7 +72,7 @@ const useColorModeColors = () => {
   const authTextColor = useColorModeValue("black", "black");
 
   //profile
-  const profileBgColor = useColorModeValue("#F6F8FC", "#212a41");
+  const profileBgColor = useColorModeValue("#F6F8FC", "#161B22");
   const profileAuthBgColor = useColorModeValue("#ffffff", "#181f33");
 
   //exit button bg
